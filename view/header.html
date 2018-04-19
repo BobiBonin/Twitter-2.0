@@ -45,6 +45,7 @@
         request.onreadystatechange = function (ev) {
             if (this.readyState == 4 && this.status == 200) {
                 var response = JSON.parse(this.responseText);
+                console.log(response);
                 if (response.length == 0) {                             /* Ако няма резултат изписва "Няма резултат.."*/
                     var ul = document.createElement("ul");
                     ul.id = "search_ul";
@@ -65,22 +66,49 @@
                     div2.innerHTML = "";
                     div2.style.visibility = "visible";
                     for (var key in response) {
-                        var li = document.createElement("li");
-                        var a = document.createElement("a");
-                        a.href = "#";
-                        var img = document.createElement("img");
-                        a.innerHTML = response[key]["user_name"];
-                        a.style.margin = "5px";
-                        a.addEventListener("click", function () {  /*При клик върху име пренасочва към избрания профил*/
-                            var name = this.innerText;
-                            var queryString = "?" + name;
-                            window.location.href = "profile.php" + queryString;
-                        });
-                        img.src = response[key]["user_pic"];
-                        img.style.cssFloat = "left";
-                        li.appendChild(img);
-                        li.appendChild(a);
-                        ul.appendChild(li);
+                        for(var value in response[key]){
+                            if(key == 0){
+                                var li = document.createElement("li");
+                                var a = document.createElement("a");
+                                a.href = "#";
+                                a.style.fontSize = "15px";
+                                a.style.cssFloat = "left";
+                                a.style.color = "gray";
+                                a.style.padding = "10px";
+                                var cut = response[key][value]["twat_content"];
+                                var stringArray = cut.split(" ");
+                                var res = stringArray[0];
+                                if(res.length > 20){
+                                    res = res.substring(0, 19) + "..";
+                                }
+                                a.innerHTML = res;
+                                a.addEventListener("click", function () {  /*При клик върху таг пренасочва към избрания него*/
+                                    // TODO: CREATE LINKS FOT TAGS !!!!!!!!!!
+                                });
+                                li.appendChild(a);
+                                ul.appendChild(li);
+                            }else {
+                                var li = document.createElement("li");
+                                var a = document.createElement("a");
+                                a.href = "#";
+                                var img = document.createElement("img");
+                                a.innerHTML = response[key][value]["user_name"];
+                                a.style.margin = "5px";
+                                a.style.marginTop = "30px";
+                                a.addEventListener("click", function () {  /*При клик върху име пренасочва към избрания профил*/
+                                    var name = this.innerText;
+                                    var queryString = "?" + name;
+                                    window.location.href = "profile.php" + queryString;
+                                });
+                                img.src = response[key][value]["user_pic"];
+                                img.style.cssFloat = "left";
+                                li.appendChild(img);
+                                li.appendChild(a);
+                                ul.appendChild(li);
+                            }
+
+                        }
+
                     }
                 }
                 div2.appendChild(ul);

@@ -14,11 +14,16 @@ function __autoload($class)
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     try {
+        $users = "";
         $name = htmlentities($_GET['name']);
-        $dao = new UserDao();
-        $user = new User($_SESSION['user']['email'], 0, $name);
-        $users = $dao->getFirstFiveUsersByName($user);
-        echo json_encode($users);
+        if(strlen($name) == 0){
+            echo json_encode($users);
+        }else{
+            $dao = new UserDao();
+            $email = $_SESSION['user']['email'];
+            $users = $dao->getFirstFiveUsersByName($name,$email);
+            echo json_encode($users);
+        }
     } catch (Exception $exception) {
 
     }
