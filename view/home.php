@@ -81,7 +81,7 @@
     //    window.onload = random();
     function random() {
         var request = new XMLHttpRequest();
-        request.open("GET", "../controller/showRandomUsersController.php");
+        request.open("GET", "../commandPattern.php?target=user&action=showRandomUsers");
         request.onreadystatechange = function (ev) {
             if (this.readyState == 4 && this.status == 200) {
                 var response = JSON.parse(this.responseText);
@@ -110,7 +110,7 @@
 
                         var user_name = this.innerHTML;
                         var request = new XMLHttpRequest();
-                        request.open("GET", "../controller/showProfileController.php?name=" + user_name);
+                        request.open("GET", "../commandPattern.php?name=" + user_name + "&target=user&action=showProfile");
                         request.onreadystatechange = function (ev) {
                             if (this.status == 200 && this.readyState == 4) {
                                 var response = JSON.parse(this.responseText);
@@ -130,7 +130,7 @@
                         request.send();
 
                         var request2 = new XMLHttpRequest();
-                        request2.open("GET", "../controller/showSmallDivTwits.php?name=" + user_name);
+                        request2.open("GET", "../commandPattern.php?name=" + user_name +"&target=user&action=showSmallDiv");
                         request2.onreadystatechange = function (ev) {
                             if (this.status == 200 && this.readyState == 4) {
                                 var response = JSON.parse(this.responseText);

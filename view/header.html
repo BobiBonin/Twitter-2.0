@@ -20,7 +20,7 @@
                 <li class="navLi" id="inputLi"></li>
             </ul>
         </div>
-        <form method="post" action="../controller/sessionDestroy.php">
+        <form method="post" action="../commandPattern.php?target=user&action=logout">
             <input type="submit" id="top_bar_twat" value="Log Out">
         </form>
 
@@ -41,7 +41,7 @@
     function search() {
         var pole = document.getElementById("searchInput").value;
         var request = new XMLHttpRequest();
-        request.open("get", "../controller/searchController.php?name=" + pole);
+        request.open("get", "../commandPattern.php?name=" + pole + "&target=user&action=searchUserAndTags");
         request.onreadystatechange = function (ev) {
             if (this.readyState == 4 && this.status == 200) {
                 var response = JSON.parse(this.responseText);
@@ -75,9 +75,7 @@
                                 a.style.cssFloat = "left";
                                 a.style.color = "gray";
                                 a.style.padding = "10px";
-                                var cut = response[key][value]["twat_content"];
-                                var stringArray = cut.split(" ");
-                                var res = stringArray[0];
+                                var res = response[key][value];
                                 if(res.length > 20){
                                     res = res.substring(0, 19) + "..";
                                 }
@@ -121,7 +119,7 @@
     /*Georgi -- 23.03.2018 -- Показване на снимката на логнатия потребител до сърч полето*/
 
     var request = new XMLHttpRequest();
-    request.open("GET", "../controller/profileController.php");
+    request.open("GET", "../commandPattern.php?target=user&action=showMyProfile");
     request.onreadystatechange = function (ev) {
         if (this.status == 200 && this.readyState == 4) {
             var response = JSON.parse(this.responseText);

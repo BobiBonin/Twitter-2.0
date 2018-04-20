@@ -8,7 +8,7 @@
 </body>
 <script>
     var req = new XMLHttpRequest();
-    req.open("get", "../controller/displayTweetsController.php");
+    req.open("get", "../commandPattern.php?target=twit&action=displayTweets");
     req.onreadystatechange = function (ev) {
         if (this.status == 200 && this.readyState == 4) {
             var resp = this.responseText;
@@ -45,7 +45,7 @@
 
     function test(id) {
         var request = new XMLHttpRequest();
-        request.open("GET", "../controller/showMyTweetCommentController.php?tweet_id=" + id);
+        request.open("GET", "../commandPattern.php?tweet_id=" + id + "&target=comment&action=showMyTweetComment");
         request.onreadystatechange = function (ev) {
             if (this.readyState == 4 && this.status == 200) {
                 var response = JSON.parse(this.responseText);
@@ -59,7 +59,7 @@
                     console.log(document.getElementById("asd" + this.value).value);
 
                     var request = new XMLHttpRequest();
-                    request.open("post", "../controller/sendCommentController.php");
+                    request.open("post", "../commandPattern.php?target=comment&action=postComment");
                     request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
                     request.onreadystatechange = function (ev) {
                         if (this.readyState == 4 && this.status == 200) {
@@ -116,7 +116,7 @@
         var like = document.getElementById(tweet_id);
         like.style.color = 'red';
         var request = new XMLHttpRequest();
-        request.open("GET", "../controller/likeATweetController.php?twat_id=" + id);
+        request.open("GET", "../commandPattern.php?twat_id=" + id +"&target=twit&action=likeTweet");
         request.onreadystatechange = function (ev) {
             if (this.readyState == 4 && this.status == 200) {
                 console.log("Succesfuly liked " + id);

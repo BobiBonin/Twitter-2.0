@@ -27,7 +27,7 @@
 
 
     var req = new XMLHttpRequest();
-    req.open("get", "../controller/profileController.php");
+    req.open("get", "../commandPattern.php?target=user&action=profile");
     req.onreadystatechange = function (ev) {
         var resp = this.responseText;
         resp = JSON.parse(resp);
@@ -49,7 +49,7 @@
 
 
         var request2 = new XMLHttpRequest();
-        request2.open("GET", "../controller/followingControler.php?name=" + resp["user_name"]);
+        request2.open("GET", "../commandPattern.php?name=" + resp["user_name"] + "&target=user&action=getFFT");
         request2.onreadystatechange = function (ev) {
             if (this.status == 200 && this.readyState == 4) {
                 var response = JSON.parse(this.responseText);

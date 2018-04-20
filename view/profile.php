@@ -38,7 +38,7 @@
     </div>
 </div>
 <div id="profile_edit">
-    <form method="post" action="../controller/editProfileControler.php" enctype="multipart/form-data">
+    <form method="post" action="../commandPattern.php?target=user&action=editProfile" enctype="multipart/form-data">
         <table>
             <tr>
                 <td>Име:</td>
@@ -184,7 +184,7 @@
     /*---------------------------------------------------------------------------------------------------*/
     if (queryString.length != 0) { /*Георги --27.03.2018-- Ако в URL има параметър се запълва чужд профил*/
         var request = new XMLHttpRequest();
-        request.open("GET", "../controller/showProfileController.php?name=" + queries[0]);
+        request.open("GET", "../commandPattern.php?name=" + queries[0] + "&target=user&action=showProfile");
         request.onreadystatechange = function (ev) {
             if (this.status == 200 && this.readyState == 4) {
                 var response = JSON.parse(this.responseText);
@@ -208,7 +208,7 @@
                 email.innerText = 'Имейл: ' + response[0]['user_email'];
                 /*Проверка какъв бутон да бъде поставен*/
                 var is_follow = new XMLHttpRequest();
-                is_follow.open("GET", "../controller/isFollowController.php?name=" + queries[0]);
+                is_follow.open("GET", "../commandPattern.php?name=" + queries[0] + "&target=user&action=isFollow");
                 is_follow.onreadystatechange = function (ev2) {
                     if (this.readyState == 4 && this.status == 200) {
                         var response = JSON.parse(this.responseText);
@@ -228,7 +228,7 @@
                 button.addEventListener("click", function () {
                     if (this.innerHTML == "Последване") {
                         var request = new XMLHttpRequest();
-                        request.open("GET", "../controller/likeItController.php?name=" + queries[0]);
+                        request.open("GET", "../commandPattern.php?name=" + queries[0]+"&target=user&action=followUser");
                         request.onreadystatechange = function (ev) {
                             if (this.readyState == 4 && this.status == 200) {
                                 var response = JSON.parse(this.responseText);
@@ -242,7 +242,7 @@
                         request.send();
                     } else if (this.innerHTML == "Премахни") {
                         var request = new XMLHttpRequest();
-                        request.open("GET", "../controller/dislikeItController.php?name=" + queries[0]);
+                        request.open("GET", "../commandPattern.php?name=" + queries[0] +"&target=user&action=unfollowUser");
                         request.onreadystatechange = function (ev) {
                             if (this.readyState == 4 && this.status == 200) {
                                 var response = JSON.parse(this.responseText);
@@ -271,7 +271,7 @@
         * следва, го следват и публикуваните туитове*/
         function showNumbers() {
             var request2 = new XMLHttpRequest();
-            request2.open("GET", "../controller/followingControler.php?name=" + queries[0]);
+            request2.open("GET", "../commandPattern.php?name=" + queries[0]+"&target=user&action=getFFT");
             request2.onreadystatechange = function (ev) {
                 if (this.status == 200 && this.readyState == 4) {
                     var response = JSON.parse(this.responseText);
@@ -299,7 +299,7 @@
          * за всеки го следващ юзър */
         function showFollowing() {
             var request = new XMLHttpRequest();
-            request.open("GET", "../controller/showOtherUserFollowing.php?name=" + queries[0]);
+            request.open("GET", "../commandPattern.php?name=" + queries[0] +"&target=user&action=showOtherUserFollowings");
             request.onreadystatechange = function (ev) {
                 if (this.readyState == 4 && this.status == 200) {
                     var response = JSON.parse(this.responseText);
@@ -351,7 +351,7 @@
          * за всеки последовател*/
         function showFollowers() {
             var request = new XMLHttpRequest();
-            request.open("GET", "../controller/showFollowersController.php?name=" + queries[0]);
+            request.open("GET", "../commandPattern.php?name=" + queries[0] +"&target=user&action=showFollowers");
             request.onreadystatechange = function (ev) {
                 if (this.readyState == 4 && this.status == 200) {
                     var response = JSON.parse(this.responseText);
@@ -413,7 +413,7 @@
 
         function showOtherUsersTwits(name) {
             var request = new XMLHttpRequest();
-            request.open("GET", "../controller/showOtherUsersTweetsController.php?name=" + name);
+            request.open("GET", "../commandPattern.php?name=" + name +"&target=twit&action=showOtherUsersTweets");
             request.onreadystatechange = function (ev) {
                 if (this.readyState == 4 && this.status == 200) {
                     var response = JSON.parse(this.responseText);
@@ -457,7 +457,7 @@
 
                         button.addEventListener("click" , function () {
                             var request = new XMLHttpRequest();
-                            request.open("post", "../controller/sendCommentController.php");
+                            request.open("post", "../commandPattern.php?target=comment&action=postComment");
                             request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
                             request.onreadystatechange = function (ev) {
                                 if(this.readyState == 4 && this.status == 200){
@@ -490,7 +490,7 @@
 
                         /*Георги 01.04.2018 -- Показва коментарите под туитовете !!!*/
                         var request = new XMLHttpRequest();
-                        request.open("GET", "../controller/showMyTweetCommentController.php?tweet_id=" + tweet_id);
+                        request.open("GET", "../commandPattern.php?tweet_id=" + tweet_id +"&target=comment&action=showMyTweetComment");
                         request.onreadystatechange = function (ev) {
                             if (this.readyState == 4 && this.status == 200) {
                                 var response = JSON.parse(this.responseText);
@@ -557,7 +557,7 @@
 
         /*Георги --27.03.2018-- Ако в URL НЯМА параметър се запълва профила на логнатия потребител*/
         var request = new XMLHttpRequest();
-        request.open("GET", "../controller/profileController.php");
+        request.open("GET", "../commandPattern.php?target=user&action=profile");
         request.onreadystatechange = function (ev) {
             if (this.status == 200 && this.readyState == 4) {
                 var response = JSON.parse(this.responseText);
@@ -588,7 +588,7 @@
                     edit_div.style.visibility = "visible";
                     edit_div.style.zIndex = "1000";
                     var request = new XMLHttpRequest();
-                    request.open("GET", "../controller/profileController.php");
+                    request.open("GET", "../commandPattern.php?target=user&action=profile");
                     request.onreadystatechange = function (ev2) {
                         if (this.readyState == 4 && this.status == 200) {
                             var result = JSON.parse(this.responseText);
@@ -628,7 +628,7 @@
         * следва, го следват и публикуваните туитове*/
         function showMynumbers() {
             var request = new XMLHttpRequest();
-            request.open("GET", "../controller/showMyProfileController.php");
+            request.open("GET", "../commandPattern.php?target=user&action=showMyProfile");
             request.onreadystatechange = function (ev) {
                 if (this.status == 200 && this.readyState == 4) {
                     var response = JSON.parse(this.responseText);
@@ -655,7 +655,7 @@
         * за всеки го следващ юзър, както и бутон за "unfollow" */
         function showFollowing() {
             var request = new XMLHttpRequest();
-            request.open("GET", "../controller/showFollowing.php");
+            request.open("GET", "../commandPattern.php?target=user&action=showFollowings");
             request.onreadystatechange = function (ev) {
                 if (this.readyState == 4 && this.status == 200) {
                     var response = JSON.parse(this.responseText);
@@ -700,7 +700,7 @@
                         button.addEventListener("click", function () {
                             var name = this.value;
                             var request = new XMLHttpRequest();
-                            request.open("GET", "../controller/dislikeItController.php?name=" + name);
+                            request.open("GET", "../commandPattern.php?name=" + name +"&target=user&action=unfollowUser");
                             request.onreadystatechange = function (ev) {
                                 if (this.readyState == 4 && this.status == 200) {
                                     var response = JSON.parse(this.responseText);
@@ -728,7 +728,7 @@
          * за всеки последовател*/
         function showFollowers() {
             var request = new XMLHttpRequest();
-            request.open("GET", "../controller/showMyFollowersController.php");
+            request.open("GET", "../commandPattern.php?target=user&action=showMyFollowers");
             request.onreadystatechange = function (ev) {
                 if (this.readyState == 4 && this.status == 200) {
                     var response = JSON.parse(this.responseText);
@@ -793,7 +793,7 @@
     /*Георги --28.03.2018-- Рекуест за избрани на случаен принцип профили*/
     function random() {
         var request = new XMLHttpRequest();
-        request.open("GET", "../controller/showRandomUsersController.php");
+        request.open("GET", "../commandPattern.php?target=user&action=showRandomUsers");
         request.onreadystatechange = function (ev) {
             if (this.readyState == 4 && this.status == 200) {
                 var response = JSON.parse(this.responseText);
@@ -823,7 +823,7 @@
 
                         var user_name = this.innerHTML;
                         var request = new XMLHttpRequest();
-                        request.open("GET", "../controller/showProfileController.php?name=" + user_name);
+                        request.open("GET", "../commandPattern.php?name=" + user_name +"&target=user&action=showProfile");
                         request.onreadystatechange = function (ev) {
                             if (this.status == 200 && this.readyState == 4) {
                                 var response = JSON.parse(this.responseText);
@@ -843,7 +843,7 @@
                         request.send();
 
                         var request2 = new XMLHttpRequest();
-                        request2.open("GET", "../controller/showSmallDivTwits.php?name=" + user_name);
+                        request2.open("GET", "../commandPattern.php?name=" + user_name +"&target=user&action=showSmallDiv");
                         request2.onreadystatechange = function (ev) {
                             if (this.status == 200 && this.readyState == 4) {
                                 var response = JSON.parse(this.responseText);
@@ -892,7 +892,7 @@
                     button.addEventListener("click", function () {
                         var name = this.value;
                         var request = new XMLHttpRequest();
-                        request.open("GET", "../controller/likeItController.php?name=" + name);
+                        request.open("GET", "../commandPattern.php?name=" + name +"&target=user&action=followUser");
                         request.onreadystatechange = function (ev) {
                             if (this.readyState == 4 && this.status == 200) {
                                 var response = JSON.parse(this.responseText);
@@ -932,7 +932,7 @@
     /*Георги 01.04.2018 -- Показва туитовете !!!*/
     function showMyTwits() {
         var request = new XMLHttpRequest();
-        request.open("GET", "../controller/showMyTweetsController.php");
+        request.open("GET", "../commandPattern.php?target=twit&action=showMyTweets");
         request.onreadystatechange = function (ev) {
             if (this.readyState == 4 && this.status == 200) {
                 var response = JSON.parse(this.responseText);
@@ -978,7 +978,7 @@
                         console.log(document.getElementById("asd"+ this.value).value);
 
                         var request = new XMLHttpRequest();
-                        request.open("post", "../controller/sendCommentController.php");
+                        request.open("post", "../commandPattern.php?target=comment&action=postComment");
                         request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
                         request.onreadystatechange = function (ev) {
                             if(this.readyState == 4 && this.status == 200){
@@ -1009,7 +1009,7 @@
 
                     /*Георги 01.04.2018 -- Показва коментарите под туитовете !!!*/
                     var request = new XMLHttpRequest();
-                    request.open("GET", "../controller/showMyTweetCommentController.php?tweet_id=" + tweet_id);
+                    request.open("GET", "../commandPattern.php?tweet_id=" + tweet_id +"&target=comment&action=showMyTweetComment");
                     request.onreadystatechange = function (ev) {
                         if (this.readyState == 4 && this.status == 200) {
                             var response = JSON.parse(this.responseText);

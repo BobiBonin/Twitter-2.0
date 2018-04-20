@@ -13,7 +13,7 @@
 </div>
 <script>
     var request = new XMLHttpRequest();
-    request.open("GET", "../controller/profileController.php");
+    request.open("GET", "../commandPattern.php?target=user&action=profile");
     request.onreadystatechange = function (ev) {
         if (this.status == 200 && this.readyState == 4) {
             var response = JSON.parse(this.responseText);
@@ -42,7 +42,7 @@
         var text = document.getElementById("compose_twat_text").value;
         if(text.length>0){
             var request = new XMLHttpRequest();
-            request.open("GET", "../controller/tweetController.php?text=" + text);
+            request.open("GET", "../commandPattern.php?text=" + text +"&target=twit&action=tweets");
             request.onreadystatechange = function (ev) {
                 if (this.status == 200 && this.readyState == 4) {
 
