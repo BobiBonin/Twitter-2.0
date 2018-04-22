@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Twatter. Това което се случва</title>
-    <link rel="stylesheet" href="assets/style/login_style.css">
-    <link rel="stylesheet" href="assets/font-awesome-4.7.0/css/font-awesome.min.css">
-    <link rel="shortcut icon" type="image/x-icon" href="assets/images/Tweeter_icon.png"/>
+    <link rel="stylesheet" href="view/assets/style/login_style.css">
+    <link rel="stylesheet" href="view/assets/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="shortcut icon" type="image/x-icon" href="view/assets/images/Tweeter_icon.png"/>
 </head>
 <body>
 <div id="main">
     <section id="left">
-        <img src="assets/images/Tweeter_bird5.png" alt="">
+        <img src="view/assets/images/Tweeter_bird5.png" alt="">
         <div id="static_sentences">
             <div id="first">
                 <i class="fa fa-search fa-2x position" aria-hidden="true"></i>
@@ -26,38 +26,43 @@
             </div>
         </div>
     </section>
-
     <section id="right">
         <div id="login">
-            <form method="post" id="login_form" action="../controller/loginControler.php">
-                <input id="input_left" class="input" type="email" required
-                       placeholder="Имейл адрес" name="email">
-                <input class="input" type="password" placeholder="Парола" name="password" required>
-                <input id="button" type="submit" value="Вход" name="login_btn">
+            <form method="post" id="login_form" action="controller/loginControler.php">
+                <input id="input_left" class="input" type="email" placeholder="Имейл адрес" name="email">
+                <input id="login_pass" class="input" type="password" placeholder="Парола" name="password">
+                <input id="button" type="submit" value="Вход" name="login_btn" onclick="validateLogin()">
             </form>
-            <span id="wrong">Грешен имейл или парола!</span>
+            <div id="span_login">
+                <div class="span">
+                    <span id="email_span">Грешен имейл или парола!</span>
+                </div>
+                <div class="span">
+                    <span id="pass_span"></span>
+                </div>
+            </div>
         </div>
         <div id="registration">
-            <img src="assets/images/Tweeter_icon.png" alt="">
+            <img src="view/assets/images/Tweeter_icon.png" alt="">
             <h1>Виж какво се случва по света в момента</h1>
-            <h3>Присъедини се към Twatter днес.</h3>
-            <form id="reg_form" method="post" action="../controller/registrationControler.php">
+            <h3>Присъедини се към Twitter днес.</h3>
+            <form id="reg_form" method="post" action="./commandPattern.php?target=user&action=registration">
                 <div id="reg_user_div">
-                    <input id="reg_name" type="text" class="reg_input" placeholder="Имейл адрес" name="email">
+                    <input id="reg_name" type="text" class="reg_input" placeholder="Имейл адрес" name="email" required>
                     <span id="span"></span>
                 </div>
                 <div id="reg_pass_div">
-                    <input id="reg_pass" type="password" class="reg_input" placeholder="Парола" name="password">
+                    <input id="reg_pass" type="password" class="reg_input" placeholder="Парола" name="password"
+                           required>
                     <span id="span2"></span>
                 </div>
             </form>
             <div id="allready_have">
                 <button class="reg_button" onclick="showAll()">Първи стъпки</button>
-                <h4>Вече имаш профил? <a href="#">Вход</a></h4>
+                <h4>Вече имаш профил? <a href="#" onclick="email_focus()">Вход</a></h4>
             </div>
         </div>
     </section>
-
     <footer id="footer">
         <div id="copy">
             <h4>&copy; 2018 IT Tallents Georgi Gamishev, Boris Bonin</h4>
@@ -66,7 +71,7 @@
 </div>
 <script>
     function myFunction(x, y) {
-        if (x.matches) { // If media query matches
+        if (x.matches) { // Ако куеритата съвпаднат
             var button = document.getElementById("button");
             var div = document.getElementById("registration");
             var form = document.getElementById("login_form");
@@ -94,12 +99,12 @@
 
     var x = window.matchMedia("(max-width: 1137px)");
     var y = window.matchMedia("(max-height: 600px)");
-    myFunction(x, y); // Call listener function at run time
+    myFunction(x, y); // Извикване на функцията
     x.addListener(myFunction);
     y.addListener(myFunction);
 
     function myFunction2(width) {
-        if (width.matches) { // If media query matches
+        if (width.matches) { // Ако куеритата съвпаднат
             var right = document.getElementById("right");
             var left = document.getElementById("left");
             var footer = document.getElementById("footer");
@@ -124,13 +129,22 @@
     myFunction(width);
     width.addListener(myFunction2);
 
-    function showAll() {
+    function showAll() { // при натискане на бутона първи стъпки
         var user = document.getElementById("reg_name");
         var pass = document.getElementById("reg_pass");
         var form = document.getElementById("reg_form");
+        var span = document.getElementById("span");
+        span.style.color = "rgba(224,36,94,0.71)";
+        var span2 = document.getElementById("span2");
+        span2.style.color = "rgba(224,36,94,0.71)";
 
         if (user.value != 0 && pass.value != 0) {
             if (validateEmail(user.value) == true) {
+                span.innerText = "";
+                user.style.border = "1px solid rgba(23, 190, 99, 0.71)";
+                span2.innerText = "";
+                pass.style.border = "1px solid rgba(23, 190, 99, 0.71)";
+
                 var repeat_pass_div = document.createElement("div");
                 var repeat_pass = document.createElement("input");
                 var span3 = document.createElement("span");
@@ -142,6 +156,7 @@
                 repeat_pass_div.id = "repeat_pass_div";
                 repeat_pass.className = "reg_input";
                 repeat_pass.name = "rpassword";
+                repeat_pass.setAttribute("required", "");
                 repeat_pass.placeholder = "Повторете паролата";
                 repeat_pass.type = "password";
 
@@ -155,6 +170,7 @@
                 username.className = "reg_input";
                 username.name = "username";
                 username.placeholder = "Потребителско име";
+                repeat_pass.setAttribute("required", "");
                 username.type = "text";
                 repeat_pass_div.appendChild(repeat_pass);
                 repeat_pass_div.appendChild(span3);
@@ -170,8 +186,8 @@
                 div.style.visibility = "hidden";
                 submit.type = "submit";
                 submit.className = "reg_button";
-                submit.name = "reg_btn";
                 submit.style.width = "350px";
+                submit.name = "reg_btn";
                 submit.value = "Регистрация";
                 submit.addEventListener('click', function (event) {
 
@@ -185,18 +201,13 @@
                     span4.style.color = "rgba(224,36,94,0.71)";
 
                     if (user.value == 0) {
-                        if (validateEmail(user.value) == false) {
-                            user.style.border = "1px solid rgba(224,36,94,0.71)";
-                            span.innerText = "Моля въведете валиден имейл адрес!";
-                            event.preventDefault();
-                        }
                         user.style.border = "1px solid rgba(224,36,94,0.71)";
-                        span.innerText = "Моля въведете имейл адрес!";
+                        span.innerText = "Моля въведете имейл!";
                         event.preventDefault();
                     } else {
                         if (validateEmail(user.value) == false) {
                             user.style.border = "1px solid rgba(224,36,94,0.71)";
-                            span.innerText = "Моля въведете валиден имейл адрес!";
+                            span.innerText = "Моля въведете валиден имейл!";
                             event.preventDefault();
                         } else {
                             span.innerText = "";
@@ -221,7 +232,7 @@
                     }
                     if (username.value == 0) {
                         username.style.border = "1px solid rgba(224,36,94,0.71)";
-                        span4.innerText = "Моля въведете пълно име!";
+                        span4.innerText = "Моля въведете потребителско име!";
                         event.preventDefault();
                     } else {
                         span4.innerText = "";
@@ -236,41 +247,71 @@
                 pass.style.border = "";
                 user.style.border = "";
             } else {
-                var span = document.getElementById("span");
-                var span2 = document.getElementById("span2");
-                span.style.color = "rgba(224,36,94,0.71)";
-                span2.style.color = "rgba(224,36,94,0.71)";
-
                 user.style.border = "1px solid rgba(224,36,94,0.71)";
-                span.innerText = "Моля въведете правилен имейл адрес!";
-            }
-        }
-        else {
-            var span = document.getElementById("span");
-            var span2 = document.getElementById("span2");
-            span.style.color = "rgba(224,36,94,0.71)";
-            span2.style.color = "rgba(224,36,94,0.71)";
-
-            if (pass.value == 0) {
-                pass.style.border = "1px solid rgba(224,36,94,0.71)";
-                span2.innerText = "Моля въведете парола!";
-            } else {
+                span.innerText = "Моля въведете правилен имейл!";
                 span2.innerText = "";
                 pass.style.border = "1px solid rgba(23, 190, 99, 0.71)";
             }
-            if (user.value == 0) {
-                user.style.border = "1px solid rgba(224,36,94,0.71)";
-                span.innerText = "Моля въведете имейл!";
-            } else {
+        }
+        else if (user.value == 0 && pass.value == 0) {
+            user.style.border = "1px solid rgba(224,36,94,0.71)";
+            span.innerText = "Моля въведете имейл!";
+            span2.innerText = "Моля въведете парола!";
+            pass.style.border = "1px solid rgba(224,36,94,0.71)";
+        }
+        else if (user.value == 0 && pass.value != 0) {
+            user.style.border = "1px solid rgba(224,36,94,0.71)";
+            span.innerText = "Моля въведете имейл!";
+            span2.innerText = "";
+            pass.style.border = "1px solid rgba(23, 190, 99, 0.71)";
+        }
+        else if (user.value != 0 && pass.value == 0) {
+            pass.style.border = "1px solid rgba(224,36,94,0.71)";
+            span2.innerText = "Моля въведете парола!";
+            if (validateEmail(user.value) == true) {
                 span.innerText = "";
                 user.style.border = "1px solid rgba(23, 190, 99, 0.71)";
+            } else {
+                user.style.border = "1px solid rgba(224,36,94,0.71)";
+                span.innerText = "Моля въведете правилен имейл!";
             }
+
         }
     }
 
     function validateEmail(email) {
-        var exp = /(\w(=?@)\w+\.{1}[a-zA-Z]{2,})/i
+        var exp = /(\w(=?@)\w+\.{1}[a-zA-Z]{2,})/i;
         return (exp.test(email));
+    }
+
+    function validateLogin() {
+        var email = document.getElementById("input_left");
+        var pass = document.getElementById("login_pass");
+        var span = document.getElementById("email_span");
+        var span2 = document.getElementById("pass_span");
+
+
+        if (email.value == 0) {
+            span.innerText = "Моля въведете имейл!";
+            event.preventDefault();
+        } else {
+            if (validateEmail(email.value) == true) {
+                span.innerText = "";
+            } else {
+                span.innerText = "Моля въведете правилен имейл!";
+            }
+        }
+        if (pass.value == 0) {
+            span2.innerText = "Моля въведете парола!";
+            event.preventDefault();
+        } else {
+            span2.innerText = "";
+        }
+    }
+
+    function email_focus() {
+        var email = document.getElementById("input_left");
+        email.focus();
     }
 </script>
 </body>
