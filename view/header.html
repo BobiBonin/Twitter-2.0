@@ -104,9 +104,7 @@
                                 li.appendChild(a);
                                 ul.appendChild(li);
                             }
-
                         }
-
                     }
                 }
                 div2.appendChild(ul);
@@ -119,7 +117,7 @@
     /*Georgi -- 23.03.2018 -- Показване на снимката на логнатия потребител до сърч полето*/
 
     var request = new XMLHttpRequest();
-    request.open("GET", "../commandPattern.php?target=user&action=showMyProfile");
+    request.open("GET", "../commandPattern.php?target=user&action=profile");
     request.onreadystatechange = function (ev) {
         if (this.status == 200 && this.readyState == 4) {
             var response = JSON.parse(this.responseText);

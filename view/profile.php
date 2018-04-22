@@ -8,13 +8,10 @@
     <link rel="stylesheet" href="assets/font-awesome-4.7.0/css/font-awesome.min.css">
 </head>
 <body>
-<!-- Boris -->
 <?php
-    include_once "page_lock.php";
-    include_once "header.html";
+include_once "page_lock.php";
+include_once "header.html";
 ?>
-
-<!-- Georgi -->
 <div id="cover">
     <img id="cover_img" src="" alt="">
 </div>
@@ -134,7 +131,6 @@
                 <h1>Туитове</h1>
                 <span id="three"></span>
             </div>
-
         </div>
     </div>
 </div>
@@ -188,81 +184,85 @@
         request.onreadystatechange = function (ev) {
             if (this.status == 200 && this.readyState == 4) {
                 var response = JSON.parse(this.responseText);
-
-                var img = document.getElementById("circle_img");
-                var small_img = document.getElementById("nav_img");
-                var a = document.getElementById("nav_name");
-                var button = document.createElement("button");
-                var cover = document.getElementById("cover_img");
-                var name = document.getElementById("name");
-                var name_ = document.getElementById("name_");
-                var description = document.getElementById("descriptionid");
-                var city = document.getElementById('cityid');
-                var reg_date = document.getElementById("reg_date");
-                var email = document.getElementById("emailid");
-                name.innerText = response[0]['user_name'];
-                name_.innerText = "@" + response[0]['user_name'];
-                description.innerHTML = response[0]['user_description'];
-                city.innerText += 'Живее в: ' + response[0]['user_city'];
-                reg_date.innerText = 'Регистриран на: ' + response[0]['user_date'].substring(0, 10);
-                email.innerText = 'Имейл: ' + response[0]['user_email'];
-                /*Проверка какъв бутон да бъде поставен*/
-                var is_follow = new XMLHttpRequest();
-                is_follow.open("GET", "../commandPattern.php?name=" + queries[0] + "&target=user&action=isFollow");
-                is_follow.onreadystatechange = function (ev2) {
-                    if (this.readyState == 4 && this.status == 200) {
-                        var response = JSON.parse(this.responseText);
-                        if (response == "0") {
-                            button.innerText = "Последване";
-                            button.id = "edit_btn";
-                            button.name = "follow";
-                        } else {
-                            button.innerText = "Премахни";
-                            button.id = "edit_btn_remove";
-                            button.name = "follow";
+                console.log(response);
+                if (response == "my") {
+                    window.location.assign("http://localhost/NEW/Twitter-2.0/view/profile.php");
+                } else {
+                    var img = document.getElementById("circle_img");
+                    var small_img = document.getElementById("nav_img");
+                    var a = document.getElementById("nav_name");
+                    var button = document.createElement("button");
+                    var cover = document.getElementById("cover_img");
+                    var name = document.getElementById("name");
+                    var name_ = document.getElementById("name_");
+                    var description = document.getElementById("descriptionid");
+                    var city = document.getElementById('cityid');
+                    var reg_date = document.getElementById("reg_date");
+                    var email = document.getElementById("emailid");
+                    name.innerText = response[0]['user_name'];
+                    name_.innerText = "@" + response[0]['user_name'];
+                    description.innerHTML = response[0]['user_description'];
+                    city.innerText += 'Живее в: ' + response[0]['user_city'];
+                    reg_date.innerText = 'Регистриран на: ' + response[0]['user_date'].substring(0, 10);
+                    email.innerText = 'Имейл: ' + response[0]['user_email'];
+                    /*Проверка какъв бутон да бъде поставен*/
+                    var is_follow = new XMLHttpRequest();
+                    is_follow.open("GET", "../commandPattern.php?name=" + queries[0] + "&target=user&action=isFollow");
+                    is_follow.onreadystatechange = function (ev2) {
+                        if (this.readyState == 4 && this.status == 200) {
+                            var response = JSON.parse(this.responseText);
+                            if (response == "0") {
+                                button.innerText = "Последване";
+                                button.id = "edit_btn";
+                                button.name = "follow";
+                            } else {
+                                button.innerText = "Премахни";
+                                button.id = "edit_btn_remove";
+                                button.name = "follow";
+                            }
                         }
-                    }
-                };
-                is_follow.send();
-                /*В зависимост какъв е бутона се изпълнява LIKE или DISLIKE функция*/
-                button.addEventListener("click", function () {
-                    if (this.innerHTML == "Последване") {
-                        var request = new XMLHttpRequest();
-                        request.open("GET", "../commandPattern.php?name=" + queries[0]+"&target=user&action=followUser");
-                        request.onreadystatechange = function (ev) {
-                            if (this.readyState == 4 && this.status == 200) {
-                                var response = JSON.parse(this.responseText);
-                                if (response == "1") {
-                                    button.innerText = "Премахни";
-                                    button.id = "edit_btn_remove";
-                                    showNumbers();
+                    };
+                    is_follow.send();
+                    /*В зависимост какъв е бутона се изпълнява LIKE или DISLIKE функция*/
+                    button.addEventListener("click", function () {
+                        if (this.innerHTML == "Последване") {
+                            var request = new XMLHttpRequest();
+                            request.open("GET", "../commandPattern.php?name=" + queries[0] + "&target=user&action=followUser");
+                            request.onreadystatechange = function (ev) {
+                                if (this.readyState == 4 && this.status == 200) {
+                                    var response = JSON.parse(this.responseText);
+                                    if (response == "1") {
+                                        button.innerText = "Премахни";
+                                        button.id = "edit_btn_remove";
+                                        showNumbers();
+                                    }
                                 }
-                            }
-                        };
-                        request.send();
-                    } else if (this.innerHTML == "Премахни") {
-                        var request = new XMLHttpRequest();
-                        request.open("GET", "../commandPattern.php?name=" + queries[0] +"&target=user&action=unfollowUser");
-                        request.onreadystatechange = function (ev) {
-                            if (this.readyState == 4 && this.status == 200) {
-                                var response = JSON.parse(this.responseText);
-                                if (response == "1") {
-                                    button.innerText = "Последване";
-                                    button.id = "edit_btn";
-                                    showNumbers();
+                            };
+                            request.send();
+                        } else if (this.innerHTML == "Премахни") {
+                            var request = new XMLHttpRequest();
+                            request.open("GET", "../commandPattern.php?name=" + queries[0] + "&target=user&action=unfollowUser");
+                            request.onreadystatechange = function (ev) {
+                                if (this.readyState == 4 && this.status == 200) {
+                                    var response = JSON.parse(this.responseText);
+                                    if (response == "1") {
+                                        button.innerText = "Последване";
+                                        button.id = "edit_btn";
+                                        showNumbers();
+                                    }
                                 }
-                            }
-                        };
-                        request.send();
-                    }
-                });
-                document.getElementById("first_in_my_nav").appendChild(button);
-                a.innerText = '@' + response[0]['user_name'];
-                a.href = "profile.php?" + response[0]['user_name'];
-                img.src = "";
-                img.src = response[0]['user_pic'];
-                small_img.src = response[0]['user_pic'];
-                cover.src = response[0]["user_cover"];
+                            };
+                            request.send();
+                        }
+                    });
+                    document.getElementById("first_in_my_nav").appendChild(button);
+                    a.innerText = '@' + response[0]['user_name'];
+                    a.href = "profile.php?" + response[0]['user_name'];
+                    img.src = "";
+                    img.src = response[0]['user_pic'];
+                    small_img.src = response[0]['user_pic'];
+                    cover.src = response[0]["user_cover"];
+                }
             }
         };
         request.send();
@@ -271,7 +271,7 @@
         * следва, го следват и публикуваните туитове*/
         function showNumbers() {
             var request2 = new XMLHttpRequest();
-            request2.open("GET", "../commandPattern.php?name=" + queries[0]+"&target=user&action=getFFT");
+            request2.open("GET", "../commandPattern.php?name=" + queries[0] + "&target=user&action=getFFT");
             request2.onreadystatechange = function (ev) {
                 if (this.status == 200 && this.readyState == 4) {
                     var response = JSON.parse(this.responseText);
@@ -299,7 +299,7 @@
          * за всеки го следващ юзър */
         function showFollowing() {
             var request = new XMLHttpRequest();
-            request.open("GET", "../commandPattern.php?name=" + queries[0] +"&target=user&action=showOtherUserFollowings");
+            request.open("GET", "../commandPattern.php?name=" + queries[0] + "&target=user&action=showOtherUserFollowings");
             request.onreadystatechange = function (ev) {
                 if (this.readyState == 4 && this.status == 200) {
                     var response = JSON.parse(this.responseText);
@@ -351,7 +351,7 @@
          * за всеки последовател*/
         function showFollowers() {
             var request = new XMLHttpRequest();
-            request.open("GET", "../commandPattern.php?name=" + queries[0] +"&target=user&action=showFollowers");
+            request.open("GET", "../commandPattern.php?name=" + queries[0] + "&target=user&action=showFollowers");
             request.onreadystatechange = function (ev) {
                 if (this.readyState == 4 && this.status == 200) {
                     var response = JSON.parse(this.responseText);
@@ -413,7 +413,7 @@
 
         function showOtherUsersTwits(name) {
             var request = new XMLHttpRequest();
-            request.open("GET", "../commandPattern.php?name=" + name +"&target=twit&action=showOtherUsersTweets");
+            request.open("GET", "../commandPattern.php?name=" + name + "&target=twit&action=showOtherUsersTweets");
             request.onreadystatechange = function (ev) {
                 if (this.readyState == 4 && this.status == 200) {
                     var response = JSON.parse(this.responseText);
@@ -455,14 +455,14 @@
                         button.innerText = "Изпрати";
                         button.value = response[key]['twat_id'];
 
-                        button.addEventListener("click" , function () {
+                        button.addEventListener("click", function () {
                             var request = new XMLHttpRequest();
                             request.open("post", "../commandPattern.php?target=comment&action=postComment");
                             request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
                             request.onreadystatechange = function (ev) {
-                                if(this.readyState == 4 && this.status == 200){
+                                if (this.readyState == 4 && this.status == 200) {
                                     var response = JSON.parse(this.responseText);
-                                    if(response == "1"){
+                                    if (response == "1") {
                                         var queryString = decodeURIComponent(window.location.search);
                                         queryString = queryString.substring(1);
                                         var queries = queryString.split("&");
@@ -470,7 +470,7 @@
                                     }
                                 }
                             };
-                            request.send("content=" + document.getElementById("asd"+ this.value).value + "&tweetId=" + this.value);
+                            request.send("content=" + document.getElementById("asd" + this.value).value + "&tweetId=" + this.value);
 
                         });
 
@@ -490,14 +490,14 @@
 
                         /*Георги 01.04.2018 -- Показва коментарите под туитовете !!!*/
                         var request = new XMLHttpRequest();
-                        request.open("GET", "../commandPattern.php?tweet_id=" + tweet_id +"&target=comment&action=showMyTweetComment");
+                        request.open("GET", "../commandPattern.php?tweet_id=" + tweet_id + "&target=comment&action=showMyTweetComment");
                         request.onreadystatechange = function (ev) {
                             if (this.readyState == 4 && this.status == 200) {
                                 var response = JSON.parse(this.responseText);
                                 var master_comment = document.createElement("div");
                                 master_comment.id = "master";
 
-                                for(var key in response){
+                                for (var key in response) {
 
                                     var add_comments = document.createElement("div");
                                     add_comments.classList.add("added_comments");
@@ -551,9 +551,11 @@
             };
             request.send();
         }
+
         showOtherUsersTwits(queries[0]);
 
-    } else {/*-------------------------------------------------------------------------------------------*/
+    }
+    else {/*-------------------------------------------------------------------------------------------*/
 
         /*Георги --27.03.2018-- Ако в URL НЯМА параметър се запълва профила на логнатия потребител*/
         var request = new XMLHttpRequest();
@@ -649,6 +651,7 @@
             };
             request.send();
         }
+
         showMynumbers();
 
         /*Георги --27.03.2018--С натискане върху линка "следва" се визуализират прозорци с информация
@@ -700,7 +703,7 @@
                         button.addEventListener("click", function () {
                             var name = this.value;
                             var request = new XMLHttpRequest();
-                            request.open("GET", "../commandPattern.php?name=" + name +"&target=user&action=unfollowUser");
+                            request.open("GET", "../commandPattern.php?name=" + name + "&target=user&action=unfollowUser");
                             request.onreadystatechange = function (ev) {
                                 if (this.readyState == 4 && this.status == 200) {
                                     var response = JSON.parse(this.responseText);
@@ -823,7 +826,7 @@
 
                         var user_name = this.innerHTML;
                         var request = new XMLHttpRequest();
-                        request.open("GET", "../commandPattern.php?name=" + user_name +"&target=user&action=showProfile");
+                        request.open("GET", "../commandPattern.php?name=" + user_name + "&target=user&action=showProfile");
                         request.onreadystatechange = function (ev) {
                             if (this.status == 200 && this.readyState == 4) {
                                 var response = JSON.parse(this.responseText);
@@ -843,7 +846,7 @@
                         request.send();
 
                         var request2 = new XMLHttpRequest();
-                        request2.open("GET", "../commandPattern.php?name=" + user_name +"&target=user&action=showSmallDiv");
+                        request2.open("GET", "../commandPattern.php?name=" + user_name + "&target=user&action=showSmallDiv");
                         request2.onreadystatechange = function (ev) {
                             if (this.status == 200 && this.readyState == 4) {
                                 var response = JSON.parse(this.responseText);
@@ -892,11 +895,10 @@
                     button.addEventListener("click", function () {
                         var name = this.value;
                         var request = new XMLHttpRequest();
-                        request.open("GET", "../commandPattern.php?name=" + name +"&target=user&action=followUser");
+                        request.open("GET", "../commandPattern.php?name=" + name + "&target=user&action=followUser");
                         request.onreadystatechange = function (ev) {
                             if (this.readyState == 4 && this.status == 200) {
                                 var response = JSON.parse(this.responseText);
-                                console.log(response);
                                 if (response == "1") {
                                     random();
                                     showMynumbers();
@@ -974,22 +976,20 @@
                     button.innerText = "Изпрати";
                     button.value = response[key]['twat_id'];
 
-                    button.addEventListener("click" , function () {
-                        console.log(document.getElementById("asd"+ this.value).value);
-
+                    button.addEventListener("click", function () {
                         var request = new XMLHttpRequest();
                         request.open("post", "../commandPattern.php?target=comment&action=postComment");
                         request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
                         request.onreadystatechange = function (ev) {
-                            if(this.readyState == 4 && this.status == 200){
+                            if (this.readyState == 4 && this.status == 200) {
                                 var response = JSON.parse(this.responseText);
-                                if(response == "1"){
+                                if (response == "1") {
                                     showMyTwits();
                                 }
 
                             }
                         };
-                        request.send("content=" + document.getElementById("asd"+ this.value).value + "&tweetId=" + this.value);
+                        request.send("content=" + document.getElementById("asd" + this.value).value + "&tweetId=" + this.value);
 
                     });
 
@@ -1009,14 +1009,14 @@
 
                     /*Георги 01.04.2018 -- Показва коментарите под туитовете !!!*/
                     var request = new XMLHttpRequest();
-                    request.open("GET", "../commandPattern.php?tweet_id=" + tweet_id +"&target=comment&action=showMyTweetComment");
+                    request.open("GET", "../commandPattern.php?tweet_id=" + tweet_id + "&target=comment&action=showMyTweetComment");
                     request.onreadystatechange = function (ev) {
                         if (this.readyState == 4 && this.status == 200) {
                             var response = JSON.parse(this.responseText);
                             var master_comment = document.createElement("div");
                             master_comment.id = "master";
 
-                            for(var key in response){
+                            for (var key in response) {
 
                                 var add_comments = document.createElement("div");
                                 add_comments.classList.add("added_comments");

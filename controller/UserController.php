@@ -77,7 +77,7 @@ class UserController
 
             }
         }
-    }
+    } //Регистрация
 
     public function userById(){
         function __autoload($class)
@@ -154,10 +154,20 @@ class UserController
         try{
             if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                 $name = htmlentities($_GET['name']);
-                $user = new User(null,null,$name);
-                $dao = new UserDao();
-                $info = $dao->getUserInfoByName($user);
-                echo json_encode($info);
+                if($name == $_SESSION['user']['name']){
+                    $response = "my";
+                    echo json_encode($response);
+                }else{
+                    $user = new User(null,null,$name);
+                    $dao = new UserDao();
+                    $info = $dao->getUserInfoByName($user);
+                    if($info == null){
+                        $response = "my";
+                        echo json_encode($response);
+                    }else{
+                        echo json_encode($info);
+                    }
+                }
             }
         } catch (Exception $exception){
 

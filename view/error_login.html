@@ -29,8 +29,8 @@
     <section id="right">
         <div id="login">
             <form method="post" id="login_form" action="controller/loginControler.php">
-                <input id="input_left" class="input" type="email" placeholder="Имейл адрес" name="email">
-                <input id="login_pass" class="input" type="password" placeholder="Парола" name="password">
+                <input id="input_left" class="input" type="email" placeholder="Имейл адрес" name="email" required>
+                <input id="login_pass" class="input" type="password" placeholder="Парола" name="password" required>
                 <input id="button" type="submit" value="Вход" name="login_btn" onclick="validateLogin()">
             </form>
             <div id="span_login">
@@ -52,8 +52,7 @@
                     <span id="span"></span>
                 </div>
                 <div id="reg_pass_div">
-                    <input id="reg_pass" type="password" class="reg_input" placeholder="Парола" name="password"
-                           required>
+                    <input id="reg_pass" type="password" class="reg_input" placeholder="Парола" name="password" required>
                     <span id="span2"></span>
                 </div>
             </form>
