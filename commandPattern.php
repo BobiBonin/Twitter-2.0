@@ -26,11 +26,11 @@ if (class_exists($controllerClassName))
 {
     $contoller = new $controllerClassName();
     if (method_exists($contoller, $methodName)) {
-        //if request is not for login or register, check for login
+    //    if request is not for login or register, check for login
         if(!($controllerName == "user" && $methodName == "login")){
             if(!isset($_SESSION["user"])){
-                header("HTTP/1.1 401 Unauthorized");
-                die();
+//                header("HTTP/1.1 401 Unauthorized");
+//                die();
             }
         }
         try{

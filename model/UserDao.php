@@ -67,7 +67,7 @@ class UserDao
     public function getFirstFiveUsersByName($name, $email){
         $result = [];
         $statement = $this->pdo->prepare("SELECT twat_content FROM twats WHERE twat_content LIKE ? LIMIT 5");
-        $statement->execute(array("#".$name."%"));
+        $statement->execute(array("%#".$name."%"));
         $result[] = $statement->fetchAll(\PDO::FETCH_ASSOC);
 
         $statement = $this->pdo->prepare("SELECT user_name, user_pic FROM users WHERE user_name LIKE ? AND NOT user_email = ? LIMIT 5");

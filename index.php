@@ -28,7 +28,7 @@
     </section>
     <section id="right">
         <div id="login">
-            <form method="post" id="login_form" action="controller/loginControler.php">
+            <form method="post" id="login_form" action="./commandPattern.php?target=user&action=login">
                 <input id="input_left" class="input" type="email" placeholder="Имейл адрес" name="email">
                 <input id="login_pass" class="input" type="password" placeholder="Парола" name="password">
                 <input id="button" type="submit" value="Вход" name="login_btn" onclick="validateLogin()">

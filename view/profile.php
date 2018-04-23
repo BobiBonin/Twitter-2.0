@@ -958,7 +958,7 @@ include_once "header.html";
                     date.innerText = response[key]['twat_date'];
                     var p = document.createElement("p");
                     p.classList.add("content");
-                    p.innerText = response[key]['twat_content'];
+                    p.innerHTML = response[key]['twat_content'];
                     var a = document.createElement("a");
                     a.innerText = "коментари";
                     a.classList.add("comments");
