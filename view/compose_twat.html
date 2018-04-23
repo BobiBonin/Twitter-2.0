@@ -37,20 +37,35 @@
 //        document.getElementById("twat_button").style.visibility = "hidden";
     }
 
-    function add_tweet() {
-
-        var text = document.getElementById("compose_twat_text").value;
-        if(text.length>0){
-            var request = new XMLHttpRequest();
-            request.open("GET", "../commandPattern.php?text=" + text +"&target=twit&action=tweets");
-            request.onreadystatechange = function (ev) {
-                if (this.status == 200 && this.readyState == 4) {
+    //    function add_tweet() {
+    //
+    //        var text = document.getElementById("compose_twat_text").value;
+    //        if(text.length>0){
+    //            var request = new XMLHttpRequest();
+    //            request.open("GET", "../commandPattern.php?text=" + text +"&target=twit&action=tweets");
+    //            request.onreadystatechange = function (ev) {
+    //                if (this.status == 200 && this.readyState == 4) {
+    //
+    //                }
+    //            };
+    //            request.send();
+    //            location.reload();
+    //        }
+    //    }
+    function add_tweet(){
+        var request = new XMLHttpRequest();
+        request.open("post", "../commandPattern.php?target=twit&action=tweets");
+        request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        request.onreadystatechange = function (ev) {
+            if (this.readyState == 4 && this.status == 200) {
+                var response = JSON.parse(this.responseText);
+                if (response == "1") {
 
                 }
-            };
-            request.send();
-            location.reload();
-        }
+            }
+        };
+        request.send("text=" + document.getElementById("compose_twat_text").value);
+        location.reload();
     }
 
 </script>

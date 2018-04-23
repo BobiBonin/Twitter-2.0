@@ -25,7 +25,7 @@ class TwitController
 
         try {
             $user = $_SESSION['user']['id'];
-            $text = htmlentities($_GET['text']);
+            $text = htmlentities($_POST['text']);
 
             $tweet = new Tweet(null, $user, null, $text);
             $dao = new TweetDao();
