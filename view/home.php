@@ -20,9 +20,19 @@ include_once 'page_lock.php';
         <h1 id="drct_msgs">Direct Messages</h1>
         <i class="fa fa-times fa-5x" aria-hidden="true" id="msgsX"
            style="color: black; font-size: 25px; margin-top:10px; margin-right: 10px; float: right"></i>
-        <div id="newMsg">New Message</div>
+        <div id="newMsg" onclick="newMsg()">New Message</div>
         <div style="clear: both"></div>
         <div id="msgWrap"></div>
+        <div id="newMsgDiv">
+
+            <form method="post" action="../commandPattern.php?target=message&action=addMessage" enctype="multipart/form-data">
+                <input type="text" id="msgUserSearch" placeholder="Choose who to send a message to!" name="receiverId">
+                <textarea id="msgInput" name="text"></textarea>
+                Send Picture  <input type="file" name="message_img" value="Message Image">
+                <input type="submit" value="Send" id="sendMsgButton">
+            </form>
+
+        </div>
     </div>
 </div>
 <?php
@@ -119,6 +129,7 @@ include "header.html";
                     var a = document.createElement("a");
                     a.href = "profile.php?" + response[key]["user_name"];
                     a.id = "a_name";
+
                     a.innerText = response[key]["user_name"];
                     a.addEventListener("mouseover", function () { /*При ховър се показва допълнителна информация за юзъра*/
 
@@ -187,8 +198,26 @@ include "header.html";
                     });
 
                     var button = document.createElement("button");
-                    button.innerText = "Follow";
+                    button.innerText = "Последвай";
                     button.classList.add("follow_btn");
+                    button.value = response[key]["user_name"];
+                    button.addEventListener("click", function () {
+                        var name = this.value;
+                        var request = new XMLHttpRequest();
+                        request.open("GET", "../commandPattern.php?name=" + name + "&target=user&action=followUser");
+                        request.onreadystatechange = function (ev) {
+                            if (this.readyState == 4 && this.status == 200) {
+                                var response = JSON.parse(this.responseText);
+                                if (response == "1") {
+                                    random();
+                                    showMynumbers();
+                                }
+                            }
+                        };
+                        request.send();
+
+
+                    });
                     var find = document.createElement("div");
                     var h1 = document.createElement("h1");
                     find.id = "last_div";
@@ -223,6 +252,11 @@ include "header.html";
         msgsX.addEventListener('click', function () {
             messages.style.visibility = "hidden";
             body.style.overflow = "scroll";
+            var msgWrap = document.getElementById('msgWrap');
+            msgWrap.style.display = 'block';
+            var newMsgDiv = document.getElementById('newMsgDiv');
+            newMsgDiv.style.display = 'none';
+
         });
 //        TODO ADD THE MESSAGES
 
@@ -232,19 +266,17 @@ include "header.html";
         request.onreadystatechange = function (ev) {
             if (this.status == 200 && this.readyState == 4) {
                 var response = JSON.parse(this.responseText);
-                console.log(response);
                 var wrap = document.getElementById('msgWrap');
                 wrap.innerHTML = '';
 
-                for(var i=0;i<response.length-1;i++){
+                for (var i = 0; i < response.length - 1; i++) {
                     var msg = document.createElement('div');  //creating message div
                     msg.className = 'msgs_in_wrap';
-                    var sender = response[response.length-1][response[i]['message_id']]["sender"][0]["user_name"];
-                    var receiver = response[response.length-1][response[i]['message_id']]["receiver"][0]["user_name"]
-                    msg.innerHTML ='<h3>From <a href="" style="color: #006dbf">'+sender+'</a> to <a href="" style="color: #006dbf">'+receiver+'</a> on '+response[i]['message_date']+' </h3>';
+                    var sender = response[response.length - 1][response[i]['message_id']]["sender"][0]["user_name"];
+                    var receiver = response[response.length - 1][response[i]['message_id']]["receiver"][0]["user_name"]
+                    msg.innerHTML = '<h3>From <a href="" style="color: #006dbf">' + sender + '</a> to <a href="" style="color: #006dbf">' + receiver + '</a> on ' + response[i]['message_date'] + ' </h3>';
 
                     msg.innerHTML += response[i]['message_text'];
-                    console.log(response[i]['message_text']);
                     wrap.appendChild(msg);
                 }
 
@@ -257,6 +289,13 @@ include "header.html";
 //        TODO SEND MESSAGES
     }
 
+    function newMsg() {
+        var msgWrap = document.getElementById('msgWrap');
+        msgWrap.style.display = 'none';
+        var newMsgDiv = document.getElementById('newMsgDiv');
+        newMsgDiv.style.display = 'block';
+
+    }
 </script>
 </html>
 
