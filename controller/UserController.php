@@ -455,6 +455,7 @@ class UserController extends Exception
 
         if (isset($_POST['btn_edit'])) {
             try {
+
                 $username = htmlentities($_POST['username']);
                 $email = htmlentities($_POST['email']);
                 $password = htmlentities($_POST['password']);
@@ -465,24 +466,35 @@ class UserController extends Exception
                 $tmp_image = $_FILES['user_pic']['tmp_name'];
                 $tmp_cover = $_FILES["user_cover"]["tmp_name"];
 
-                if (is_uploaded_file($tmp_image)) {
-                    $url_image = "./view/assets/images/uploads/image_$email.png";
-                    if (move_uploaded_file($tmp_image, $url_image)) {
-                        $url_image = "assets/images/uploads/image_$email.png";
-                    }
-                }
-                if (is_uploaded_file($tmp_cover)) {
-                    $url_cover = "./view/assets/images/uploads/cover_$email.png";
-                    if (move_uploaded_file($tmp_cover, $url_cover)) {
-                        $url_cover = "assets/images/uploads/cover_$email.png";
-                    }
-                }
-                $id = $_SESSION['user']['id'];
-                $user = new User($email, sha1($password), $username, $url_image, $url_cover, $city, $description, $id);
-
+                $user = new User($_SESSION['user']['email'], sha1($password));
                 $pdo = new UserDao();
-                $pdo->updateUser($user);
-                header("location: ./view/profile.php");
+                $result = $pdo->checkUserExist($user);
+
+                if($result){
+                    if (is_uploaded_file($tmp_image)) {
+                        $url_image = "./view/assets/images/uploads/image_$email.png";
+                        if (move_uploaded_file($tmp_image, $url_image)) {
+                            $url_image = "assets/images/uploads/image_$email.png";
+                        }
+                    }
+                    if (is_uploaded_file($tmp_cover)) {
+                        $url_cover = "./view/assets/images/uploads/cover_$email.png";
+                        if (move_uploaded_file($tmp_cover, $url_cover)) {
+                            $url_cover = "assets/images/uploads/cover_$email.png";
+                        }
+                    }
+                    $id = $_SESSION['user']['id'];
+                    $user = new User($email, sha1($password), $username, $url_image, $url_cover, $city, $description, $id);
+
+                    $pdo = new UserDao();
+                    $pdo->updateUser($user);
+                    header("location: ./view/profile.php");
+                }else{
+                    echo "wrong";
+                }
+
+
+
 
             } catch (\PDOException $e) {
                 $this->exception($e);

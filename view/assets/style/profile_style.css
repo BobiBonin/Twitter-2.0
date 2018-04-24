@@ -24,9 +24,11 @@ time, mark, audio, video {
     height: 400px;
     background-color: #1da1f2;
 }
+
 body {
     background-color: #e6ecf0;
 }
+
 nav {
     width: 100%;
     height: 70px;
@@ -35,20 +37,24 @@ nav {
     overflow: hidden;
     position: sticky;
 }
-.in_my_nav{
+
+.in_my_nav {
     width: 1190px;
     height: 100%;
     margin: auto;
 }
-#cover_img{
+
+#cover_img {
     width: 100%;
     height: 400px;
 }
+
 .sticky {
     position: fixed;
     top: 0;
     width: 100%;
 }
+
 nav ul li {
     text-decoration: none;
     text-align: center;
@@ -57,11 +63,13 @@ nav ul li {
     height: 100%;
     padding-top: 15px;
 }
+
 nav ul {
     width: 700px;
     margin: auto;
     height: 80%;
 }
+
 nav ul li a {
     width: 100%;
     text-decoration: none;
@@ -70,17 +78,20 @@ nav ul li a {
     font-weight: bold;
     font-size: 13px;
 }
+
 nav ul li a:hover {
     border-bottom: 3px solid #1b95e0;
     padding-bottom: 36px;
     color: #1da1f2;
 }
+
 span {
     margin: auto;
     width: 60px;
     display: block;
     font-size: 20px;
 }
+
 #edit_btn {
     height: 35px;
     width: 200px;
@@ -94,11 +105,13 @@ span {
     outline: none;
     cursor: pointer;
 }
+
 #edit_btn:hover {
     background-color: #eeeeee;
     color: #1da1f2;
 }
-#edit_btn_remove{
+
+#edit_btn_remove {
     height: 35px;
     width: 200px;
     margin-top: -60px;
@@ -111,11 +124,13 @@ span {
     outline: none;
     cursor: pointer;
 }
-#edit_btn_remove:hover{
+
+#edit_btn_remove:hover {
     background-color: #eeeeee;
     font-size: 15px;
     color: red;
 }
+
 #circle {
     width: 200px;
     height: 200px;
@@ -127,10 +142,12 @@ span {
     box-sizing: border-box;
     overflow: hidden;
 }
+
 #circle img {
     width: 100%;
     height: 100%;
 }
+
 #nav_image {
     width: 55px;
     height: 55px;
@@ -140,15 +157,18 @@ span {
     display: inline-block;
     overflow: hidden;
 }
-#nav_img{
+
+#nav_img {
     width: 100%;
     height: 100%;
     transition: visibility 1s linear;
 }
+
 #profile_card a {
     color: #1da1f2;
     text-decoration: none;
 }
+
 #profile_card {
     left: 0;
     opacity: 0;
@@ -158,61 +178,70 @@ span {
     height: 70px;
     transition: opacity 1s linear;
 }
-#search_ul{
+
+#search_ul {
     margin-top: 10%;
     background-color: #ffffff;
     width: 95%;
     height: auto;
     border-radius: 10px;
 }
-#ul li{
+
+#ul li {
     list-style-type: none;
     text-align: center;
     border-bottom: 1px solid rgba(128, 128, 128, 0.11);
     height: 40px;
 
 }
-#ul li:hover{
+
+#ul li:hover {
     background-color: rgba(49, 175, 255, 0.03);
 }
-#ul img{
+
+#ul img {
     width: 38px;
     height: 38px;
     margin: 1px 0 1px 2px;
     border-radius: 10px;
 }
-#ul li a{
+
+#ul li a {
 
     text-decoration: none;
     color: #006dbf;
     font-size: 1.5em;
-    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
-#ul li a:hover{
+
+#ul li a:hover {
     color: #1da1f2;
 }
-#profile_edit{
+
+#profile_edit {
     width: 350px;
     height: auto;
     background-color: #e8f5fd;
-    position: absolute;
-    right: 10%;
     border-radius: 10px;
     z-index: -2;
     visibility: hidden;
+    margin: auto;
+    margin-top: 15%;
 }
-#profile_edit table{
+
+#profile_edit table {
     width: 400px;
 }
+
 #profile_edit input {
-    border: 1px solid #1da1f2;
     width: 75%;
     margin: 5px;
     border-radius: 5px;
     height: 25px;
     outline: none;
 }
-#btn_edit{
+
+#btn_edit {
     width: 95%;
     margin: 5px;
     border-radius: 5px;
@@ -225,7 +254,8 @@ span {
     font-family: "Segoe UI";
     font-size: 1em;
 }
-#btn_unfollow{
+
+#btn_unfollow {
     width: 50%;
     margin: 5px;
     margin-top: 6%;
@@ -240,22 +270,26 @@ span {
     font-size: 1em;
     outline: none;
 }
-#btn_unfollow:hover{
+
+#btn_unfollow:hover {
     background-color: #e0245e;
     border: 1px solid #e0245e;
 }
-#main{
+
+#main {
     width: 1190px;
     height: 1000px;
     margin: auto;
 }
-#user_info{
+
+#user_info {
     margin-top: 20px;
     width: 280px;
     height: 350px;
     float: left;
 }
-#center_tweet{
+
+#center_tweet {
 
     width: 600px;
     height: auto;
@@ -263,14 +297,16 @@ span {
     background-color: white;
     float: left;
 }
-#random_users{
+
+#random_users {
     margin-top: 20px;
     width: 280px;
     height: 350px;
     background-color: #ffffff;
     float: right;
 }
-.followingUserInfo{
+
+.followingUserInfo {
     margin: 10px;
     width: 269px;
     height: 200px;
@@ -280,20 +316,24 @@ span {
     float: left;
     overflow: hidden;
 }
-.followingUserInfo_cover{
+
+.followingUserInfo_cover {
     width: 100%;
     height: 95px;
     background-color: #1da1f2;
 }
-#followingUserInfo_image{
+
+#followingUserInfo_image {
     width: 100%;
     height: 95px;
 }
-.followingUserDiv_name{
+
+.followingUserDiv_name {
     margin-bottom: -10px;
     height: 30%;
 }
-#followingUserProfile_image{
+
+#followingUserProfile_image {
     height: 68px;
     width: 68px;
     border-radius: 50%;
@@ -303,93 +343,108 @@ span {
     float: left;
     position: relative;
 }
-#profile_h2{
+
+#profile_h2 {
     margin-left: 10px;
     margin-top: 10px;
     float: left;
     width: 65%;
     display: inline;
 }
-#profile_h4{
+
+#profile_h4 {
     margin-left: 20px;
     float: left;
     color: #657786;
     display: inline;
 }
-#profile_h4:hover{
+
+#profile_h4:hover {
     color: #006dbf;
 }
-#name{
+
+#name {
     font-size: 21px;
     font-weight: bold;
-    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     margin: 25px 0px 0px 25px;
 }
-#name_{
+
+#name_ {
     font-size: 13px;
     font-weight: lighter;
     color: #657786;
-    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     margin: 0px 0px 0px 25px;
 }
-#descriptionid{
+
+#descriptionid {
     font-size: 13px;
     font-weight: lighter;
     letter-spacing: 0.5px;
     line-height: 18px;
-    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     margin: 25px 50px 0px 25px;
 }
-#cityid{
+
+#cityid {
     font-size: 15px;
     line-height: 18px;
-    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     margin: 25px 50px 0px 25px;
     color: #66757f;
 }
-#reg_date{
+
+#reg_date {
     font-size: 15px;
     line-height: 18px;
-    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     margin: 5px 50px 0px 25px;
     color: #66757f;
 }
-#emailid{
+
+#emailid {
     font-size: 15px;
     line-height: 18px;
-    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     margin: 5px 50px 0px 25px;
     color: #66757f;
 }
-#who_to_follow{
+
+#who_to_follow {
     width: 100%;
     height: 20%;
     box-sizing: border-box;
 }
-#who_to_follow h1{
+
+#who_to_follow h1 {
     font-size: 17px;
     font-weight: bold;
-    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     padding: 25px 0 0 20px;
     float: left;
 }
-#who_to_follow a{
+
+#who_to_follow a {
     font-size: 13px;
     float: left;
     padding: 28px 0 0 10px;
     color: #2b97df;
     text-decoration: none;
-    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
-#who_to_follow a:hover{
+
+#who_to_follow a:hover {
     text-decoration: underline;
 }
-#first{
+
+#first {
     width: 100%;
     height: 20%;
     border-bottom: 1px solid rgba(209, 209, 209, 0.3);
 }
-#random_img_div{
+
+#random_img_div {
     margin: 4% 0 0 40px;
     width: 50px;
     height: 50px;
@@ -397,26 +452,31 @@ span {
     overflow: hidden;
 
 }
-#random_img{
+
+#random_img {
     width: 50px;
     height: 50px;
 }
-#random_name{
+
+#random_name {
     font-size: 17px;
     font-weight: bold;
-    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     left: 100px;
     margin-top: -50px;
     padding-left: 100px;
 }
-#a_name{
+
+#a_name {
     color: black;
     text-decoration: none;
 }
-#a_name:hover{
+
+#a_name:hover {
     color: #2b97df;
     text-decoration: underline;
 }
+
 .follow_btn {
     height: 25px;
     width: 100px;
@@ -429,25 +489,30 @@ span {
     outline: none;
     cursor: pointer;
 }
+
 .follow_btn:hover {
     background-color: rgba(49, 175, 255, 0.2);
 }
-#last_div{
+
+#last_div {
     width: 100%;
     height: 20%;
 
 }
-#last_div h1{
+
+#last_div h1 {
     font-size: 13px;
     color: #2b97df;
     margin: 25px 40px 7px 40px;
-    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     cursor: pointer;
 }
-#last_div h1:hover{
+
+#last_div h1:hover {
     text-decoration: underline;
 }
-#position_div{
+
+#position_div {
     position: absolute;
     width: 290px;
     height: 300px;
@@ -460,17 +525,20 @@ span {
     border-radius: 5px;
     overflow: hidden;
 }
-#small_cover{
+
+#small_cover {
     width: 100%;
     height: 25%;
     overflow: hidden;
 
 }
-#small_cover_image{
+
+#small_cover_image {
     width: 100%;
     height: 100%;
 }
-#small_profile_pic{
+
+#small_profile_pic {
     width: 65px;
     height: 65px;
     border-radius: 50%;
@@ -480,142 +548,165 @@ span {
     left: 20px;
     overflow: hidden;
 }
-#small_image{
+
+#small_image {
     width: 65px;
     height: 64px;
 }
-#small_name{
+
+#small_name {
     width: 100%;
     height: 30%;
 
 }
-#small_h1{
+
+#small_h1 {
     font-size: 21px;
     font-weight: bold;
-    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     padding: 50px 0px 0px 25px;
 }
-#small_h4{
+
+#small_h4 {
     font-size: 15px;
     font-weight: lighter;
     color: #657786;
-    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     padding: 0px 0px 0px 25px;
 }
-#small_description{
+
+#small_description {
     width: 100%;
     height: 20%;
 
 }
-#opisanie{
+
+#opisanie {
     font-size: 13px;
     font-weight: lighter;
     letter-spacing: 0.5px;
     line-height: 18px;
-    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     padding: 15px 0px 0px 25px;
 }
-#small_info{
+
+#small_info {
     width: 100%;
     height: 25%;
 
 }
-.info{
+
+.info {
     width: 33%;
     height: 100%;
     display: inline;
     float: left;
     text-align: center;
 }
-.info h1{
+
+.info h1 {
     font-size: 13px;
     font-weight: bold;
-    padding:  12px 0 0 0;
-    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-    color: rgba(128,128,128,0.88);
+    padding: 12px 0 0 0;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: rgba(128, 128, 128, 0.88);
 
 }
-.info span{
+
+.info span {
     font-size: 25px;
     font-weight: bold;
-    padding:  5px 0 0 0;
+    padding: 5px 0 0 0;
     color: #1da1f2;
-    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
+
 /*----TWEETS----*/
-.tweet{
+.tweet {
     width: 100%;
     height: 120px;
-    border-top: 1px solid rgba(128,128,128,0.34);
+    border-top: 1px solid rgba(128, 128, 128, 0.34);
 }
-.tweet_image_div{
+
+.tweet_image_div {
     width: 100px;
     height: 70%;
     float: left;
 }
-.content_div{
+
+.content_div {
     width: 500px;
     height: 70%;
     float: left;
 }
-#tweet_image{
+
+#tweet_image {
     width: 60px;
     height: 60px;
     border-radius: 50%;
     background-color: white;
     margin: 10px 0 0 25px;
 }
-.tweet_name{
+
+.tweet_name {
     font-size: 18px;
     font-weight: bold;
-    padding: 10px 0 0  0;
-    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    padding: 10px 0 0 0;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
-.content{
+
+.content {
     font-size: 15px;
     font-weight: lighter;
-    padding: 10px 0 0  0;
-    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-    border-bottom: 1px solid rgba(128,128,128,0.34);
+    padding: 10px 0 0 0;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.34);
 
 }
-.tweet_date{
+
+.tweet_date {
     font-size: 10px;
     font-weight: lighter;
-    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     color: #657786;
     display: inline;
 }
-.tweet_date:hover{
+
+.tweet_date:hover {
     font-size: 12px;
 }
-.fa-heart{
+
+.fa-heart {
     padding: 10px 0 0 30px;
 }
+
 /*----END TWEETS----*/
 /*----COMMENTS----*/
-.comments{
+.comments {
     float: right;
     padding: 5px 15px 0 15px;
 }
-.comment_space{
+
+.comment_space {
     width: 100%;
     height: auto;
     background-color: white;
     border-bottom: 5px solid #e6ecf0;
 
 }
-.comment_text{
+
+.comment_text {
     width: 70%;
     height: 20px;
     margin: 10px 10px 10px 30px;
     border-radius: 5px;
     border: 1px solid #1da1f2;
     outline: none;
-    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     padding: 2px;
 }
-.comment_button{
+
+.comment_button {
     height: 25px;
     width: 100px;
     border-radius: 33px;
@@ -627,66 +718,77 @@ span {
     outline: none;
     cursor: pointer;
 }
-.added_comments{
+
+.added_comments {
     width: 90%;
     height: auto;
     margin: auto;
 }
-.space_comment{
+
+.space_comment {
     width: 98%;
     height: 50px;
     margin-bottom: 10px;
     border-bottom: 1px solid rgba(102, 117, 127, 0.25);
 }
-.div_img_comment{
+
+.div_img_comment {
     height: 100%;
     width: 10%;
     float: left;
 }
-.img_ramka{
+
+.img_ramka {
     width: 100%;
     height: 100%;
     border-radius: 50%;
     background-color: white;
     overflow: hidden;
 }
-#com_img{
+
+#com_img {
     width: 52px;
     height: 50px;
 }
-.content_comment{
+
+.content_comment {
     width: 90%;
     height: 100%;
     background-color: white;
     float: left;
 }
-.comment_name{
+
+.comment_name {
     font-size: 14px;
     font-weight: bold;
     padding: 3px;
-    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     display: inline;
 }
-.comment_date{
+
+.comment_date {
     font-size: 10px;
     font-weight: lighter;
-    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     color: #657786;
     display: inline;
     padding-left: 10px;
 }
-.comment{
+
+.comment {
     font-size: 10px;
     font-weight: bold;
-    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
     color: #363f48;
     padding: 15px 0 0 30px;
 }
-#master{
+
+#master {
     width: 90%;
     height: auto;
     margin: auto;
 }
+
 /*----END COMMENTS----*/
 /*Boris*/
 
@@ -813,3 +915,24 @@ ul {
     background-color: #006dbf;
 }
 
+#edit_outer_wrapper{
+    padding-top: 100px;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0,0,0,0.7);
+    position: absolute;
+    z-index: 100;
+    box-sizing: border-box;
+    visibility: hidden;
+}
+#edit_inner_wrapper{
+    font-family: "Segoe UI";
+    padding: 10px;
+    height: 560px;
+    width: 600px;
+    border-radius: 20px;
+    background-color: #e8f5fd;
+    margin-left: 30%;
+    position: absolute;
+    z-index: 200;
+}

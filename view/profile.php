@@ -19,6 +19,51 @@
         <div id="msgWrap"></div>
     </div>
 </div>
+<div id="edit_outer_wrapper">
+    <div id="edit_inner_wrapper">
+        <i class="fa fa-times fa-5x" aria-hidden="true" id="msgsY"
+           style="color: black; font-size: 25px; margin-top:10px; margin-right: 10px; float: right"></i>
+        <div id="profile_edit">
+            <form method="post" action="../commandPattern.php?target=user&action=editProfile" enctype="multipart/form-data">
+                <table>
+                    <tr>
+                        <td>Име:</td>
+                        <td><input type="text" name="username" id="username"></td>
+                    </tr>
+                    <tr>
+                        <td>Имейл:</td>
+                        <td><input type="email" name="email" id="email"></td>
+                    </tr>
+                    <tr>
+                        <td>Град:</td>
+                        <td><input type="text" name="city" id="city" placeholder="Град"></td>
+                    </tr>
+                    <tr>
+                        <td>Описание:</td>
+                        <td><textarea rows="5" cols="26" name="description" id="description"
+                                      placeholder="Кратко описание.."></textarea></td>
+                    </tr>
+                    <tr>
+                        <td>Парола:</td>
+                        <td><input type="password" name="password" id="password" placeholder="Въведете парола"></td>
+                    </tr>
+                    <tr>
+                        <td>Профилна снимка:</td>
+                        <td><input type="file" name="user_pic" class="file" value="Profile picture"></td>
+                    </tr>
+                    <tr>
+                        <td>Снимка за корица:</td>
+                        <td><input type="file" name="user_cover" class="file"></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><input type="submit" value="Edit" id="btn_edit" name="btn_edit"></td>
+                    </tr>
+                </table>
+            </form>
+        </div>
+
+    </div>
+</div>
 <?php
 include_once "page_lock.php";
 include_once "header.html";
@@ -45,44 +90,9 @@ include_once "header.html";
         <img id="circle_img" src="">
     </div>
 </div>
-<div id="profile_edit">
-    <form method="post" action="../commandPattern.php?target=user&action=editProfile" enctype="multipart/form-data">
-        <table>
-            <tr>
-                <td>Име:</td>
-                <td><input type="text" name="username" id="username"></td>
-            </tr>
-            <tr>
-                <td>Имейл:</td>
-                <td><input type="email" name="email" id="email"></td>
-            </tr>
-            <tr>
-                <td>Град:</td>
-                <td><input type="text" name="city" id="city" placeholder="Град"></td>
-            </tr>
-            <tr>
-                <td>Описание:</td>
-                <td><textarea rows="5" cols="26" name="description" id="description"
-                              placeholder="Кратко описание.."></textarea></td>
-            </tr>
-            <tr>
-                <td>Парола:</td>
-                <td><input type="password" name="password" id="password" placeholder="Въведете парола"></td>
-            </tr>
-            <tr>
-                <td>Профилна снимка:</td>
-                <td><input type="file" name="user_pic" class="file" value="Profile picture"></td>
-            </tr>
-            <tr>
-                <td>Снимка за корица:</td>
-                <td><input type="file" name="user_cover" class="file"></td>
-            </tr>
-            <tr>
-                <td colspan="2"><input type="submit" value="Edit" id="btn_edit" name="btn_edit"></td>
-            </tr>
-        </table>
-    </form>
-</div>
+
+
+
 <div id="main">
     <div id="user_info">
         <h1 id="name"><a></a></h1>
@@ -214,9 +224,9 @@ include_once "header.html";
                     name.innerText = response[0]['user_name'];
                     name_.innerText = "@" + response[0]['user_name'];
                     description.innerHTML = response[0]['user_description'];
-                    if(response[0]['user_city'] === null){
+                    if (response[0]['user_city'] === null) {
                         city.innerText += '';
-                    }else{
+                    } else {
                         city.innerText += 'Живее в: ' + response[0]['user_city'];
                     }
 
@@ -603,6 +613,20 @@ include_once "header.html";
                 button.id = "edit_btn";
                 button.name = "edit_btn";
                 button.addEventListener("click", function () {
+
+                    window.scrollTo(500, 0);
+                    var edit = document.getElementById("edit_outer_wrapper");
+                    var editt = document.getElementById("profile_edit");
+                    edit.style.visibility = "visible";
+                    var body = document.getElementsByTagName("BODY")[0];
+                    body.style.overflow = "hidden";
+                    var msgsY = document.getElementById('msgsY');
+                    msgsY.addEventListener('click', function () {
+                        edit.style.visibility = "hidden";
+                        editt.style.visibility = "hidden";
+                        body.style.overflow = "scroll";
+                    });
+
                     var edit_div = document.getElementById("profile_edit");
                     edit_div.style.visibility = "visible";
                     edit_div.style.zIndex = "1000";
@@ -727,7 +751,7 @@ include_once "header.html";
                                     if (response == "1") {
                                         showFollowing();
                                         showMynumbers();
-                                    }else if(response === "exception"){
+                                    } else if (response === "exception") {
                                         window.location.assign("exception_page.php");
                                     }
                                 }
@@ -1113,12 +1137,12 @@ include_once "header.html";
                 var wrap = document.getElementById('msgWrap');
                 wrap.innerHTML = '';
 
-                for(var i=0;i<response.length-1;i++){
+                for (var i = 0; i < response.length - 1; i++) {
                     var msg = document.createElement('div');  //creating message div
                     msg.className = 'msgs_in_wrap';
-                    var sender = response[response.length-1][response[i]['message_id']]["sender"][0]["user_name"];
-                    var receiver = response[response.length-1][response[i]['message_id']]["receiver"][0]["user_name"]
-                    msg.innerHTML ='<h3>From <a href="" style="color: #006dbf">'+sender+'</a> to <a href="" style="color: #006dbf">'+receiver+'</a> on '+response[i]['message_date']+' </h3>';
+                    var sender = response[response.length - 1][response[i]['message_id']]["sender"][0]["user_name"];
+                    var receiver = response[response.length - 1][response[i]['message_id']]["receiver"][0]["user_name"]
+                    msg.innerHTML = '<h3>From <a href="" style="color: #006dbf">' + sender + '</a> to <a href="" style="color: #006dbf">' + receiver + '</a> on ' + response[i]['message_date'] + ' </h3>';
 
                     msg.innerHTML += response[i]['message_text'];
                     console.log(response[i]['message_text']);
