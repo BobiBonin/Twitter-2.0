@@ -9,7 +9,7 @@
 namespace controller;
 use \model\UserDao;
 use \model\User;
-class UserController
+class UserController extends Exception
 {
     public function login(){
         function __autoload($class)
@@ -45,8 +45,8 @@ class UserController
                 } else {
                     header("Location: ./view/error_login.html");
                 }
-            } catch (Exception $exception) {
-
+            } catch (\PDOException $e) {
+                $this->exception($e);
             }
         }
 
@@ -114,8 +114,8 @@ class UserController
                 } else {
                     header("location: ./index.php"); // ERRORS!
                 }
-            } catch (Exception $exception) {
-
+            } catch (\PDOException $e) {
+                $this->exception($e);
             }
         }
     } //Регистрация
@@ -135,8 +135,8 @@ class UserController
                 $json = $dao->getUserInfoById($user);
                 echo json_encode($json);
             }
-        } catch (Exception $exception) {
-
+        } catch (\PDOException $e) {
+            $this->exception($e);
         }
 
     }
@@ -163,8 +163,8 @@ class UserController
                 $digits[] = $result;
                 echo json_encode($digits);
             }
-        }catch (PDOException $e){
-
+        }catch (\PDOException $e){
+            $this->exception($e);
         }
     } // Показва допълнителна информация за посочения юзър от долната функция.
 
@@ -180,8 +180,8 @@ class UserController
             $email = $_SESSION['user']['email'];
             $random_users = $dao->getFourRandomUsers($email);
             echo json_encode($random_users);
-        } catch (PDOException $e) {
-
+        } catch (\PDOException $e) {
+            $this->exception($e);
         }
     } //Показва 3 рандом юзъри. !!!!!!!!!!! --> СМЕНИ ЗАЯВКАТА ДА СЕ ПОКАЗВАТ САМО ТАКИВА КОИТО НЕ СИ ПОСЛЕДВАЛ !!!!!!
 
@@ -210,8 +210,8 @@ class UserController
                     }
                 }
             }
-        } catch (Exception $exception){
-
+        } catch (\PDOException $e){
+            $this->exception($e);
         }
     } //Извлича нужната информация за попълване на профил.
 
@@ -230,8 +230,8 @@ class UserController
                 $result = $dao->findFollowing($id['user_id']);
                 echo json_encode($result);
             }
-        } catch (PDOException $e) {
-
+        } catch (\PDOException $e) {
+            $this->exception($e);
         }
     }//Показва хората които следват другите юзъри.
 
@@ -257,8 +257,8 @@ class UserController
             $digits[] = $result;
             echo json_encode($digits);
 
-        } catch (PDOException $e) {
-
+        } catch (\PDOException $e) {
+            $this->exception($e);
         }
     } //Показва моя профил.
 
@@ -276,8 +276,8 @@ class UserController
             $result = $dao->findFollowers($user);
             echo json_encode($result);
 
-        }catch (PDOException $e){
-
+        }catch (\PDOException $e){
+            $this->exception($e);
         }
     } //Показва моите последователи.
 
@@ -293,8 +293,8 @@ class UserController
             $id = $_SESSION['user']['id'];
             $result = $dao->findFollowing($id);
             echo json_encode($result);
-        }catch (PDOException $e){
-
+        }catch (\PDOException $e){
+            $this->exception($e);
         }
     } //Изкарва информация за всички които следва.
 
@@ -315,8 +315,8 @@ class UserController
 
                 echo json_encode($result);
             }
-        } catch (PDOException $e) {
-
+        } catch (\PDOException $e) {
+            $this->exception($e);
         }
     } //Изкарва информация за всички последователи.
 
@@ -352,8 +352,8 @@ class UserController
                     $users[0] = $hashtags;
                     echo json_encode($users);
                 }
-            } catch (Exception $exception) {
-
+            } catch (\PDOException $e) {
+                $this->exception($e);
             }
 
         }
@@ -374,8 +374,8 @@ class UserController
             $result = $dao->getUserInfoByEmail($user);
             echo json_encode($result);
 
-        } catch (PDOException $e) {
-
+        } catch (\PDOException $e) {
+            $this->exception($e);
         }
     } //Взима информация за юзъра по имейл.
 
@@ -396,8 +396,8 @@ class UserController
                 $like = $dao->likeIt($me, $you['user_id']);
                 echo json_encode($like);
             }
-        } catch (PDOException $e) {
-
+        } catch (\PDOException $e) {
+            $this->exception($e);
         }
     } //Последвай юзър.
 
@@ -417,8 +417,8 @@ class UserController
                 $result = $dao->isFollow($my,$id['user_id']);
                 echo json_encode($result);
             }
-        } catch (PDOException $e) {
-
+        } catch (\PDOException $e) {
+            $this->exception($e);
         }
     } //Проверява дали посетения юзър е вече последван или не (за бутона).
 
@@ -440,8 +440,8 @@ class UserController
                 $digits[] = $pdo->getUserTwits($user);
                 echo json_encode($digits);
             }
-        } catch (Exception $exception) {
-
+        } catch (\PDOException $e) {
+            $this->exception($e);
         }
     } // Взима последователите,следващите и туитовете на юзъра по име.
 
@@ -484,8 +484,8 @@ class UserController
                 $pdo->updateUser($user);
                 header("location: ./view/profile.php");
 
-            } catch (PDOException $e) {
-
+            } catch (\PDOException $e) {
+                $this->exception($e);
             }
 
         }
@@ -505,13 +505,12 @@ class UserController
                 $me = $_SESSION['user']['id'];
                 $name = $_GET['name'];
                 $dao = new UserDao();
-
                 $you = $dao->findId($name);
                 $dislike = $dao->dislikeIt($me,$you['user_id']);
                 echo json_encode($dislike);
             }
-        }catch (PDOException $e){
-
+        }catch (\PDOException $e){
+            $this->exception($e);
         }
     } //Отхаресване на юзър.
 
@@ -521,4 +520,6 @@ class UserController
             header('location: index.php');
         }
     } //Прекратяване на сесията и препращане към index.php.
+
+
 }

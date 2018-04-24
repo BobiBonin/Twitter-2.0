@@ -6,8 +6,19 @@
     <link rel="shortcut icon" type="image/x-icon" href="assets/images/Tweeter_icon.png"/>
     <link rel="stylesheet" href="assets/style/profile_style.css">
     <link rel="stylesheet" href="assets/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link href="assets/style/messages.css" rel="stylesheet">
 </head>
 <body>
+<div id="messages_outer_wrapper">
+    <div id="messages_inner_wrapper">
+        <h1 id="drct_msgs">Direct Messages</h1>
+        <i class="fa fa-times fa-5x" aria-hidden="true" id="msgsX"
+           style="color: black; font-size: 25px; margin-top:10px; margin-right: 10px; float: right"></i>
+        <div id="newMsg">New Message</div>
+        <div style="clear: both"></div>
+        <div id="msgWrap"></div>
+    </div>
+</div>
 <?php
 include_once "page_lock.php";
 include_once "header.html";
@@ -134,6 +145,7 @@ include_once "header.html";
         </div>
     </div>
 </div>
+
 <script>
     window.onload = random();
     /*Георги -- 20.03.2018 -- Скриване и показване на профилната снимка в навигейшън бара*/
@@ -710,6 +722,8 @@ include_once "header.html";
                                     if (response == "1") {
                                         showFollowing();
                                         showMynumbers();
+                                    }else if(response === "exception"){
+                                        window.location.assign("exception_page.php");
                                     }
                                 }
                             };
@@ -1071,6 +1085,48 @@ include_once "header.html";
         request.send();
     }
 
+    function msgs() {
+        var messages = document.getElementById("messages_outer_wrapper");
+        messages.style.visibility = "visible";
+        var body = document.getElementsByTagName("BODY")[0];
+        body.style.overflow = "hidden";
+        var msgsX = document.getElementById('msgsX');
+        msgsX.addEventListener('click', function () {
+            messages.style.visibility = "hidden";
+            body.style.overflow = "scroll";
+        });
+//        TODO ADD THE MESSAGES
+
+
+        var request = new XMLHttpRequest();
+        request.open("GET", "../commandPattern.php?target=message&action=getMessages");
+        request.onreadystatechange = function (ev) {
+            if (this.status == 200 && this.readyState == 4) {
+                var response = JSON.parse(this.responseText);
+                console.log(response);
+                var wrap = document.getElementById('msgWrap');
+                wrap.innerHTML = '';
+
+                for(var i=0;i<response.length-1;i++){
+                    var msg = document.createElement('div');  //creating message div
+                    msg.className = 'msgs_in_wrap';
+                    var sender = response[response.length-1][response[i]['message_id']]["sender"][0]["user_name"];
+                    var receiver = response[response.length-1][response[i]['message_id']]["receiver"][0]["user_name"]
+                    msg.innerHTML ='<h3>From <a href="" style="color: #006dbf">'+sender+'</a> to <a href="" style="color: #006dbf">'+receiver+'</a> on '+response[i]['message_date']+' </h3>';
+
+                    msg.innerHTML += response[i]['message_text'];
+                    console.log(response[i]['message_text']);
+                    wrap.appendChild(msg);
+                }
+
+
+            }
+        };
+        request.send();
+
+
+//        TODO SEND MESSAGES
+    }
 
 </script>
 </body>

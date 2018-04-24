@@ -30,8 +30,8 @@ class TwitController
             $tweet = new Tweet(null, $user, null, $text);
             $dao = new TweetDao();
             $dao->addTweet($tweet);
-        } catch (Exception $exception) {
-
+        } catch (\PDOException $e) {
+            $this->exception($e);
         }
 
 
@@ -49,8 +49,8 @@ class TwitController
             $id = $_SESSION['user']['id'];
             $dao = new TweetDao();
             $dao->showUserTweets($id);
-        } catch (Exception $exception) {
-
+        } catch (\PDOException $e) {
+            $this->exception($e);
         }
     }// ????
 
@@ -70,8 +70,8 @@ class TwitController
             $you = $uDao->findId($name);
             $result = $tDao->showMyTweets($you['user_id']);
             echo json_encode($result);
-        } catch (Exception $exception) {
-
+        } catch (\PDOException $e) {
+            $this->exception($e);
         }
     }// Показва туитовете на посещаваните юзъри.
 
@@ -108,8 +108,8 @@ class TwitController
             }
             echo json_encode($result);
 
-        } catch (PDOException $e) {
-
+        } catch (\PDOException $e) {
+            $this->exception($e);
         }
     }//Показва туитовете на текущо логнатия потребител.
 
@@ -129,8 +129,8 @@ class TwitController
                 $twat_id = $_GET['twat_id'];
                 $dao->likeATweet($twat_id, $user_id);
             }
-        } catch (PDOException $e) {
-
+        } catch (\PDOException $e) {
+            $this->exception($e);
         }
     } //Харесване не туит.
 
@@ -159,8 +159,16 @@ class TwitController
                 }
             }
             $tDao->getMyFollowersTweets($string);
-        } catch (Exception $exception) {
-
+        } catch (\PDOException $e) {
+            $this->exception($e);
         }
     } //Показва туитовете.
+
+    function exception($e){
+        $today = date("F j, Y, g:i a");
+        $file = file_get_contents("view/errors.txt");
+        $file .= "\n On $today Error Message : ".$e->getMessage();
+        file_put_contents("view/errors.txt",$file);
+        echo json_encode("exception");
+    }
 }

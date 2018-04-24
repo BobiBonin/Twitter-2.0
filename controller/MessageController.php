@@ -13,7 +13,7 @@ use model\User;
 use \model\UserDao;
 use \model\Message;
 
-class MessageController
+class MessageController extends Exception
 {
     public function addMessage()
     {
@@ -33,8 +33,8 @@ class MessageController
             $message = new Message($ownerId, $receiverId, $text);
             $dao = new MessageDao();
             $dao->addMessage($message);
-        } catch (Exception $exception) {
-
+        } catch (\PDOException $e) {
+            $this->exception($e);
         }
 
 
@@ -65,8 +65,8 @@ class MessageController
             $result[]=$temp;
 
             echo json_encode($result);
-        } catch (Exception $exception) {
-            return 'error';
+        } catch (\PDOException $e) {
+            $this->exception($e);
         }
         return 0;
     }

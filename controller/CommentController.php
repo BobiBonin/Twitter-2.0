@@ -10,7 +10,7 @@ namespace controller;
 use \model\CommentDao;
 use \model\Comment;
 
-class CommentController
+class CommentController extends Exception
 {
     public function postComment(){
 
@@ -30,8 +30,8 @@ class CommentController
                 $comments = $dao->addComment($comment);
                 echo json_encode($comments);
             }
-        } catch (Exception $exception){
-
+        } catch (\PDOException $e){
+            $this->exception($e);
         }
     } //Публикуване на коментар.
 
@@ -49,8 +49,8 @@ class CommentController
                 $comments = $dao->showMyComments($id);
                 echo json_encode($comments);
             }
-        } catch (Exception $exception) {
-
+        } catch (\PDOException $e) {
+            $this->exception($e);
         }
     } //Показва коментарите на туитовете.
 }
