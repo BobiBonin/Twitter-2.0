@@ -116,7 +116,7 @@
 
 #compose_twat_text {
     width: 500px;
-    height: 35px;
+    min-height: 80px;
     margin-left: 70px;
     resize: none;
     font-family: Lato;
@@ -140,7 +140,6 @@
     font-family: sans-serif;
     color: white;
     cursor: pointer;
-    visibility: hidden;
     margin-top: 3px;
     transition: 0s;
 }

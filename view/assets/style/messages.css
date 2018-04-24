@@ -114,3 +114,7 @@ body{
     outline: none;
     border: 0;
 }
+#sendMsgButton:hover{
+    background-color: #006dbf;
+    cursor: pointer;
+}

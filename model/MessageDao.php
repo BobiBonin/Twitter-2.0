@@ -42,7 +42,7 @@ class MessageDao
     }
 
     public function getMessages($id){
-        $statement = $this->pdo->prepare("SELECT * FROM messages WHERE sender_id = ? OR receiver_id = ?");
+        $statement = $this->pdo->prepare("SELECT * FROM messages WHERE sender_id = ? OR receiver_id = ? ORDER BY message_date DESC");
         $statement->execute(array($id,$id));
         $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
         return $result;

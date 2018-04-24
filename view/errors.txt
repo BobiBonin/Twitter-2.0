@@ -7,5 +7,8 @@
                                   AND twats.user_id = users.user_id 
       ' at line 3
  On April 24, 2018, 5:14 pm Error Message : SQLSTATE[HY000]: General error: No fetch class specified
- On April 24, 2018, 7:53 pm Error Message : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '35-44' for key 'PRIMARY'
- On April 24, 2018, 7:53 pm Error Message : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '35-44' for key 'PRIMARY'
+ On April 24, 2018, 6:29 pm Error Message : SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`mydb`.`messages`, CONSTRAINT `receiver_fk` FOREIGN KEY (`receiver_id`) REFERENCES `users` (`user_id`) ON DELETE NO ACTION ON UPDATE NO ACTION)
+ On April 24, 2018, 6:45 pm Error Message : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '1-38' for key 'PRIMARY'
+ On April 24, 2018, 7:25 pm Error Message : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '38-86' for key 'PRIMARY'
+ On April 24, 2018, 7:36 pm Error Message : SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'receiver_id' cannot be null
+
