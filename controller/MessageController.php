@@ -26,25 +26,37 @@ class MessageController extends Exception
 
         try {
             $dao = new MessageDao();
+            $userDao = new UserDao();
             $newId = $dao->getNewId();
-            $msgId = $newId['0']["message_id"]+1;
+
+            $msgId = $newId['0']["message_id"] + 1;
             $ownerId = $_SESSION['user']['id'];
             $text = htmlentities($_POST['text']);
-            $receiverId = $_POST['receiverId'];
-
+            $receiverName = htmlentities($_POST['receiverName']);
+            $receiverId = $userDao->getUserIdFromName($receiverName);
+            if (count($receiverId) > 0) {
+                $receiverId = $receiverId['0']['user_id'];
+            } else {
+                echo "That user does not exist, sorry :)";
+                die();
+            }
             if (isset($_FILES['message_img']['tmp_name'])) {
 
                 $url_image = "assets/images/uploads/image_message$msgId.png";
                 $tmp_image = $_FILES['message_img']['tmp_name'];
+                $a = getimagesize($tmp_image);
+                $image_type = $a[2];
 
-
-                if (is_uploaded_file($tmp_image)) {
-                    $url_image = "./view/assets/images/uploads/image_message$msgId.png";
-                    if (move_uploaded_file($tmp_image, $url_image)) {
-                        $url_image = "assets/images/uploads/image_message$msgId.png";
+                if (in_array($image_type, array(IMAGETYPE_GIF, IMAGETYPE_JPEG, IMAGETYPE_PNG, IMAGETYPE_BMP))) {
+                    if (is_uploaded_file($tmp_image)) {
+                        $url_image = "./view/assets/images/uploads/image_message$msgId.png";
+                        if (move_uploaded_file($tmp_image, $url_image)) {
+                            $url_image = "assets/images/uploads/image_message$msgId.png";
+                        }
+                    } else {
+                        $url_image = null;
                     }
-                }
-                else{
+                }else{
                     $url_image = null;
                 }
             } else {
