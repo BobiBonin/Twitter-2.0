@@ -196,7 +196,7 @@ include_once "header.html";
         request.onreadystatechange = function (ev) {
             if (this.status == 200 && this.readyState == 4) {
                 var response = JSON.parse(this.responseText);
-                console.log(response);
+
                 if (response == "my") {
                     window.location.assign("http://localhost/NEW/Twitter-2.0/view/profile.php");
                 } else {
@@ -214,7 +214,12 @@ include_once "header.html";
                     name.innerText = response[0]['user_name'];
                     name_.innerText = "@" + response[0]['user_name'];
                     description.innerHTML = response[0]['user_description'];
-                    city.innerText += 'Живее в: ' + response[0]['user_city'];
+                    if(response[0]['user_city'] === null){
+                        city.innerText += '';
+                    }else{
+                        city.innerText += 'Живее в: ' + response[0]['user_city'];
+                    }
+
                     reg_date.innerText = 'Регистриран на: ' + response[0]['user_date'].substring(0, 10);
                     email.innerText = 'Имейл: ' + response[0]['user_email'];
                     /*Проверка какъв бутон да бъде поставен*/
@@ -1086,6 +1091,7 @@ include_once "header.html";
     }
 
     function msgs() {
+        window.scrollTo(500, 0);
         var messages = document.getElementById("messages_outer_wrapper");
         messages.style.visibility = "visible";
         var body = document.getElementsByTagName("BODY")[0];

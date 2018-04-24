@@ -291,6 +291,7 @@ span {
 }
 .followingUserDiv_name{
     margin-bottom: -10px;
+    height: 30%;
 }
 #followingUserProfile_image{
     height: 68px;
@@ -306,12 +307,12 @@ span {
     margin-left: 10px;
     margin-top: 10px;
     float: left;
+    width: 65%;
     display: inline;
 }
 #profile_h4{
-    margin-left: -20px;
+    margin-left: 20px;
     float: left;
-    margin-top: 40px;
     color: #657786;
     display: inline;
 }

@@ -90,11 +90,11 @@ class UserController extends Exception
             try {
                 if (!$error) {
                     $user = new User($email, sha1($password), $username);
-                    $pdo = new UserDao();
-                    $result = $pdo->userExistForReg($user);
+                    $dao = new UserDao();
+                    $result = $dao->userExistForReg($user);
                     if (!$result) {
-                        $pdo->registerUser($user);
-                        $info = $pdo->getUserInfoByEmail($user);
+                        $dao->registerUser($user);
+                        $info = $dao->getUserInfoByEmail($user);
                         $_SESSION['user'] = [];
                         $new = [
                             "id" => $info['user_id'],
@@ -343,7 +343,7 @@ class UserController extends Exception
                     foreach ($users[0] as $twat) {
                         $words = explode(" ", $twat['twat_content']);
                         foreach ($words as $word) {
-                            if (strstr($word, '#')) {
+                            if (strstr($word, '#') && strstr($word,$name)) {
                                 $hashtags[] = $word;
                             }
                         }

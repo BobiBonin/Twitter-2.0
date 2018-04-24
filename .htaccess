@@ -8,6 +8,7 @@ Options -Indexes
 DirectoryIndex index.php
 
 
+
 ErrorDocument 404 http://localhost/NEW/Twitter-2.0/view/error404_page.php
 
 ErrorDocument 403 http://localhost/NEW/Twitter-2.0/view/error403_page.php

@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <title>Twatter. Това което се случва</title>
-    <link rel="stylesheet" href="view/assets/style/login_style.css">
-    <link rel="stylesheet" href="view/assets/font-awesome-4.7.0/css/font-awesome.min.css">
-    <link rel="shortcut icon" type="image/x-icon" href="view/assets/images/Tweeter_icon.png"/>
+    <link rel="stylesheet" href="assets/style/login_style.css">
+    <link rel="stylesheet" href="assets/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="shortcut icon" type="image/x-icon" href="assets/images/Tweeter_icon.png"/>
 </head>
 <body>
 <div id="main">
     <section id="left">
-        <img src="view/assets/images/Tweeter_bird5.png" alt="">
+        <img src="assets/images/Tweeter_bird5.png" alt="">
         <div id="static_sentences">
             <div id="first">
                 <i class="fa fa-search fa-2x position" aria-hidden="true"></i>
@@ -28,7 +28,7 @@
     </section>
     <section id="right">
         <div id="login">
-            <form method="post" id="login_form" action="controller/loginControler.php">
+            <form method="post" id="login_form" action="../commandPattern.php?target=user&action=login">
                 <input id="input_left" class="input" type="email" placeholder="Имейл адрес" name="email" required>
                 <input id="login_pass" class="input" type="password" placeholder="Парола" name="password" required>
                 <input id="button" type="submit" value="Вход" name="login_btn" onclick="validateLogin()">
@@ -43,10 +43,10 @@
             </div>
         </div>
         <div id="registration">
-            <img src="view/assets/images/Tweeter_icon.png" alt="">
+            <img src="assets/images/Tweeter_icon.png" alt="">
             <h1>Виж какво се случва по света в момента</h1>
             <h3>Присъедини се към Twitter днес.</h3>
-            <form id="reg_form" method="post" action="./commandPattern.php?target=user&action=registration">
+            <form id="reg_form" method="post" action="../commandPattern.php?target=user&action=registration">
                 <div id="reg_user_div">
                     <input id="reg_name" type="text" class="reg_input" placeholder="Имейл адрес" name="email" required>
                     <span id="span"></span>

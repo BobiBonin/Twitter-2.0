@@ -47,6 +47,7 @@ class MessageDao
         $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
         return $result;
     }
+
     public function getNewId(){
         $statement = $this->pdo->prepare("SELECT message_id FROM mydb.messages ORDER BY message_id DESC LIMIT 1;");
         $statement->execute(array());

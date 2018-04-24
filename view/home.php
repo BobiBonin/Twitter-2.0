@@ -12,7 +12,6 @@ include_once 'page_lock.php';
     <link href="assets/style/messages.css" rel="stylesheet">
     <link href="assets/css/font-awesome.css" rel="stylesheet">
     <link href="assets/css/font-awesome.min.css" rel="stylesheet">
-
 </head>
 <body>
 <div id="messages_outer_wrapper">

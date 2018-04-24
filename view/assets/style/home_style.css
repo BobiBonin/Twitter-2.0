@@ -1,6 +1,6 @@
 .home_profile {
     width: 288px;
-    height: 212px;
+    height: 225px;
     box-sizing: border-box;
     background-color: white;
 }
@@ -29,8 +29,7 @@
 
 #profile_h4 {
     float: left;
-    margin-left: -20%;
-    margin-top: 20px;
+    margin-top: 10px;
     color: #657786;
 }
 
@@ -240,7 +239,7 @@
 
 .follow_btn {
     height: 25px;
-    width: 80px;
+    width: 90px;
     border-radius: 33px;
     border: 1px solid #2b97df;
     background-color: transparent;

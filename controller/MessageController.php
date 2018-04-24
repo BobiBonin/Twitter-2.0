@@ -87,8 +87,8 @@ class MessageController extends Exception
             $result[] = $temp;
 
             echo json_encode($result);
-        } catch (Exception $exception) {
-            return 'error';
+        } catch (\PDOException $e) {
+            $this->exception($e);
         }
         return 0;
     }
