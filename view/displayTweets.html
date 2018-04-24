@@ -13,7 +13,6 @@
         if (this.status == 200 && this.readyState == 4) {
             var resp = this.responseText;
             resp = JSON.parse(resp);
-            console.log(resp);
             var div = document.getElementById("home_mid_div");
             for (var i = 0; i < resp.length; i++) {
                 var tweet = document.createElement("div");
@@ -27,7 +26,7 @@
                 tweet.innerHTML += "<h1 class='tweet_name'><a href=profile.php?" + link_name + ">" + resp[i]["user_name"] + "</a></h1>";
                 tweet.innerHTML += "<h4 class='tweet_date'>" + resp[i]["twat_date"] + "</h4>";
                 tweet.innerHTML += "<p class='content' style='border: 0'>" + resp[i]["twat_content"] + "</p>";
-                tweet.innerHTML += "<i id='heart" + resp[i]['twat_id'] + "' value=" + resp[i]['twat_id'] + " onclick=\"myFunction(" + resp[i]['twat_id'] + ",this.id)\" class=\"fa fa-heart hrt\"></i>";
+                tweet.innerHTML += "<i id='heart" + resp[i]['twat_id'] + "' value=" + resp[i]['twat_id'] + " onclick=\"likeTweet(" + resp[i]['twat_id'] + ",this.id)\" class=\"fa fa-heart hrt\"></i>";
                 var comment_div = document.createElement('div');
                 comment_div.className = "home_tweet_comments";
                 comment_div.id = resp[i]['twat_id'];
@@ -56,7 +55,6 @@
                 btn.className = "cmnt_btn";
                 btn.value = id;
                 btn.addEventListener("click", function () {
-                    console.log(document.getElementById("asd" + this.value).value);
 
                     var request = new XMLHttpRequest();
                     request.open("post", "../commandPattern.php?target=comment&action=postComment");
@@ -103,7 +101,6 @@
                 else {
                     div.innerHTML += "<br><h3 style='margin-left:70px;'>No comments on this tweet</h3>";
                 }
-                console.log(response);
             }
             else {
                 comments = "deba";
@@ -112,14 +109,13 @@
         request.send();
     }
 
-    function myFunction(id, tweet_id) {
+    function likeTweet(id, tweet_id) {
         var like = document.getElementById(tweet_id);
         like.style.color = 'red';
         var request = new XMLHttpRequest();
-        request.open("GET", "../commandPattern.php?twat_id=" + id +"&target=twit&action=likeTweet");
+        request.open("GET", "../commandPattern.php?twat_id=" + id + "&target=twit&action=likeTweet");
         request.onreadystatechange = function (ev) {
             if (this.readyState == 4 && this.status == 200) {
-                console.log("Succesfuly liked " + id);
             }
         };
         request.send();

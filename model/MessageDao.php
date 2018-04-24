@@ -30,10 +30,12 @@ class MessageDao
     }
 
     public function addMessage(Message $message){
-        $statement = $this->pdo->prepare("INSERT INTO messages (sender_id, receiver_id, message_text) VALUES (?,?,?)");
+        $statement = $this->pdo->prepare("INSERT INTO messages (sender_id, receiver_id, message_text,message_img) VALUES (?,?,?,?)");
         $statement->execute(array($message->getOwnerId(),
             $message->getReceiverId(),
-            $message->getText()));
+            $message->getText(),
+            $message->getImage()
+            ));
 
         $result = $statement->rowCount();
         return $result;
@@ -42,6 +44,12 @@ class MessageDao
     public function getMessages($id){
         $statement = $this->pdo->prepare("SELECT * FROM messages WHERE sender_id = ? OR receiver_id = ?");
         $statement->execute(array($id,$id));
+        $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
+        return $result;
+    }
+    public function getNewId(){
+        $statement = $this->pdo->prepare("SELECT message_id FROM mydb.messages ORDER BY message_id DESC LIMIT 1;");
+        $statement->execute(array());
         $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
         return $result;
     }

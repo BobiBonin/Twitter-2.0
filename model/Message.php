@@ -15,17 +15,35 @@ class Message implements \JsonSerializable
     private $text;
     private $receiverId;
     private $ownerId;
+    private $image;
 
     public function jsonSerialize()
     {
         return get_object_vars($this);
     }
 
-    public function __construct($ownerId,$receiverId,$text)
+    public function __construct($ownerId,$receiverId,$text,$image)
     {
         $this->text = $text;
         $this->ownerId = $ownerId;
         $this->receiverId = $receiverId;
+        $this->image = $image;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    /**
+     * @param mixed $image
+     */
+    public function setImage($image)
+    {
+        $this->image = $image;
     }
 
     /**
