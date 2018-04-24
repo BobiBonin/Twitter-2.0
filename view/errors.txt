@@ -14,3 +14,4 @@
  On April 24, 2018, 2:36 pm Error Message : abstract test3
  On April 24, 2018, 2:36 pm Error Message : abstract test3
  On April 24, 2018, 2:37 pm Error Message : abstract test3
+ On April 24, 2018, 3:05 pm Error Message : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '1-46' for key 'PRIMARY'

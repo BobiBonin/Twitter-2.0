@@ -25,13 +25,15 @@ class MessageController extends Exception
         }
 
         try {
+            $dao = new MessageDao();
+            $newId = $dao->getNewId();
+            $msgId = $newId['0']["message_id"]+1;
             $ownerId = $_SESSION['user']['id'];
             $text = htmlentities($_POST['text']);
             $receiverId = $_POST['receiverId'];
 
-            if (isset($_POST['message_img'])) {
-                $msgId = $this->getNewId();
-                $msgId = $msgId["message_id"];
+            if (isset($_FILES['message_img']['tmp_name'])) {
+
                 $url_image = "assets/images/uploads/image_message$msgId.png";
                 $tmp_image = $_FILES['message_img']['tmp_name'];
 
@@ -42,13 +44,16 @@ class MessageController extends Exception
                         $url_image = "assets/images/uploads/image_message$msgId.png";
                     }
                 }
+                else{
+                    $url_image = null;
+                }
             } else {
-                $url_image = "";
+                $url_image = null;
             }
 
 
             $message = new Message($ownerId, $receiverId, $text, $url_image);
-            $dao = new MessageDao();
+
             $dao->addMessage($message);
             header("location:./view/home.php");
 
@@ -57,8 +62,7 @@ class MessageController extends Exception
         }
     }
 
-    public
-    function getMessages()
+    public function getMessages()
     {
         function __autoload($class)
         {
@@ -89,24 +93,4 @@ class MessageController extends Exception
         return 0;
     }
 
-    public
-    function getNewId()
-    {
-        function __autoload($class)
-        {
-            $class = "..\\" . $class;
-            require_once str_replace("\\", "/", $class) . ".php";
-        }
-
-        try {
-            $mDao = new MessageDao();
-            $newId = $mDao->getNewId();
-            return $newId;
-        } catch (Exception $exception) {
-
-        } catch (\PDOException $e) {
-            $this->exception($e);
-        }
-        return 0;
-    }
 }
