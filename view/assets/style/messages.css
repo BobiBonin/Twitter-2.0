@@ -58,6 +58,7 @@ body{
     border-radius: 10px;
     padding: 10px;
     font-family: "Segoe UI";
+    word-wrap: break-word;
 }
 #newMsgDiv{
     width: 100%;
@@ -82,13 +83,13 @@ body{
 #msgInput{
     width: 100%;
     background-color: #f5f8fa;
-    font-size: 12px;
+    font-size: 20px;
     height: 300px;
     margin-top: 20px;
     border-radius: 21px;
     box-shadow: none;
     border: 1px solid grey;
-    color: gray;
+    color: black;
     box-sizing: border-box;
     outline: none;
     vertical-align: top;
