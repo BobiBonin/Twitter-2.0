@@ -10,7 +10,7 @@ namespace controller;
 use \model\CommentDao;
 use \model\Comment;
 
-class CommentController extends Exception
+class CommentController extends BaseController
 {
     public function postComment(){
 

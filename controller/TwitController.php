@@ -12,7 +12,7 @@ use \model\TweetDao;
 use \model\UserDao;
 use \model\Tweet;
 
-class TwitController extends Exception
+class TwitController extends BaseController
 {
     public function tweets()
     {
@@ -64,11 +64,29 @@ class TwitController extends Exception
         }
 
         try {
+
             $name = htmlentities($_GET['name']);
             $uDao = new UserDao();
             $tDao = new TweetDao();
             $you = $uDao->findId($name);
             $result = $tDao->showMyTweets($you['user_id']);
+            foreach ($result as &$tweet) {
+                $array = explode(" ", $tweet['twat_content']);
+                for ($i = 0; $i < count($array); $i++) {
+                    if (substr($array[$i], 0, 1) == "#") {
+                        $array[$i] = "<a href='#'>$array[$i]</a>";
+                    }
+
+                    if (substr($array[$i], 0, 1) == "@") {
+                        $name = substr($array[$i], 1);
+                        $exist = $uDao->findId($name);
+                        if($exist !== false){
+                            $array[$i] = "<a href='profile.php?$name'>$array[$i]</a>";
+                        }
+                    }
+                }
+                $tweet['twat_content'] = implode(" ", $array);
+            }
             echo json_encode($result);
         } catch (\PDOException $e) {
             $this->exception($e);
@@ -158,7 +176,27 @@ class TwitController extends Exception
                     $string = $string . " OR ";
                 }
             }
-            $tDao->getMyFollowersTweets($string);
+            $result = $tDao->getMyFollowersTweets($string);
+
+            foreach ($result as &$tweet) {
+                $array = explode(" ", $tweet['twat_content']);
+                for ($i = 0; $i < count($array); $i++) {
+                    if (substr($array[$i], 0, 1) == "#") {
+                        $array[$i] = "<a href='#' style='font-weight: bold;'>$array[$i]</a>";
+                    }
+
+                    if (substr($array[$i], 0, 1) == "@") {
+                        $name = substr($array[$i], 1);
+                        $exist = $uDao->findId($name);
+                        if($exist !== false){
+                            $array[$i] = "<a href='profile.php?$name' onmouseover='info(this)' onmouseout='hide()' style='font-weight: bold; color: #1da1f2'>$array[$i]</a>";
+                        }
+                    }
+                }
+                $tweet['twat_content'] = implode(" ", $array);
+            }
+
+            echo json_encode($result);
 
         } catch (\PDOException $e) {
             $this->exception($e);

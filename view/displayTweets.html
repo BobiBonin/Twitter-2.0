@@ -4,7 +4,36 @@
     <meta charset="UTF-8">
 </head>
 <body>
+<div id="position_div">
+    <div id="small_cover">
+        <img id="small_cover_image" src="" alt="">
+    </div>
+    <div id="small_profile_pic">
+        <img id="small_image" src="" alt="">
+    </div>
 
+    <div id="small_name">
+        <h1 id="small_h1"></h1>
+        <h4 id="small_h4"></h4>
+    </div>
+    <div id="small_description">
+        <h5 id="opisanie"></h5>
+    </div>
+    <div id="small_info">
+        <div class="info">
+            <h1>Следва</h1>
+            <span id="one"></span>
+        </div>
+        <div class="info">
+            <h1>Последователи</h1>
+            <span id="two"></span>
+        </div>
+        <div class="info">
+            <h1>Туитове</h1>
+            <span id="three"></span>
+        </div>
+    </div>
+</div>
 </body>
 <script>
     var req = new XMLHttpRequest();
@@ -13,6 +42,7 @@
         if (this.status == 200 && this.readyState == 4) {
             var resp = this.responseText;
             resp = JSON.parse(resp);
+            console.log(resp);
             var div = document.getElementById("home_mid_div");
             for (var i = 0; i < resp.length; i++) {
                 var tweet = document.createElement("div");
@@ -23,7 +53,7 @@
 
 //                adding the data into the tweet
                 tweet.innerHTML = "<a href=" + "profile.php?" + link_name + "><img class='home_tweet_image' src=" + resp[i]["user_pic"] + "></a>";
-                tweet.innerHTML += "<h1 class='tweet_name'><a href=profile.php?" + link_name + ">" + resp[i]["user_name"] + "</a></h1>";
+                tweet.innerHTML += "<h1 class='tweet_name'><a onmouseover='info(this)' onmouseout='hide()' href=profile.php?" + link_name + ">" + resp[i]["user_name"] + "</a></h1>";
                 tweet.innerHTML += "<h4 class='tweet_date'>" + resp[i]["twat_date"] + "</h4>";
                 tweet.innerHTML += "<p class='content' style='border: 0'>" + resp[i]["twat_content"] + "</p>";
                 tweet.innerHTML += "<i id='heart" + resp[i]['twat_id'] + "' value=" + resp[i]['twat_id'] + " onclick=\"likeTweet(" + resp[i]['twat_id'] + ",this.id)\" class=\"fa fa-heart hrt\"></i>";
@@ -87,7 +117,7 @@
                         var link_name = response[i]["user_name"];
                         link_name = link_name.replace(" ", "%20");
 
-                        cmnt_div.innerHTML = "<a href=" + "profile.php?" + link_name + "><img class='home_comment_image' src=" + response[i]["user_pic"] + "></a>";
+                        cmnt_div.innerHTML = "<a onmouseover='info(this)' onmouseout='hide()' href=" + "profile.php?" + link_name + "><img class='home_comment_image' src=" + response[i]["user_pic"] + "></a>";
                         cmnt_div.innerHTML += "<h1 class='tweet_name'><a href=profile.php?" + link_name + ">" + response[i]["user_name"] + "</a></h1>";
                         cmnt_div.innerHTML += "<h4 class='tweet_date'>" + response[i]["comment_date"] + "</h4>";
                         cmnt_div.innerHTML += "<p class='content' style='border: 0'>" + response[i]["comment_text"] + "</p>";
@@ -120,5 +150,77 @@
         };
         request.send();
     }
+
+    function info(pole) {
+        var user_name = pole.innerText;
+        link_name = user_name.replace(" ", "%20");
+        if(link_name.charAt(0) == "@"){
+            link_name = link_name.slice(1);
+        }
+        console.log(link_name);
+
+        var request = new XMLHttpRequest();
+        request.open("GET", "../commandPattern.php?name=" + link_name + "&target=user&action=getInfoForTweets");
+        request.onreadystatechange = function (ev) {
+            if (this.status == 200 && this.readyState == 4) {
+                var response = JSON.parse(this.responseText);
+
+                var cover = document.getElementById("small_cover_image");
+                cover.src = response[0]['user_cover'];
+                var image = document.getElementById("small_image");
+                image.src = response[0]['user_pic'];
+                var name = document.getElementById("small_h1");
+                name.innerText = response[0]['user_name'];
+                var small_name = document.getElementById("small_h4");
+                small_name.innerText = "@" + response[0]['user_name'];
+                var asd = document.getElementById("opisanie");
+                asd.innerHTML = response[0]['user_description'];
+            }
+        };
+        request.send();
+
+        var request2 = new XMLHttpRequest();
+        request2.open("GET", "../commandPattern.php?name=" + link_name + "&target=user&action=showSmallDiv");
+        request2.onreadystatechange = function (ev) {
+            if (this.status == 200 && this.readyState == 4) {
+                var response = JSON.parse(this.responseText);
+
+                var first = document.getElementById("one");
+                var second = document.getElementById("two");
+                var third = document.getElementById("three");
+
+                first.innerHTML = response[0][0]['num'];
+                second.innerHTML = response[1][0]['num'];
+                third.innerHTML = response[2][0]['num'];
+            }
+        };
+        request2.send();
+        /*Определя се позицията на която да се покаже прозореца с допълнителната информация*/
+        var posx = 0;
+        var posy = 0;
+        if (!e) var e = window.event;
+        if (e.pageX || e.pageY) {
+            posx = e.pageX;
+            posy = e.pageY;
+        }
+        else if (e.clientX || e.clientY) {
+            posx = e.clientX;
+            posy = e.clientY;
+        }
+        var position = document.getElementById("position_div");
+        position.style.visibility = "visible";
+        position.style.left = posx + "px";
+        position.style.top = posy + "px";
+        position.style.display = "block";
+        position.style.opacity = "1";
+        position.style.transition = "opacity 1.25s linear";
+    }
+
+    function hide() {
+        var position = document.getElementById("position_div");
+        position.style.visibility="hidden";
+    }
+
+
 </script>
 </html>

@@ -7,11 +7,14 @@
  */
 
 namespace controller;
+
 use \model\UserDao;
 use \model\User;
-class UserController extends Exception
+
+class UserController extends BaseController
 {
-    public function login(){
+    public function login()
+    {
         function __autoload($class)
         {
             $class = "..\\" . $class;
@@ -52,7 +55,8 @@ class UserController extends Exception
 
     }
 
-    public function registration(){
+    public function registration()
+    {
         function __autoload($class)
         {
             $class = "..\\" . $class;
@@ -69,19 +73,19 @@ class UserController extends Exception
             if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
                 $error = true;
             }
-            if($email == "" || $email == null){
+            if ($email == "" || $email == null) {
                 $error = true;
             }
-            if($password == "" || $password == null){
+            if ($password == "" || $password == null) {
                 $error = true;
             }
-            if($rpassword == "" || $rpassword == null){
+            if ($rpassword == "" || $rpassword == null) {
                 $error = true;
             }
             if ($password !== $rpassword) {
                 $error == true;
             }
-            if($username == "" || $username == null){
+            if ($username == "" || $username == null) {
                 $error = true;
             }
             if (strlen($username) < 3 && strlen($username) > 20) {
@@ -120,7 +124,8 @@ class UserController extends Exception
         }
     } //Регистрация
 
-    public function userById(){
+    public function userById()
+    {
         function __autoload($class)
         {
             $class = "..\\" . $class;
@@ -141,15 +146,16 @@ class UserController extends Exception
 
     }
 
-    public function showSmallDiv(){
+    public function showSmallDiv()
+    {
         function __autoload($class)
         {
             $class = "..\\" . $class;
             require_once str_replace("\\", "/", $class) . ".php";
         }
 
-        try{
-            if($_SERVER['REQUEST_METHOD'] == 'GET'){
+        try {
+            if ($_SERVER['REQUEST_METHOD'] == 'GET') {
                 $name = $_GET['name'];
 
                 $user = new User(null, null, $name);
@@ -163,12 +169,13 @@ class UserController extends Exception
                 $digits[] = $result;
                 echo json_encode($digits);
             }
-        }catch (\PDOException $e){
+        } catch (\PDOException $e) {
             $this->exception($e);
         }
     } // Показва допълнителна информация за посочения юзър от долната функция.
 
-    public function showRandomUsers(){
+    public function showRandomUsers()
+    {
         function __autoload($class)
         {
             $class = "..\\" . $class;
@@ -185,37 +192,64 @@ class UserController extends Exception
         }
     } //Показва 3 рандом юзъри. !!!!!!!!!!! --> СМЕНИ ЗАЯВКАТА ДА СЕ ПОКАЗВАТ САМО ТАКИВА КОИТО НЕ СИ ПОСЛЕДВАЛ !!!!!!
 
-    public function showProfile(){
+    public function showProfile()
+    {
         function __autoload($class)
         {
             $class = "..\\" . $class;
             require_once str_replace("\\", "/", $class) . ".php";
         }
 
-        try{
+        try {
             if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                 $name = htmlentities($_GET['name']);
-                if($name == $_SESSION['user']['name']){
+                if ($name == $_SESSION['user']['name']) {
                     $response = "my";
                     echo json_encode($response);
-                }else{
-                    $user = new User(null,null,$name);
+                } else {
+                    $user = new User(null, null, $name);
                     $dao = new UserDao();
                     $info = $dao->getUserInfoByName($user);
-                    if($info == null){
+                    if ($info == null) {
                         $response = "my";
                         echo json_encode($response);
-                    }else{
+                    } else {
                         echo json_encode($info);
                     }
                 }
             }
-        } catch (\PDOException $e){
+        } catch (\PDOException $e) {
             $this->exception($e);
         }
     } //Извлича нужната информация за попълване на профил.
 
-    public function showOtherUserFollowings(){
+    public function getInfoForTweets()
+    {
+        function __autoload($class)
+        {
+            $class = "..\\" . $class;
+            require_once str_replace("\\", "/", $class) . ".php";
+        }
+
+        try {
+            if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+                $name = htmlentities($_GET['name']);
+
+                $user = new User(null, null, $name);
+                $dao = new UserDao();
+                $info = $dao->getUserInfoByName($user);
+
+                echo json_encode($info);
+
+
+            }
+        } catch (\PDOException $e) {
+            $this->exception($e);
+        }
+    }
+
+    public function showOtherUserFollowings()
+    {
         function __autoload($class)
         {
             $class = "..\\" . $class;
@@ -235,7 +269,8 @@ class UserController extends Exception
         }
     }//Показва хората които следват другите юзъри.
 
-    public function showMyProfile(){
+    public function showMyProfile()
+    {
 
         function __autoload($class)
         {
@@ -262,43 +297,46 @@ class UserController extends Exception
         }
     } //Показва моя профил.
 
-    public function showMyFollowers(){
+    public function showMyFollowers()
+    {
         function __autoload($class)
         {
             $class = "..\\" . $class;
             require_once str_replace("\\", "/", $class) . ".php";
         }
 
-        try{
+        try {
             $id = $_SESSION['user']['id'];
-            $user = new User(null,null,null,null,null,null,null,$id);
+            $user = new User(null, null, null, null, null, null, null, $id);
             $dao = new UserDao();
             $result = $dao->findFollowers($user);
             echo json_encode($result);
 
-        }catch (\PDOException $e){
+        } catch (\PDOException $e) {
             $this->exception($e);
         }
     } //Показва моите последователи.
 
-    public function showFollowings(){
+    public function showFollowings()
+    {
         function __autoload($class)
         {
             $class = "..\\" . $class;
             require_once str_replace("\\", "/", $class) . ".php";
         }
 
-        try{
+        try {
             $dao = new UserDao();
             $id = $_SESSION['user']['id'];
             $result = $dao->findFollowing($id);
             echo json_encode($result);
-        }catch (\PDOException $e){
+        } catch (\PDOException $e) {
             $this->exception($e);
         }
     } //Изкарва информация за всички които следва.
 
-    public function showFollowers(){
+    public function showFollowers()
+    {
         function __autoload($class)
         {
             $class = "..\\" . $class;
@@ -310,7 +348,7 @@ class UserController extends Exception
                 $name = $_GET['name'];
                 $dao = new UserDao();
                 $id = $dao->findId($name);
-                $user = new User(null,null,null,null,null,null,null,$id['user_id']);
+                $user = new User(null, null, null, null, null, null, null, $id['user_id']);
                 $result = $dao->findFollowers($user);
 
                 echo json_encode($result);
@@ -320,7 +358,8 @@ class UserController extends Exception
         }
     } //Изкарва информация за всички последователи.
 
-    public function searchUserAndTags(){
+    public function searchUserAndTags()
+    {
 
         function __autoload($class)
         {
@@ -343,7 +382,7 @@ class UserController extends Exception
                     foreach ($users[0] as $twat) {
                         $words = explode(" ", $twat['twat_content']);
                         foreach ($words as $word) {
-                            if (strstr($word, '#') && strstr($word,$name)) {
+                            if (strstr($word, '#') && strstr($word, $name)) {
                                 $hashtags[] = $word;
                             }
                         }
@@ -359,7 +398,8 @@ class UserController extends Exception
         }
     } //Търси юзъри и тагове.
 
-    public function profile(){
+    public function profile()
+    {
 
         function __autoload($class)
         {
@@ -379,7 +419,8 @@ class UserController extends Exception
         }
     } //Взима информация за юзъра по имейл.
 
-    public function followUser(){
+    public function followUser()
+    {
 
         function __autoload($class)
         {
@@ -401,7 +442,8 @@ class UserController extends Exception
         }
     } //Последвай юзър.
 
-    public function isFollow(){
+    public function isFollow()
+    {
         function __autoload($class)
         {
             $class = "..\\" . $class;
@@ -414,7 +456,7 @@ class UserController extends Exception
                 $name = htmlentities($_GET['name']);
                 $dao = new UserDao();
                 $id = $dao->findId($name);
-                $result = $dao->isFollow($my,$id['user_id']);
+                $result = $dao->isFollow($my, $id['user_id']);
                 echo json_encode($result);
             }
         } catch (\PDOException $e) {
@@ -422,7 +464,8 @@ class UserController extends Exception
         }
     } //Проверява дали посетения юзър е вече последван или не (за бутона).
 
-    public function getFFT(){
+    public function getFFT()
+    {
         function __autoload($class)
         {
             $class = "..\\" . $class;
@@ -445,7 +488,8 @@ class UserController extends Exception
         }
     } // Взима последователите,следващите и туитовете на юзъра по име.
 
-    public function editProfile(){
+    public function editProfile()
+    {
 
         function __autoload($class)
         {
@@ -470,7 +514,7 @@ class UserController extends Exception
                 $pdo = new UserDao();
                 $result = $pdo->checkUserExist($user);
 
-                if($result){
+                if ($result) {
                     if (is_uploaded_file($tmp_image)) {
                         $url_image = "./view/assets/images/uploads/image_$email.png";
                         if (move_uploaded_file($tmp_image, $url_image)) {
@@ -489,11 +533,9 @@ class UserController extends Exception
                     $pdo = new UserDao();
                     $pdo->updateUser($user);
                     header("location: ./view/profile.php");
-                }else{
+                } else {
                     header("location: ./view/profile_error.php");
                 }
-
-
 
 
             } catch (\PDOException $e) {
@@ -504,7 +546,8 @@ class UserController extends Exception
 
     } //Редактиране на профил.
 
-    public function unfollowUser(){
+    public function unfollowUser()
+    {
 
         function __autoload($class)
         {
@@ -512,22 +555,23 @@ class UserController extends Exception
             require_once str_replace("\\", "/", $class) . ".php";
         }
 
-        try{
+        try {
             if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                 $me = $_SESSION['user']['id'];
                 $name = $_GET['name'];
                 $dao = new UserDao();
                 $you = $dao->findId($name);
-                $dislike = $dao->dislikeIt($me,$you['user_id']);
+                $dislike = $dao->dislikeIt($me, $you['user_id']);
                 echo json_encode($dislike);
             }
-        }catch (\PDOException $e){
+        } catch (\PDOException $e) {
             $this->exception($e);
         }
     } //Отхаресване на юзър.
 
-    public function logout(){
-        if (isset($_SESSION['user'])){
+    public function logout()
+    {
+        if (isset($_SESSION['user'])) {
             session_destroy();
             header('location: index.php');
         }

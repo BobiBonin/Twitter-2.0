@@ -13,7 +13,7 @@ use model\User;
 use \model\UserDao;
 use \model\Message;
 
-class MessageController extends Exception
+class MessageController extends BaseController
 {
     public function addMessage()
     {

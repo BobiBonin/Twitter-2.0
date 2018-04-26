@@ -9,7 +9,7 @@
 namespace controller;
 
 
-abstract class Exception
+abstract class BaseController
 {
     protected function exception($e){
         $today = date("F j, Y, g:i a");

@@ -5,10 +5,6 @@ spl_autoload_register(function ($class) {
     require_once __DIR__ . DIRECTORY_SEPARATOR . $class;
 });
 
-define("DB_HOST", '94.26.37.108');
-define("DB_NAME", 'mydb');
-define("DB_USER", 'gamigata');
-define("DB_PASS", 'kaish');
 
 ini_set('mbstring.internal_encoding','UTF-8');
 header('Content-Type: text/html; charset=UTF-8');

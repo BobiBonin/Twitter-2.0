@@ -221,7 +221,7 @@ include_once "header.html";
                 var response = JSON.parse(this.responseText);
 
                 if (response == "my") {
-                    window.location.assign("http://localhost/NEW/Twitter-2.0/view/profile.php");
+                    window.location.assign("profile.php");
                 } else {
                     var img = document.getElementById("circle_img");
                     var small_img = document.getElementById("nav_img");
@@ -477,7 +477,7 @@ include_once "header.html";
                         date.innerText = response[key]['twat_date'];
                         var p = document.createElement("p");
                         p.classList.add("content");
-                        p.innerText = response[key]['twat_content'];
+                        p.innerHTML = response[key]['twat_content'];
                         var a = document.createElement("a");
                         a.innerText = "коментари";
                         a.classList.add("comments");
@@ -994,6 +994,7 @@ include_once "header.html";
         request.onreadystatechange = function (ev) {
             if (this.readyState == 4 && this.status == 200) {
                 var response = JSON.parse(this.responseText);
+                console.log(response);
                 var center_div = document.getElementById("center_tweet");
                 center_div.innerHTML = "";
                 for (var key in response) {

@@ -10,10 +10,7 @@
 </head>
 <body>
 <div id="home_mid_div">
-    <?php
-    include "compose_twat.html";
-    include_once "displayTweets.html";
-    ?>
+
 </div>
 </body>
 </html>
