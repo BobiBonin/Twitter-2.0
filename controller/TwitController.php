@@ -12,7 +12,7 @@ use \model\TweetDao;
 use \model\UserDao;
 use \model\Tweet;
 
-class TwitController
+class TwitController extends Exception
 {
     public function tweets()
     {
@@ -159,16 +159,30 @@ class TwitController
                 }
             }
             $tDao->getMyFollowersTweets($string);
+
         } catch (\PDOException $e) {
             $this->exception($e);
         }
     } //Показва туитовете.
 
-    function exception($e){
-        $today = date("F j, Y, g:i a");
-        $file = file_get_contents("view/errors.txt");
-        $file .= "\n On $today Error Message : ".$e->getMessage();
-        file_put_contents("view/errors.txt",$file);
-        echo json_encode("exception");
+    public function displayTags(){
+        function __autoload($class)
+        {
+            $class = "..\\" . $class;
+            require_once str_replace("\\", "/", $class) . ".php";
+        }
+
+        try{
+            if($_SERVER['REQUEST_METHOD'] == 'GET'){
+                $tag = htmlentities($_GET['tag']);
+                $dao = new TweetDao();
+                $tweetsWithTag = $dao->getHashtags($tag);
+                echo json_encode($tweetsWithTag);
+            }
+
+
+        }catch (\PDOException $e){
+            $this->exception($e);
+        }
     }
 }

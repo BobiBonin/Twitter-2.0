@@ -12,3 +12,7 @@
  On April 24, 2018, 7:25 pm Error Message : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '38-86' for key 'PRIMARY'
  On April 24, 2018, 7:36 pm Error Message : SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'receiver_id' cannot be null
 
+
+ On April 26, 2018, 11:46 am Error Message : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '35-14' for key 'PRIMARY'
+ On April 26, 2018, 11:46 am Error Message : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '35-10' for key 'PRIMARY'
+ On April 26, 2018, 11:46 am Error Message : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '35-10' for key 'PRIMARY'

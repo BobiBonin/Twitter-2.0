@@ -349,7 +349,7 @@ class UserController extends Exception
                         }
                     }
                     unset($users[0]);
-                    $users[0] = $hashtags;
+                    $users[0] = array_unique($hashtags);
                     echo json_encode($users);
                 }
             } catch (\PDOException $e) {
@@ -490,7 +490,7 @@ class UserController extends Exception
                     $pdo->updateUser($user);
                     header("location: ./view/profile.php");
                 }else{
-                    echo "wrong";
+                    header("location: ./view/profile_error.php");
                 }
 
 

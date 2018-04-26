@@ -67,4 +67,13 @@ class TweetDao
         $statement = $this->pdo->prepare("INSERT INTO likes (user_id, twat_id) VALUES (?,?)");
         $statement->execute(array($user_id,$twat_id));
     }
+
+    public function getHashtags($hashtag){
+        $statement = $this->pdo->prepare("SELECT u.user_name, u.user_pic, t.twat_date, t.twat_content, t.twat_id FROM twats AS t JOIN users AS u ON u.user_id = t.user_id WHERE t.twat_content LIKE ? ");
+        $statement->execute(array("%#".$hashtag."%"));
+        $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
+        return $result;
+    }
+
+
 }

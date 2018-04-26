@@ -14,22 +14,9 @@
         <h1 id="drct_msgs">Direct Messages</h1>
         <i class="fa fa-times fa-5x" aria-hidden="true" id="msgsX"
            style="color: black; font-size: 25px; margin-top:10px; margin-right: 10px; float: right"></i>
-        <div id="newMsg" onclick="newMsg()">New Message</div>
+        <div id="newMsg">New Message</div>
         <div style="clear: both"></div>
         <div id="msgWrap"></div>
-        <div id="newMsgDiv">
-
-            <form method="post" action="../commandPattern.php?target=message&action=addMessage"
-                  enctype="multipart/form-data">
-                <input type="text" id="msgUserSearch" placeholder="Choose who to send a message to!" name="receiverName"
-                       required>
-                <textarea id="msgInput" name="text" oninput="characters(this)"></textarea>
-                Send Picture <input type="file" name="message_img">
-
-                <input type="submit" value="Send" id="sendMsgButton">
-                <b style="float: right; margin-right: 10px; margin-top: 5px;"><i id="counter">0</i>/300</b>
-            </form>
-        </div>
     </div>
 </div>
 <div id="edit_outer_wrapper">
@@ -1137,11 +1124,6 @@ include_once "header.html";
         msgsX.addEventListener('click', function () {
             messages.style.visibility = "hidden";
             body.style.overflow = "scroll";
-            var msgWrap = document.getElementById('msgWrap');
-            msgWrap.style.display = 'block';
-            var newMsgDiv = document.getElementById('newMsgDiv');
-            newMsgDiv.style.display = 'none';
-
         });
 //        TODO ADD THE MESSAGES
 
@@ -1151,6 +1133,7 @@ include_once "header.html";
         request.onreadystatechange = function (ev) {
             if (this.status == 200 && this.readyState == 4) {
                 var response = JSON.parse(this.responseText);
+                console.log(response);
                 var wrap = document.getElementById('msgWrap');
                 wrap.innerHTML = '';
 
@@ -1160,12 +1143,9 @@ include_once "header.html";
                     var sender = response[response.length - 1][response[i]['message_id']]["sender"][0]["user_name"];
                     var receiver = response[response.length - 1][response[i]['message_id']]["receiver"][0]["user_name"]
                     msg.innerHTML = '<h3>From <a href="" style="color: #006dbf">' + sender + '</a> to <a href="" style="color: #006dbf">' + receiver + '</a> on ' + response[i]['message_date'] + ' </h3>';
-                    msg.innerHTML += response[i]['message_text'];
-                    if (response[i]['message_img'] != null) {
-                        msg.innerHTML += '<br>';
-                        msg.innerHTML += '<img style="height: 300px; width: auto;" src="' + response[i]['message_img'] + '">';
-                    }
 
+                    msg.innerHTML += response[i]['message_text'];
+                    console.log(response[i]['message_text']);
                     wrap.appendChild(msg);
                 }
 
@@ -1178,44 +1158,9 @@ include_once "header.html";
 //        TODO SEND MESSAGES
     }
 
-    function newMsg() {
-        var msgWrap = document.getElementById('msgWrap');
-        msgWrap.style.display = 'none';
-        var newMsgDiv = document.getElementById('newMsgDiv');
-        newMsgDiv.style.display = 'block';
-
-    }
-
-    function characters(el) {
-        counter = document.getElementById('counter');
-        send = document.getElementById('sendMsgButton');
-        counter.style.color = 'black';
-        send.disabled = false;
-        send.style.backgroundColor = '#1da1f2';
-        send.style.cursor = "pointer";
-        send.onmouseover = function () {
-            send.style.backgroundColor = "#006dbf";
-        };
-        counter.innerHTML = el.value.length;
-        if (el.value.length <= 100) {
-            counter.style.color = '#00ff00';
-        }
-        if (el.value.length <= 200 && el.value.length > 100) {
-            counter.style.color = '#ff9933';
-        }
-        if (el.value.length <= 300 && el.value.length > 200) {
-            counter.style.color = '#ff6600';
-        }
-        if (el.value.length > 300) {
-            send.disabled = true;
-            send.style.backgroundColor = "gray";
-            send.style.cursor = "not-allowed";
-            counter.style.color = '#ff0000';
-
-        }
-
-    }
-
+    setTimeout(function(){ alert("Грешна парола!"); }, 1200);
 </script>
 </body>
 </html>
+
+

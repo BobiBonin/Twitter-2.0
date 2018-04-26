@@ -915,17 +915,19 @@ ul {
     background-color: #006dbf;
 }
 
-#edit_outer_wrapper{
+#edit_outer_wrapper {
+    font-family: "Segoe UI";
     padding-top: 100px;
     width: 100%;
     height: 100vh;
-    background-color: rgba(0,0,0,0.7);
+    background-color: rgba(0, 0, 0, 0.7);
     position: absolute;
     z-index: 100;
     box-sizing: border-box;
     visibility: hidden;
 }
-#edit_inner_wrapper{
+
+#edit_inner_wrapper {
     font-family: "Segoe UI";
     padding: 10px;
     height: 560px;
@@ -935,4 +937,11 @@ ul {
     margin-left: 30%;
     position: absolute;
     z-index: 200;
+}
+
+#edit_profile1{
+    font-family: "Segoe UI";
+    margin-left: 16%;
+    display: inline;
+    width: 200px;
 }
