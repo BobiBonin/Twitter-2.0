@@ -24,12 +24,44 @@ class TwitController extends BaseController
         }
 
         try {
+            $dao = new TweetDao();
             $user = $_SESSION['user']['id'];
             $text = htmlentities($_POST['text']);
+            $newId = $dao->getNewId();
 
-            $tweet = new Tweet(null, $user, null, $text);
-            $dao = new TweetDao();
+            $tweet_id = $newId['0']["twat_id"] + 1;
+            if ($_FILES['twat_img']['size'] == 0 && $_FILES['twat_img']['error'] == 0) {
+                // cover_image is empty (and not an error)
+            } else {
+                if (isset($_FILES['twat_img']['tmp_name'])) {
+
+                    $url_image = "assets/images/uploads/image_tweet$tweet_id.png";
+                    $tmp_image = $_FILES['twat_img']['tmp_name'];
+                    $a = getimagesize($tmp_image);
+                    $image_type = $a[2];
+
+                    if (in_array($image_type, array(IMAGETYPE_GIF, IMAGETYPE_JPEG, IMAGETYPE_PNG, IMAGETYPE_BMP))) {
+                        if (is_uploaded_file($tmp_image)) {
+                            $url_image = "./view/assets/images/uploads/image_tweet$tweet_id.png";
+                            if (move_uploaded_file($tmp_image, $url_image)) {
+                                $url_image = "assets/images/uploads/image_tweet$tweet_id.png";
+                            }
+                        } else {
+                            $url_image = null;
+                        }
+                    } else {
+                        $url_image = null;
+                    }
+                } else {
+                    $url_image = null;
+                }
+            }
+
+
+            $tweet = new Tweet(null, $user, null, $text, $url_image);
+
             $dao->addTweet($tweet);
+            header("location:./view/home.php");
         } catch (\PDOException $e) {
             $this->exception($e);
         }
@@ -80,7 +112,7 @@ class TwitController extends BaseController
                     if (substr($array[$i], 0, 1) == "@") {
                         $name = substr($array[$i], 1);
                         $exist = $uDao->findId($name);
-                        if($exist !== false){
+                        if ($exist !== false) {
                             $array[$i] = "<a href='profile.php?$name'>$array[$i]</a>";
                         }
                     }
@@ -117,7 +149,7 @@ class TwitController extends BaseController
                     if (substr($array[$i], 0, 1) == "@") {
                         $name = substr($array[$i], 1);
                         $exist = $pdo->findId($name);
-                        if($exist !== false){
+                        if ($exist !== false) {
                             $array[$i] = "<a href='profile.php?$name'>$array[$i]</a>";
                         }
                     }
@@ -188,7 +220,7 @@ class TwitController extends BaseController
                     if (substr($array[$i], 0, 1) == "@") {
                         $name = substr($array[$i], 1);
                         $exist = $uDao->findId($name);
-                        if($exist !== false){
+                        if ($exist !== false) {
                             $array[$i] = "<a href='profile.php?$name' onmouseover='info(this)' onmouseout='hide()' style='font-weight: bold; color: #1da1f2'>$array[$i]</a>";
                         }
                     }
@@ -203,15 +235,16 @@ class TwitController extends BaseController
         }
     } //Показва туитовете.
 
-    public function displayTags(){
+    public function displayTags()
+    {
         function __autoload($class)
         {
             $class = "..\\" . $class;
             require_once str_replace("\\", "/", $class) . ".php";
         }
 
-        try{
-            if($_SERVER['REQUEST_METHOD'] == 'GET'){
+        try {
+            if ($_SERVER['REQUEST_METHOD'] == 'GET') {
                 $tag = htmlentities($_GET['tag']);
                 $dao = new TweetDao();
                 $tweetsWithTag = $dao->getHashtags($tag);
@@ -219,7 +252,7 @@ class TwitController extends BaseController
             }
 
 
-        }catch (\PDOException $e){
+        } catch (\PDOException $e) {
             $this->exception($e);
         }
     }

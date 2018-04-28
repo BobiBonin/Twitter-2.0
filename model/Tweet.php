@@ -21,6 +21,7 @@ class Tweet implements \JsonSerializable
     private $userId;
     private $date;
     private $content;
+    private $image;
 
     /**
      * Tweet constructor.
@@ -29,12 +30,29 @@ class Tweet implements \JsonSerializable
      * @param $date
      * @param $content
      */
-    public function __construct($tweetId = null, $userId, $date = null, $content)
+    public function __construct($tweetId = null, $userId, $date = null, $content,$image=null)
     {
         $this->tweetId = $tweetId;
         $this->userId = $userId;
         $this->date = $date;
         $this->content = $content;
+        $this->image = $image;
+    }
+
+    /**
+     * @return null
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    /**
+     * @param null $image
+     */
+    public function setImage($image)
+    {
+        $this->image = $image;
     }
 
     /**

@@ -37,7 +37,5 @@ class MessageDao extends BaseDao
         $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
         return $result;
     }
-
-
 }
 

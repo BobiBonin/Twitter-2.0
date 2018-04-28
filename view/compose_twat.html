@@ -5,11 +5,27 @@
     <link href="assets/style/home_style.css" type="text/css" rel="stylesheet">
 </head>
 <body>
+
+
+
+
 <div id="twat_box">
     <img id="twat_box_icon" src="">
-    <textarea id="compose_twat_text" placeholder="What's happening?"
-              onfocus="showButton()" onfocusout="setTimeout(hideButton,1000)"></textarea>
-    <button id="twat_button" onclick="add_tweet()">Tweet</button>
+    <form method="post" enctype="multipart/form-data" action="../commandPattern.php?target=twit&action=tweets">
+        <textarea name="text" id="twat_input" placeholder="What's happening?"></textarea>
+        <br>
+        <input type="file" name="twat_img" id="twat_img" value="Image">
+        <label for="twat_img">Picture</label>
+        <input id="input_submit" type="submit" value="Tweet">
+
+    </form>
+
+
+
+
+    <!--<textarea id="compose_twat_text" placeholder="What's happening?"-->
+              <!--onfocus="showButton()" onfocusout="setTimeout(hideButton,1000)"></textarea>-->
+    <!--<button id="twat_button" onclick="add_tweet()">Tweet</button>-->
 </div>
 <script>
     var request = new XMLHttpRequest();

@@ -102,7 +102,7 @@
     height: auto;
     width: 100%;
     background-color: #cce6ff;
-    padding-bottom: 40px;
+    padding-bottom: 5px;
 
 }
 
@@ -164,10 +164,12 @@
 .ownTweets {
     background-color: white;
     width: 100%;
-    height: 100px;
+    min-height: 100px;
+    height: auto;
     border: 1px solid lightgray;
     box-sizing: border-box;
     padding-left: 70px;
+    overflow: hidden;
 }
 
 /*-----------------Random Users CSS 29.03.2018-----------------*/
@@ -354,7 +356,7 @@ a {
 
 .home_tweet_comments {
     width: 100%;
-    max-height: 0;
+    height: 0;
     transition: height 1s ease-out;
     overflow: hidden;
     font-size: 14px;
@@ -362,7 +364,8 @@ a {
 }
 
 .ownTweets:hover + .home_tweet_comments {
-    max-height: 1000px;
+    max-height: none;
+    height: auto;
     border-left: 4px solid cornflowerblue;
 }
 .ownTweets:hover {
@@ -371,7 +374,8 @@ a {
 }
 
 .home_tweet_comments:hover {
-    max-height: 1000px;
+    max-height: none;
+    height: auto;
     border-left: 4px solid cornflowerblue;
 }
 
@@ -432,4 +436,75 @@ a {
     float: right;
     margin-top: -80px;
     margin-right: 10px;
+}
+#twat_input{
+    width: 500px;
+    min-height: 80px;
+    margin-left: 70px;
+    resize: none;
+    font-family: Lato;
+    padding: 5px;
+    box-sizing: border-box;
+    border-radius: 7px;
+    border: 0;
+    vertical-align: top;
+}
+#input_submit{
+    float: right;
+    height: 30px;
+    width: 100px;
+    border-radius: 15px;
+    background-color: #1da1f2;
+    box-sizing: border-box;
+    font-size: 14px;
+    font-weight: bold;
+    padding-top: 4px;
+    padding-left: 10px;
+    margin-right: 10px;
+    color: white;
+    font-family: "Segoe UI";
+    outline: none;
+    border: 0;
+    margin-top:5px;
+    margin-right: 20px;
+}
+#input_submit:hover{
+    background-color: #006dbf;
+    cursor: pointer;
+}
+#twat_img{
+    float: left;
+    margin-left: 80px;
+    margin-top:5px;
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+}
+#twat_img + label {
+    height: 30px;
+    width: 70px;
+    border-radius: 15px;
+    background-color: #1da1f2;
+    box-sizing: border-box;
+    font-size: 14px;
+    font-weight: bold;
+    padding-top: 4px;
+    margin-right: 10px;
+    color: white;
+    font-family: "Segoe UI";
+    outline: none;
+    border: 0;
+    padding: 5px;
+    margin-top: 5px;
+    margin-left: 80px;
+    display:inline-block;
+    padding-left: 10px;
+}
+#twat_img:focus + label,
+#twat_img + label:hover {
+    background-color: red;
+    cursor: pointer;
 }

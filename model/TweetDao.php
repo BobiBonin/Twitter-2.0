@@ -30,14 +30,14 @@ class TweetDao extends BaseDao
 
     public function addTweet(Tweet $tweet)
     {
-        $statement = $this->pdo->prepare("INSERT INTO twats (user_id,twat_content)  VALUES (?,?)");
-        $statement->execute(array($tweet->getUserId(), $tweet->getContent()));
+        $statement = $this->pdo->prepare("INSERT INTO twats (user_id,twat_content,twat_img)  VALUES (?,?,?)");
+        $statement->execute(array($tweet->getUserId(), $tweet->getContent(),$tweet->getImage()));
     }
 
     public function getMyFollowersTweets($str)
     {
         $statement = $this->pdo->query("
-                                  SELECT users.user_name,users.user_pic ,twats.twat_content, twats.twat_date, twats.user_id, twats.twat_id 
+                                  SELECT users.user_name,users.user_pic ,twats.twat_content, twats.twat_date, twats.user_id, twats.twat_id,twats.twat_img
                                   FROM users,twats 
                                   WHERE ($str) 
                                   AND twats.user_id = users.user_id 
@@ -58,5 +58,10 @@ class TweetDao extends BaseDao
         return $result;
     }
 
-
+    public function getNewId(){
+        $statement = $this->pdo->prepare("SELECT twat_id FROM mydb.twats ORDER BY twat_id DESC LIMIT 1;");
+        $statement->execute(array());
+        $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
+        return $result;
+    }
 }
