@@ -35,3 +35,4 @@
  On April 28, 2018, 4:44 pm Error Message : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '53-10' for key 'PRIMARY'
  On April 28, 2018, 4:44 pm Error Message : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '53-35' for key 'PRIMARY'
  On April 28, 2018, 4:44 pm Error Message : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '53-22' for key 'PRIMARY'
+ On April 28, 2018, 9:34 pm Error Message : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '1-35' for key 'PRIMARY'

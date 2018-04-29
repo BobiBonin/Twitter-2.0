@@ -485,11 +485,10 @@ a {
 }
 #twat_img + label {
     height: 30px;
-    width: 70px;
+    width: 45px;
     border-radius: 15px;
     background-color: #1da1f2;
     box-sizing: border-box;
-    font-size: 14px;
     font-weight: bold;
     padding-top: 4px;
     margin-right: 10px;
@@ -505,6 +504,6 @@ a {
 }
 #twat_img:focus + label,
 #twat_img + label:hover {
-    background-color: red;
+    background-color: #006dbf;
     cursor: pointer;
 }

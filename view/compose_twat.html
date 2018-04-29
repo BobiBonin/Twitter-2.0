@@ -7,25 +7,17 @@
 <body>
 
 
-
-
 <div id="twat_box">
     <img id="twat_box_icon" src="">
     <form method="post" enctype="multipart/form-data" action="../commandPattern.php?target=twit&action=tweets">
         <textarea name="text" id="twat_input" placeholder="What's happening?"></textarea>
         <br>
-        <input type="file" name="twat_img" id="twat_img" value="Image">
-        <label for="twat_img">Picture</label>
         <input id="input_submit" type="submit" value="Tweet">
+        <input type="file" name="twat_img" id="twat_img" value="Image" onchange="return ValidateFileUpload()">
+        <label for="twat_img"><i class="fa fa-picture-o" aria-hidden="true" style="font-size: 22px"></i></label>
+
 
     </form>
-
-
-
-
-    <!--<textarea id="compose_twat_text" placeholder="What's happening?"-->
-              <!--onfocus="showButton()" onfocusout="setTimeout(hideButton,1000)"></textarea>-->
-    <!--<button id="twat_button" onclick="add_tweet()">Tweet</button>-->
 </div>
 <script>
     var request = new XMLHttpRequest();
@@ -41,49 +33,45 @@
     };
     request.send();
 
-    function showButton() {
-        var twat_div = document.getElementById("twat_box");
-        twat_div.style.paddingBottom = "40px";
-        document.getElementById("twat_button").style.visibility = "visible";
-    }
+    function ValidateFileUpload() {
+        var fuData = document.getElementById('twat_img');
+        var FileUploadPath = fuData.value;
 
-    function hideButton() {
-        var twat_div = document.getElementById("twat_box");
-        twat_div.style.paddingBottom = "40px";
-//        document.getElementById("twat_button").style.visibility = "hidden";
-    }
+//To check if user upload any file
+        if (FileUploadPath == '') {
+            alert("Please upload an image");
 
-    //    function add_tweet() {
-    //
-    //        var text = document.getElementById("compose_twat_text").value;
-    //        if(text.length>0){
-    //            var request = new XMLHttpRequest();
-    //            request.open("GET", "../commandPattern.php?text=" + text +"&target=twit&action=tweets");
-    //            request.onreadystatechange = function (ev) {
-    //                if (this.status == 200 && this.readyState == 4) {
-    //
-    //                }
-    //            };
-    //            request.send();
-    //            location.reload();
-    //        }
-    //    }
-    function add_tweet(){
-        var request = new XMLHttpRequest();
-        request.open("post", "../commandPattern.php?target=twit&action=tweets");
-        request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        request.onreadystatechange = function (ev) {
-            if (this.readyState == 4 && this.status == 200) {
-                var response = JSON.parse(this.responseText);
-                if (response == "1") {
+        } else {
+            var Extension = FileUploadPath.substring(
+                FileUploadPath.lastIndexOf('.') + 1).toLowerCase();
 
+//The file uploaded is an image
+
+            if (Extension == "gif" || Extension == "png" || Extension == "bmp"
+                || Extension == "jpeg" || Extension == "jpg") {
+                console.log('brao');
+
+// To Display
+                if (fuData.files && fuData.files[0]) {
+                    var reader = new FileReader();
+
+                    reader.onload = function (e) {
+                        $('#blah').attr('src', e.target.result);
+                    };
+
+                    reader.readAsDataURL(fuData.files[0]);
                 }
-            }
-        };
-        request.send("text=" + document.getElementById("compose_twat_text").value);
-        location.reload();
-    }
 
+            }
+
+//The file upload is NOT an image
+            else {
+                console.log('error');
+                alert("Pictures only allows file types of GIF, PNG, JPG, JPEG and BMP. ");
+
+            }
+        }
+    }
 </script>
 </body>
 </html>

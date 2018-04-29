@@ -335,6 +335,12 @@ include "header.html";
         }
 
     }
+    function hide() {
+        var div2 = document.getElementById("ul");
+        div2.innerHTML = "";
+        div2.style.visibility = "hidden";
+    }
+
 </script>
 </html>
 

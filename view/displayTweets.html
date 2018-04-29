@@ -13,7 +13,6 @@
         if (this.status == 200 && this.readyState == 4) {
             var resp = this.responseText;
             resp = JSON.parse(resp);
-            console.log(resp);
             var div = document.getElementById("home_mid_div");
             for (var i = 0; i < resp.length; i++) {
                 var tweet = document.createElement("div");
@@ -25,11 +24,11 @@
                 tweet.innerHTML = "<a href=" + "profile.php?" + link_name + "><img class='home_tweet_image' src=" + resp[i]["user_pic"] + "></a>";
                 tweet.innerHTML += "<h1 class='tweet_name'><a onmouseover='info(this)' onmouseout='hide()' href=profile.php?" + link_name + ">" + resp[i]["user_name"] + "</a></h1>";
                 tweet.innerHTML += "<h4 class='tweet_date'>" + resp[i]["twat_date"] + "</h4>";
-                tweet.innerHTML += "<p class='content' style='border: 0'>" + resp[i]["twat_content"] + "</p>";
+                tweet.innerHTML += "<p class='content' style='border: 0'>" + resp[i]["twat_content"]+"<br>" + "</p>";
                 tweet.innerHTML += "<i id='heart" + resp[i]['twat_id'] + "' value=" + resp[i]['twat_id'] + " onclick=\"likeTweet(" + resp[i]['twat_id'] + ",this.id)\" class=\"fa fa-heart hrt\"></i>";
                 if (resp[i]['twat_img'] != null) {
                     tweet.innerHTML += '<br>';
-                    tweet.innerHTML += '<img style="height: 280px; width: auto; margin-right: 20px;" src="' + resp[i]['twat_img'] + '">';
+                    tweet.innerHTML += '<img onclick="displayPicture(this)" style="height: 280px; width: auto; max-width: 500px; margin-right: 20px; border-radius: 5px;" src="' + resp[i]['twat_img'] + '">';
                 }
                 var comment_div = document.createElement('div');
                 comment_div.className = "home_tweet_comments";
@@ -45,6 +44,25 @@
         }
     };
     req.send();
+
+//    function displayPicture(el) {
+//        alert(el.src);
+//        var div = document.createElement('div');
+//        div.style.height='100vh';
+//        div.style.width='100%';
+//        div.style.position='relative';
+//        div.style.zIndex="1100";
+//        div.style.backgroundColor='rgba(0,0,0,0.2)';
+//        var img = document.createElement('img');
+//        img.style.width='70%';
+//        img.src=el.src;
+//
+//
+//        div.appendChild(img);
+//        document.body.appendChild(div);
+//
+//    }
+
 
     function test(id) {
         var div = document.getElementById(id);
@@ -76,8 +94,6 @@
             if (this.readyState == 4 && this.status == 200) {
                 var response = JSON.parse(this.responseText);
 
-
-                console.log(1);
                 cmnt_box.type = "text";
                 cmnt_box.className = "cmnt_box_home";
                 cmnt_box.id = "asd" + id;
