@@ -221,7 +221,7 @@ class TwitController extends BaseController
                         $name = substr($array[$i], 1);
                         $exist = $uDao->findId($name);
                         if ($exist !== false) {
-                            $array[$i] = "<a href='profile.php?$name' onmouseover='info(this)' onmouseout='hide()' style='font-weight: bold; color: #1da1f2'>$array[$i]</a>";
+                            $array[$i] = "<a href='profile.php?$name' onmouseover='info(this)' onmouseout='hide1()' style='font-weight: bold; color: #1da1f2'>$array[$i]</a>";
                         }
                     }
                 }

@@ -22,7 +22,7 @@
 
 //                adding the data into the tweet
                 tweet.innerHTML = "<a href=" + "profile.php?" + link_name + "><img class='home_tweet_image' src=" + resp[i]["user_pic"] + "></a>";
-                tweet.innerHTML += "<h1 class='tweet_name'><a onmouseover='info(this)' onmouseout='hide()' href=profile.php?" + link_name + ">" + resp[i]["user_name"] + "</a></h1>";
+                tweet.innerHTML += "<h1 class='tweet_name'><a onmouseover='info(this)' onmouseout='hide1()' href=profile.php?" + link_name + ">" + resp[i]["user_name"] + "</a></h1>";
                 tweet.innerHTML += "<h4 class='tweet_date'>" + resp[i]["twat_date"] + "</h4>";
                 tweet.innerHTML += "<p class='content' style='border: 0'>" + resp[i]["twat_content"]+"<br>" + "</p>";
                 tweet.innerHTML += "<i id='heart" + resp[i]['twat_id'] + "' value=" + resp[i]['twat_id'] + " onclick=\"likeTweet(" + resp[i]['twat_id'] + ",this.id)\" class=\"fa fa-heart hrt\"></i>";
@@ -110,7 +110,7 @@
                         var link_name = response[i]["user_name"];
                         link_name = link_name.replace(" ", "%20");
 
-                        cmnt_div.innerHTML = "<a onmouseover='info(this)' onmouseout='hide()' href=" + "profile.php?" + link_name + "><img class='home_comment_image' src=" + response[i]["user_pic"] + "></a>";
+                        cmnt_div.innerHTML = "<a onmouseover='info(this)' onmouseout='hide1()' href=" + "profile.php?" + link_name + "><img class='home_comment_image' src=" + response[i]["user_pic"] + "></a>";
                         cmnt_div.innerHTML += "<h1 class='tweet_name'><a href=profile.php?" + link_name + ">" + response[i]["user_name"] + "</a></h1>";
                         cmnt_div.innerHTML += "<h4 class='tweet_date'>" + response[i]["comment_date"] + "</h4>";
                         cmnt_div.innerHTML += "<p class='content' style='border: 0'>" + response[i]["comment_text"] + "</p>";
@@ -209,7 +209,7 @@
         position.style.transition = "opacity 1.25s linear";
     }
 
-    function hide() {
+    function hide1() {
         var position = document.getElementById("position_div");
         position.style.visibility = "hidden";
     }
