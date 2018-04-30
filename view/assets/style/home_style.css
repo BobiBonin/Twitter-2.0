@@ -509,3 +509,10 @@ a {
     background-color: #006dbf;
     cursor: pointer;
 }
+
+#tags_mid_div{
+    padding-top: 60px;
+    width: 590px;
+    margin: auto;
+    box-sizing: border-box;
+}
