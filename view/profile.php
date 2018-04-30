@@ -908,11 +908,13 @@ include_once "header.html";
                     tweet.innerHTML += "<h1 class='tweet_name'><a onmouseover='info(this)' onmouseout='hide1()' href=profile.php?" + link_name + ">" + resp[i]["user_name"] + "</a></h1>";
                     tweet.innerHTML += "<h4 class='tweet_date'>" + resp[i]["twat_date"] + "</h4>";
                     tweet.innerHTML += "<p class='content' style='border: 0'>" + resp[i]["twat_content"] + "<br>" + "</p>";
-                    tweet.innerHTML += "<i id='heart" + resp[i]['twat_id'] + "' value=" + resp[i]['twat_id'] + " onclick=\"likeTweet(" + resp[i]['twat_id'] + ",this.id)\" class=\"fa fa-heart hrt\"></i>";
+
                     if (resp[i]['twat_img'] != null) {
                         tweet.innerHTML += '<br>';
                         tweet.innerHTML += '<img onclick="displayPicture(this)" style="height: 280px; width: auto; max-width: 500px; margin-right: 20px; border-radius: 5px;" src="' + resp[i]['twat_img'] + '">';
                     }
+                    tweet.innerHTML += "<br><i id='heart" + resp[i]['twat_id'] + "' value=" + resp[i]['twat_id'] + " onclick=\"likeTweet(" + resp[i]['twat_id'] + ",this.id)\" class=\"fa fa-heart hrt\"></i>";
+                    tweet.innerHTML += ' <b id="likesCounter">0</b>';
                     var comment_div = document.createElement('div');
                     comment_div.className = "home_tweet_comments";
                     comment_div.id = resp[i]['twat_id'];

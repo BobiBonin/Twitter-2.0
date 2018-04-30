@@ -170,6 +170,7 @@
     box-sizing: border-box;
     padding-left: 70px;
     overflow: hidden;
+    word-wrap: break-word;
 }
 
 /*-----------------Random Users CSS 29.03.2018-----------------*/
@@ -435,9 +436,7 @@ a {
     color: red;
 }
 .hrt{
-    float: right;
-    margin-top: -80px;
-    margin-right: 10px;
+    margin-left: -20px;
 }
 #twat_input{
     width: 500px;
@@ -509,3 +508,4 @@ a {
     background-color: #006dbf;
     cursor: pointer;
 }
+
