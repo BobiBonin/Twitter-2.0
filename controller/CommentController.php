@@ -25,10 +25,15 @@ class CommentController extends BaseController
                 $user_id = $_SESSION['user']['id'];
                 $content = $_POST['content'];
                 $tweet_id = $_POST['tweetId'];
-                $comment = new Comment($tweet_id,$content,$user_id);
-                $dao = new CommentDao();
-                $comments = $dao->addComment($comment);
-                echo json_encode($comments);
+                if(strlen($content) > 0){
+                    $comment = new Comment($tweet_id,$content,$user_id);
+                    $dao = new CommentDao();
+                    $comments = $dao->addComment($comment);
+                    echo json_encode($comments);
+                }else{
+                    echo json_encode(0);
+                }
+
             }
         } catch (\PDOException $e){
             $this->exception($e);
