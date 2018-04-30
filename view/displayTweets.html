@@ -13,6 +13,7 @@
         if (this.status == 200 && this.readyState == 4) {
             var resp = this.responseText;
             resp = JSON.parse(resp);
+            console.log(JSON.stringify(resp[0]));
             var div = document.getElementById("home_mid_div");
             for (var i = 0; i < resp.length; i++) {
                 var tweet = document.createElement("div");
@@ -30,8 +31,31 @@
                     tweet.innerHTML += '<br>';
                     tweet.innerHTML += '<img onclick="displayPicture(this)" style="height: 280px; width: auto; max-width: 500px; margin-right: 20px; border-radius: 5px;" src="' + resp[i]['twat_img'] + '">';
                 }
-                tweet.innerHTML += "<br><i id='heart" + resp[i]['twat_id'] + "' value=" + resp[i]['twat_id'] + " onclick=\"likeTweet(" + resp[i]['twat_id'] + ",this.id)\" class=\"fa fa-heart hrt\"></i>";
-                tweet.innerHTML += ' <b id="likesCounter">0</b>';
+                if (resp[i]['youLike'][0]["is_liked"] == 1) {
+                    tweet.innerHTML += "<br><i id='heart" + resp[i]['twat_id'] + "' style='color: red;' value=" + resp[i]['twat_id'] + " onclick=\"likeTweet(" + resp[i]['twat_id'] + ",this)\" class=\"fa fa-heart hrt\"></i>";
+                }else{
+                    tweet.innerHTML += "<br><i id='heart" + resp[i]['twat_id'] + "' style='color: black;' value=" + resp[i]['twat_id'] + " onclick=\"likeTweet(" + resp[i]['twat_id'] + ",this)\" class=\"fa fa-heart hrt\"></i>";
+
+                }
+
+                tweet.innerHTML += ' <b id="likesCounter' + resp[i]['twat_id'] + '">' + resp[i]['likes'][0]["likes"] + '</b>';
+
+
+
+//                var req2 = new XMLHttpRequest();
+//                req2.open("get", "../commandPattern.php?target=twit&action=getTweetLikes&id="+resp[i]['twat_id']);
+//                req2.onreadystatechange = function (ev) {
+//                    if (this.status == 200 && this.readyState == 4) {
+//                        respp = this.responseText;
+//                        respp = JSON.parse(respp);
+////                        console.log(respp);
+//                        this.innerHTML += ' <b id="likesCounter">'+respp[0]['likes']+'</b>';
+//                        console.log(1);
+//                        return respp;
+//                    }
+//                };
+//                req2.send();
+
                 var comment_div = document.createElement('div');
                 comment_div.className = "home_tweet_comments";
                 comment_div.id = resp[i]['twat_id'];
@@ -134,16 +158,42 @@
         request.send();
     }
 
-    function likeTweet(id, tweet_id) {
-        var like = document.getElementById(tweet_id);
-        like.style.color = 'red';
-        var request = new XMLHttpRequest();
-        request.open("GET", "../commandPattern.php?twat_id=" + id + "&target=twit&action=likeTweet");
-        request.onreadystatechange = function (ev) {
+    function likeTweet(id, heart) {
+        var request0 = new XMLHttpRequest();
+        request0.open("GET", "../commandPattern.php?tweet_id=" + id + "&target=twit&action=checkIfLiked");
+        request0.onreadystatechange = function (ev) {
             if (this.readyState == 4 && this.status == 200) {
+                resp = this.responseText;
+                resp = JSON.parse(resp);
+                console.log(resp);
+                heart.style.color = 'red';
+                if (resp[0]['is_liked'] == 0) {
+                    var request = new XMLHttpRequest();
+                    request.open("GET", "../commandPattern.php?twat_id=" + id + "&target=twit&action=likeTweet");
+                    request.onreadystatechange = function (ev) {
+                        if (this.readyState == 4 && this.status == 200) {
+                            var count = document.getElementById('likesCounter' + id);
+                            count.innerHTML++;
+                            heart.style.color = 'red';
+                        }
+                    };
+                    request.send();
+                }
+                else {
+                    var request = new XMLHttpRequest();
+                    request.open("GET", "../commandPattern.php?twat_id=" + id + "&target=twit&action=dislikeTweet");
+                    request.onreadystatechange = function (ev) {
+                        if (this.readyState == 4 && this.status == 200) {
+                            var count = document.getElementById('likesCounter' + id);
+                            count.innerHTML--;
+                            heart.style.color = 'black';
+                        }
+                    };
+                    request.send();
+                }
             }
         };
-        request.send();
+        request0.send();
     }
 
     function info(pole) {

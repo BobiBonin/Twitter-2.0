@@ -182,7 +182,47 @@ class TwitController extends BaseController
         } catch (\PDOException $e) {
             $this->exception($e);
         }
-    } //Харесване не туит.
+    }//Харесване на туит.
+
+    public function dislikeTweet(){
+        function __autoload($class)
+        {
+            $class = "..\\" . $class;
+            require_once str_replace("\\", "/", $class) . ".php";
+        }
+
+        try {
+            if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+                $dao = new TweetDao();
+                $user_id = $_SESSION['user']['id'];
+                $twat_id = $_GET['twat_id'];
+                $dao->dislikeATweet($twat_id, $user_id);
+            }
+        } catch (\PDOException $e) {
+            $this->exception($e);
+        }
+    }
+
+    public function getTweetLikes()
+    {
+        function __autoload($class)
+        {
+            $class = "..\\" . $class;
+            require_once str_replace("\\", "/", $class) . ".php";
+        }
+
+        try {
+            $id = $_GET['id'];
+            $dao = new TweetDao();
+            $result = $dao->getTweetLikes($id);
+            echo json_encode($result);
+        } catch (\PDOException $e) {
+            $this->exception($e);
+        }
+
+
+    }
+
 
     public function displayTweets()
     {
@@ -209,6 +249,11 @@ class TwitController extends BaseController
                 }
             }
             $result = $tDao->getMyFollowersTweets($string);
+            foreach ($result as &$tweet) {
+                $tweet['likes'] = $tDao->getTweetLikes($tweet['twat_id']);
+                $tweet['youLike'] = $tDao->checkIfLiked($user_id,$tweet['twat_id']);
+            }
+
 
             foreach ($result as &$tweet) {
                 $array = explode(" ", $tweet['twat_content']);
@@ -255,5 +300,27 @@ class TwitController extends BaseController
         } catch (\PDOException $e) {
             $this->exception($e);
         }
+    }
+    public function checkIfLiked(){
+        function __autoload($class)
+        {
+            $class = "..\\" . $class;
+            require_once str_replace("\\", "/", $class) . ".php";
+        }
+
+        try {
+            if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+                $userId=$_SESSION['user']['id'];
+                $tweet_id=htmlentities($_GET['tweet_id']);
+                $tDao = new TweetDao();
+                $result = $tDao->checkIfLiked($userId,$tweet_id);
+                echo json_encode($result);
+            }
+
+
+        } catch (\PDOException $e) {
+            $this->exception($e);
+        }
+
     }
 }

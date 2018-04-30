@@ -384,8 +384,10 @@ a {
 
 .commentss{
     background-color: white;
+    min-height: 100px;
+    height: auto;
     width: 99.4%;
-    height: 100px;
+    padding-bottom: 10px;
     border-bottom: 1px solid lightgray;
     border-left: 1px solid lightgray;
     border-right: 1px solid lightgray;

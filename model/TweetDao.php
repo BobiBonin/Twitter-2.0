@@ -50,6 +50,11 @@ class TweetDao extends BaseDao
         $statement = $this->pdo->prepare("INSERT INTO likes (user_id, twat_id) VALUES (?,?)");
         $statement->execute(array($user_id,$twat_id));
     }
+    public function dislikeATweet($twat_id,$user_id){
+        $statement = $this->pdo->prepare("DELETE FROM `mydb`.`likes` WHERE `user_id`=? and`twat_id`=?;");
+        $statement->execute(array($user_id,$twat_id));
+    }
+
 
     public function getHashtags($hashtag){
         $statement = $this->pdo->prepare("SELECT u.user_name, u.user_pic, t.twat_date, t.twat_content, t.twat_id FROM twats AS t JOIN users AS u ON u.user_id = t.user_id WHERE t.twat_content LIKE ? ");
@@ -61,6 +66,18 @@ class TweetDao extends BaseDao
     public function getNewId(){
         $statement = $this->pdo->prepare("SELECT twat_id FROM mydb.twats ORDER BY twat_id DESC LIMIT 1;");
         $statement->execute(array());
+        $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
+        return $result;
+    }
+    public function getTweetLikes($id){
+        $statement = $this->pdo->prepare("SELECT count(*) as likes FROM mydb.likes where twat_id = ?");
+        $statement->execute(array($id));
+        $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
+        return $result;
+    }
+    public  function checkIfLiked($userId,$tweetId){
+        $statement = $this->pdo->prepare("SELECT count(*) as is_liked FROM mydb.likes where user_id = ? AND twat_id = ?");
+        $statement->execute(array($userId,$tweetId));
         $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
         return $result;
     }
