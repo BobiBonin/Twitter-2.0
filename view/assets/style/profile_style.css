@@ -836,6 +836,7 @@ ul {
 
 #test {
     margin-left: 21%;
+    transition: 2s ease-in-out;
 }
 
 #test:hover {

@@ -12,7 +12,7 @@ include_once 'page_lock.php';
     <link href="assets/style/messages.css" rel="stylesheet">
     <link href="assets/css/font-awesome.css" rel="stylesheet">
     <link href="assets/css/font-awesome.min.css" rel="stylesheet">
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <body>
 <div id="messages_outer_wrapper">
@@ -105,6 +105,32 @@ include "header.html";
 </body>
 <script>
     document.addEventListener('DOMContentLoaded', random, false);
+
+    $(document).ready(function () {
+        // Add smooth scrolling to all links
+        $("a").on('click', function (event) {
+
+            // Make sure this.hash has a value before overriding default behavior
+            if (this.hash !== "") {
+                // Prevent default anchor click behavior
+                event.preventDefault();
+
+                // Store hash
+                var hash = this.hash;
+
+                // Using jQuery's animate() method to add smooth page scroll
+                // The optional number (800) specifies the number of milliseconds it takes to scroll to the specified area
+                $('html, body').animate({
+                    scrollTop: $(hash).offset().top
+                }, 800, function () {
+
+                    // Add hash (#) to URL when done scrolling (default click behavior)
+                    window.location.hash = hash;
+                });
+            } // End if
+        });
+    });
+
 
     //    window.onload = random();
     function random() {
@@ -314,7 +340,7 @@ include "header.html";
         send.style.backgroundColor = '#1da1f2';
         send.style.cursor = "pointer";
         send.onmouseover = function () {
-            send.style.backgroundColor="#006dbf";
+            send.style.backgroundColor = "#006dbf";
         };
         counter.innerHTML = el.value.length;
         if (el.value.length <= 100) {
@@ -331,10 +357,49 @@ include "header.html";
             send.style.backgroundColor = "gray";
             send.style.cursor = "not-allowed";
             counter.style.color = '#ff0000';
-
         }
 
     }
+    var send = document.getElementById('input_submit');
+    send.disabled = true;
+    send.style.backgroundColor = "gray";
+    send.style.cursor = "not-allowed";
+    counter.style.color = '#ff0000';
+    function charactersForTweets(el) {
+        var counter = document.getElementById('tweetCounter');
+        var send = document.getElementById('input_submit');
+
+        counter.style.color = 'black';
+        send.disabled = false;
+        send.style.backgroundColor = '#1da1f2';
+        send.style.cursor = "pointer";
+        send.onmouseover = function () {
+            send.style.backgroundColor = "#006dbf";
+        };
+        counter.innerHTML = el.value.length;
+        if(el.value.length == 0){
+            send.disabled = true;
+            send.style.backgroundColor = "gray";
+            send.style.cursor = "not-allowed";
+            counter.style.color = '#ff0000';
+        }
+        if (el.value.length <= 100 && el.value.length > 0) {
+            counter.style.color = '#23af10';
+        }
+        if (el.value.length <= 200 && el.value.length > 100) {
+            counter.style.color = '#ff9933';
+        }
+        if (el.value.length <= 300 && el.value.length > 200) {
+            counter.style.color = '#ff6600';
+        }
+        if (el.value.length > 345) {
+            send.disabled = true;
+            send.style.backgroundColor = "gray";
+            send.style.cursor = "not-allowed";
+            counter.style.color = '#ff0000';
+        }
+    }
+
     function hide() {
         var div2 = document.getElementById("ul");
         div2.innerHTML = "";

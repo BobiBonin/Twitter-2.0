@@ -24,12 +24,14 @@
                 tweet.innerHTML = "<a href=" + "profile.php?" + link_name + "><img class='home_tweet_image' src=" + resp[i]["user_pic"] + "></a>";
                 tweet.innerHTML += "<h1 class='tweet_name'><a onmouseover='info(this)' onmouseout='hide1()' href=profile.php?" + link_name + ">" + resp[i]["user_name"] + "</a></h1>";
                 tweet.innerHTML += "<h4 class='tweet_date'>" + resp[i]["twat_date"] + "</h4>";
-                tweet.innerHTML += "<p class='content' style='border: 0'>" + resp[i]["twat_content"]+"<br>" + "</p>";
-                tweet.innerHTML += "<i id='heart" + resp[i]['twat_id'] + "' value=" + resp[i]['twat_id'] + " onclick=\"likeTweet(" + resp[i]['twat_id'] + ",this.id)\" class=\"fa fa-heart hrt\"></i>";
+                tweet.innerHTML += "<p class='content' style='border: 0'>" + resp[i]["twat_content"] + "<br>" + "</p>";
+
                 if (resp[i]['twat_img'] != null) {
                     tweet.innerHTML += '<br>';
                     tweet.innerHTML += '<img onclick="displayPicture(this)" style="height: 280px; width: auto; max-width: 500px; margin-right: 20px; border-radius: 5px;" src="' + resp[i]['twat_img'] + '">';
                 }
+                tweet.innerHTML += "<br><i id='heart" + resp[i]['twat_id'] + "' value=" + resp[i]['twat_id'] + " onclick=\"likeTweet(" + resp[i]['twat_id'] + ",this.id)\" class=\"fa fa-heart hrt\"></i>";
+                tweet.innerHTML += ' <b id="likesCounter">0</b>';
                 var comment_div = document.createElement('div');
                 comment_div.className = "home_tweet_comments";
                 comment_div.id = resp[i]['twat_id'];
@@ -45,23 +47,23 @@
     };
     req.send();
 
-   // function displayPicture(el) {
-   //     alert(el.src);
-   //     var div = document.createElement('div');
-   //     div.style.height='100vh';
-   //     div.style.width='100%';
-   //     div.style.position='relative';
-   //     div.style.zIndex="1100";
-   //     div.style.backgroundColor='rgba(0,0,0,0.2)';
-   //     var img = document.createElement('img');
-   //     img.style.width='70%';
-   //     img.src=el.src;
-   //
-   //
-   //     div.appendChild(img);
-   //     document.body.appendChild(div);
-   //
-   // }
+    //    function displayPicture(el) {
+    //        alert(el.src);
+    //        var div = document.createElement('div');
+    //        div.style.height='100vh';
+    //        div.style.width='100%';
+    //        div.style.position='relative';
+    //        div.style.zIndex="1100";
+    //        div.style.backgroundColor='rgba(0,0,0,0.2)';
+    //        var img = document.createElement('img');
+    //        img.style.width='70%';
+    //        img.src=el.src;
+    //
+    //
+    //        div.appendChild(img);
+    //        document.body.appendChild(div);
+    //
+    //    }
 
 
     function test(id) {
@@ -121,9 +123,9 @@
                     }
 
                 }
-                else {
-                    div.innerHTML += "<br><h3 style='margin-left:70px;'>No comments on this tweet</h3>";
-                }
+//                else {
+//                    div.innerHTML += "<br><h3 style='margin-left:70px;'>No comments on this tweet</h3>";
+//                }
             }
             else {
                 comments = "fail";
