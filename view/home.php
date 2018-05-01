@@ -339,9 +339,7 @@ include "header.html";
         send.disabled = false;
         send.style.backgroundColor = '#1da1f2';
         send.style.cursor = "pointer";
-        send.onmouseover = function () {
-            send.style.backgroundColor = "#006dbf";
-        };
+
         counter.innerHTML = el.value.length;
         if (el.value.length <= 100) {
             counter.style.color = '#00ff00';
@@ -358,6 +356,8 @@ include "header.html";
             send.style.cursor = "not-allowed";
             counter.style.color = '#ff0000';
         }
+
+
 
     }
     var send = document.getElementById('input_submit');
@@ -393,6 +393,13 @@ include "header.html";
             counter.style.color = '#ff6600';
         }
         if (el.value.length > 200) {
+            send.disabled = true;
+            send.style.backgroundColor = "gray";
+            send.style.cursor = "not-allowed";
+            counter.style.color = '#ff0000';
+        }
+        console.log(el.value+"  "+el.value.length);
+        if (el.value.replace(/\s/g, '').length == 0) {
             send.disabled = true;
             send.style.backgroundColor = "gray";
             send.style.cursor = "not-allowed";
