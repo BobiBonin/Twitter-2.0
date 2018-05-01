@@ -124,3 +124,53 @@
  On April 30, 2018, 5:47 pm Error Message : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '1-118' for key 'PRIMARY'
  On April 30, 2018, 6:20 pm Error Message : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '1-119' for key 'PRIMARY'
  On April 30, 2018, 6:20 pm Error Message : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '1-119' for key 'PRIMARY'
+ On April 30, 2018, 8:57 pm Error Message : SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ') 
+                                  AND twats.user_id = users.user_id 
+      ' at line 3
+ On April 30, 2018, 8:57 pm Error Message : SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ') 
+                                  AND twats.user_id = users.user_id 
+      ' at line 3
+ On April 30, 2018, 8:57 pm Error Message : SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ') 
+                                  AND twats.user_id = users.user_id 
+      ' at line 3
+ On May 1, 2018, 1:03 am Error Message : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '38-136' for key 'PRIMARY'
+ On May 1, 2018, 1:09 am Error Message : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '38-136' for key 'PRIMARY'
+ On May 1, 2018, 1:09 am Error Message : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '38-136' for key 'PRIMARY'
+ On May 1, 2018, 1:09 am Error Message : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '38-136' for key 'PRIMARY'
+ On May 1, 2018, 1:09 am Error Message : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '38-136' for key 'PRIMARY'
+ On May 1, 2018, 1:09 am Error Message : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '38-135' for key 'PRIMARY'
+ On May 1, 2018, 1:10 am Error Message : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '38-30' for key 'PRIMARY'
+ On May 1, 2018, 1:10 am Error Message : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '38-30' for key 'PRIMARY'
+ On May 1, 2018, 1:10 am Error Message : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '38-30' for key 'PRIMARY'
+ On May 1, 2018, 1:10 am Error Message : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '38-30' for key 'PRIMARY'
+ On May 1, 2018, 1:10 am Error Message : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '38-30' for key 'PRIMARY'
+ On May 1, 2018, 1:10 am Error Message : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '38-30' for key 'PRIMARY'
+ On May 1, 2018, 1:10 am Error Message : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '38-30' for key 'PRIMARY'
+ On May 1, 2018, 1:10 am Error Message : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '38-30' for key 'PRIMARY'
+ On May 1, 2018, 1:10 am Error Message : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '38-50' for key 'PRIMARY'
+ On May 1, 2018, 1:10 am Error Message : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '38-50' for key 'PRIMARY'
+ On May 1, 2018, 1:10 am Error Message : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '38-50' for key 'PRIMARY'
+ On May 1, 2018, 1:10 am Error Message : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '38-50' for key 'PRIMARY'
+ On May 1, 2018, 1:10 am Error Message : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '38-48' for key 'PRIMARY'
+ On May 1, 2018, 1:10 am Error Message : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '38-48' for key 'PRIMARY'
+ On May 1, 2018, 1:10 am Error Message : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '38-48' for key 'PRIMARY'
+ On May 1, 2018, 1:10 am Error Message : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '38-48' for key 'PRIMARY'
+ On May 1, 2018, 1:10 am Error Message : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '38-30' for key 'PRIMARY'
+ On May 1, 2018, 1:10 am Error Message : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '38-15' for key 'PRIMARY'
+ On May 1, 2018, 1:10 am Error Message : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '38-15' for key 'PRIMARY'
+ On May 1, 2018, 1:10 am Error Message : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '38-15' for key 'PRIMARY'
+ On May 1, 2018, 1:10 am Error Message : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '38-15' for key 'PRIMARY'
+ On May 1, 2018, 1:10 am Error Message : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '38-15' for key 'PRIMARY'
+ On May 1, 2018, 1:10 am Error Message : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '38-15' for key 'PRIMARY'
+ On May 1, 2018, 1:10 am Error Message : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '38-15' for key 'PRIMARY'
+ On May 1, 2018, 1:10 am Error Message : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '38-15' for key 'PRIMARY'
+ On May 1, 2018, 1:10 am Error Message : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '38-15' for key 'PRIMARY'
+ On May 1, 2018, 1:10 am Error Message : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '38-15' for key 'PRIMARY'
+ On May 1, 2018, 1:10 am Error Message : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '38-15' for key 'PRIMARY'
+ On May 1, 2018, 1:10 am Error Message : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '38-15' for key 'PRIMARY'
+ On May 1, 2018, 1:10 am Error Message : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '38-30' for key 'PRIMARY'
+ On May 1, 2018, 1:10 am Error Message : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '38-15' for key 'PRIMARY'
+ On May 1, 2018, 1:10 am Error Message : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '38-15' for key 'PRIMARY'
+ On May 1, 2018, 1:10 am Error Message : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '38-15' for key 'PRIMARY'
+ On May 1, 2018, 1:10 am Error Message : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '38-15' for key 'PRIMARY'
+ On May 1, 2018, 1:10 am Error Message : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '38-15' for key 'PRIMARY'

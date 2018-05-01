@@ -386,13 +386,13 @@ include "header.html";
         if (el.value.length <= 100 && el.value.length > 0) {
             counter.style.color = '#23af10';
         }
-        if (el.value.length <= 200 && el.value.length > 100) {
+        if (el.value.length <= 135 && el.value.length > 100) {
             counter.style.color = '#ff9933';
         }
-        if (el.value.length <= 300 && el.value.length > 200) {
+        if (el.value.length <= 175 && el.value.length > 135) {
             counter.style.color = '#ff6600';
         }
-        if (el.value.length > 345) {
+        if (el.value.length > 200) {
             send.disabled = true;
             send.style.backgroundColor = "gray";
             send.style.cursor = "not-allowed";
