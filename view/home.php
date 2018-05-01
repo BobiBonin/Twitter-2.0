@@ -31,7 +31,6 @@ include_once 'page_lock.php';
                        required>
                 <textarea id="msgInput" name="text" oninput="characters(this)"></textarea>
                 Send Picture <input type="file" name="message_img">
-
                 <input type="submit" value="Send" id="sendMsgButton">
                 <b style="float: right; margin-right: 10px; margin-top: 5px;"><i id="counter">0</i>/300</b>
             </form>
