@@ -171,10 +171,14 @@ class UserDao
     }
 
     /*Харесва потребител*/
-    public function likeIt($me,$you){
+    public function likeIt($me,$you,$message, $status){
         $statement = $this->pdo->prepare("INSERT INTO following (user_id,following_id) VALUES (?,?)");
-        $statement->execute(array($me,$you));
+        $statement->execute(array($me, $you));
         $result = $statement->rowCount();
+
+        $statement = $this->pdo->prepare("INSERT INTO notifications (sender, receiver, message, status) VALUES (?,?,?,?)");
+        $statement->execute(array($me, $you, $message, $status));
+
         return $result;
     }
 

@@ -11,6 +11,7 @@ namespace controller;
 use \model\TweetDao;
 use \model\UserDao;
 use \model\Tweet;
+use model\CommentDao;
 
 class TwitController extends BaseController
 {
@@ -102,18 +103,24 @@ class TwitController extends BaseController
             $tDao = new TweetDao();
             $you = $uDao->findId($name);
             $result = $tDao->showMyTweets($you['user_id']);
+
+            foreach ($result as &$tweet) {
+                $tweet['likes'] = $tDao->getTweetLikes($tweet['twat_id']);
+                $tweet['youLike'] = $tDao->checkIfLiked($_SESSION['user']['id'], $tweet['twat_id']);
+            }
             foreach ($result as &$tweet) {
                 $array = explode(" ", $tweet['twat_content']);
                 for ($i = 0; $i < count($array); $i++) {
                     if (substr($array[$i], 0, 1) == "#") {
-                        $array[$i] = "<a href='#'>$array[$i]</a>";
+                        $tag = substr($array[$i], 1);
+                        $array[$i] = "<a href='home_hashtags.php?$tag' style='font-weight: bold;'>$array[$i]</a>";
                     }
 
                     if (substr($array[$i], 0, 1) == "@") {
                         $name = substr($array[$i], 1);
                         $exist = $uDao->findId($name);
                         if ($exist !== false) {
-                            $array[$i] = "<a href='profile.php?$name'>$array[$i]</a>";
+                            $array[$i] = "<a href='profile.php?$name' onmouseover='info(this)' onmouseout='hide1()' style='font-weight: bold; color: #1da1f2'>$array[$i]</a>";
                         }
                     }
                 }
@@ -136,21 +143,27 @@ class TwitController extends BaseController
         try {
             $id = $_SESSION['user']['id'];
             $dao = new TweetDao();
-            $pdo = new UserDao();
+            $uDao = new UserDao();
             $result = $dao->showMyTweets($id);
+
+            foreach ($result as &$tweet) {
+                $tweet['likes'] = $dao->getTweetLikes($tweet['twat_id']);
+                $tweet['youLike'] = $dao->checkIfLiked($id, $tweet['twat_id']);
+            }
 
             foreach ($result as &$tweet) {
                 $array = explode(" ", $tweet['twat_content']);
                 for ($i = 0; $i < count($array); $i++) {
                     if (substr($array[$i], 0, 1) == "#") {
-                        $array[$i] = "<a href='#'>$array[$i]</a>";
+                        $tag = substr($array[$i], 1);
+                        $array[$i] = "<a href='home_hashtags.php?$tag' style='font-weight: bold;'>$array[$i]</a>";
                     }
 
                     if (substr($array[$i], 0, 1) == "@") {
                         $name = substr($array[$i], 1);
-                        $exist = $pdo->findId($name);
+                        $exist = $uDao->findId($name);
                         if ($exist !== false) {
-                            $array[$i] = "<a href='profile.php?$name'>$array[$i]</a>";
+                            $array[$i] = "<a href='profile.php?$name' onmouseover='info(this)' onmouseout='hide1()' style='font-weight: bold; color: #1da1f2'>$array[$i]</a>";
                         }
                     }
                 }
@@ -174,17 +187,25 @@ class TwitController extends BaseController
 
         try {
             if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-                $dao = new TweetDao();
+                $tDao = new TweetDao();
                 $user_id = $_SESSION['user']['id'];
-                $twat_id = $_GET['twat_id'];
-                $dao->likeATweet($twat_id, $user_id);
+                $tweet_id = $_GET['twat_id'];
+                $username = $_SESSION['user']['name'];
+
+                $uDao = new CommentDao();
+                $tweetOwner = $uDao->findTweetOwner($tweet_id);
+                $message = "$username like your tweet!";
+                $status = "unread";
+
+                $tDao->likeATweet($tweet_id, $user_id, $tweetOwner[0]['id'], $message, $status);
             }
         } catch (\PDOException $e) {
             $this->exception($e);
         }
     }//Харесване на туит.
 
-    public function dislikeTweet(){
+    public function dislikeTweet()
+    {
         function __autoload($class)
         {
             $class = "..\\" . $class;
@@ -223,7 +244,6 @@ class TwitController extends BaseController
 
     }
 
-
     public function displayTweets()
     {
 
@@ -251,7 +271,7 @@ class TwitController extends BaseController
             $result = $tDao->getMyFollowersTweets($string);
             foreach ($result as &$tweet) {
                 $tweet['likes'] = $tDao->getTweetLikes($tweet['twat_id']);
-                $tweet['youLike'] = $tDao->checkIfLiked($user_id,$tweet['twat_id']);
+                $tweet['youLike'] = $tDao->checkIfLiked($user_id, $tweet['twat_id']);
             }
 
 
@@ -290,9 +310,36 @@ class TwitController extends BaseController
 
         try {
             if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+                $user_id = $_SESSION['user']['id'];
                 $tag = htmlentities($_GET['tag']);
                 $dao = new TweetDao();
+                $uDao = new UserDao();
                 $tweetsWithTag = $dao->getHashtags($tag);
+
+                foreach ($tweetsWithTag as &$tweet) {
+                    $tweet['likes'] = $dao->getTweetLikes($tweet['twat_id']);
+                    $tweet['youLike'] = $dao->checkIfLiked($user_id, $tweet['twat_id']);
+                }
+
+
+                foreach ($tweetsWithTag as &$tweet) {
+                    $array = explode(" ", $tweet['twat_content']);
+                    for ($i = 0; $i < count($array); $i++) {
+                        if (substr($array[$i], 0, 1) == "#") {
+                            $tag = substr($array[$i], 1);
+                            $array[$i] = "<a href='home_hashtags.php?$tag' style='font-weight: bold;'>$array[$i]</a>";
+                        }
+
+                        if (substr($array[$i], 0, 1) == "@") {
+                            $name = substr($array[$i], 1);
+                            $exist = $uDao->findId($name);
+                            if ($exist !== false) {
+                                $array[$i] = "<a href='profile.php?$name' onmouseover='info(this)' onmouseout='hide1()' style='font-weight: bold; color: #1da1f2'>$array[$i]</a>";
+                            }
+                        }
+                    }
+                    $tweet['twat_content'] = implode(" ", $array);
+                }
                 echo json_encode($tweetsWithTag);
             }
 
@@ -301,7 +348,9 @@ class TwitController extends BaseController
             $this->exception($e);
         }
     }
-    public function checkIfLiked(){
+
+    public function checkIfLiked()
+    {
         function __autoload($class)
         {
             $class = "..\\" . $class;
@@ -310,10 +359,10 @@ class TwitController extends BaseController
 
         try {
             if ($_SERVER['REQUEST_METHOD'] == 'GET') {
-                $userId=$_SESSION['user']['id'];
-                $tweet_id=htmlentities($_GET['tweet_id']);
+                $userId = $_SESSION['user']['id'];
+                $tweet_id = htmlentities($_GET['tweet_id']);
                 $tDao = new TweetDao();
-                $result = $tDao->checkIfLiked($userId,$tweet_id);
+                $result = $tDao->checkIfLiked($userId, $tweet_id);
                 echo json_encode($result);
             }
 

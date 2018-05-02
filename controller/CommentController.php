@@ -23,12 +23,16 @@ class CommentController extends BaseController
         try{
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $user_id = $_SESSION['user']['id'];
+                $username = $_SESSION['user']['name'];
                 $content = $_POST['content'];
                 $tweet_id = $_POST['tweetId'];
                 if(strlen($content) > 0){
                     $comment = new Comment($tweet_id,$content,$user_id);
                     $dao = new CommentDao();
-                    $comments = $dao->addComment($comment);
+                    $tweetOwner = $dao->findTweetOwner($tweet_id);
+                    $message = "$username comment on your tweet!";
+                    $status = "unread";
+                    $comments = $dao->addComment($comment,$tweetOwner[0]['id'],$user_id,$message,$status);
                     echo json_encode($comments);
                 }else{
                     echo json_encode(0);

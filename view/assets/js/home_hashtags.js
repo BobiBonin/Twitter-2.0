@@ -4,11 +4,12 @@ queryString = queryString.substring(1);
 var queries = queryString.split("&");
 
 console.log(queries[0]);
-var request = new XMLHttpRequest();
-request.open("GET", "../commandPattern.php?tag=" + queries[0] + "&target=twit&action=displayTags");
-request.onreadystatechange = function (ev) {
+var req = new XMLHttpRequest();
+req.open("get", "../commandPattern.php?tag="+ queries[0] +"&target=twit&action=displayTags");
+req.onreadystatechange = function (ev) {
     if (this.status == 200 && this.readyState == 4) {
-        var resp = JSON.parse(this.responseText);
+        var resp = this.responseText;
+        resp = JSON.parse(resp);
         console.log(resp);
         var div = document.getElementById("tags_mid_div");
         for (var i = 0; i < resp.length; i++) {
@@ -21,12 +22,28 @@ request.onreadystatechange = function (ev) {
             tweet.innerHTML = "<a href=" + "profile.php?" + link_name + "><img class='home_tweet_image' src=" + resp[i]["user_pic"] + "></a>";
             tweet.innerHTML += "<h1 class='tweet_name'><a onmouseover='info(this)' onmouseout='hide1()' href=profile.php?" + link_name + ">" + resp[i]["user_name"] + "</a></h1>";
             tweet.innerHTML += "<h4 class='tweet_date'>" + resp[i]["twat_date"] + "</h4>";
-            tweet.innerHTML += "<p class='content' style='border: 0'>" + resp[i]["twat_content"]+"<br>" + "</p>";
-            tweet.innerHTML += "<i id='heart" + resp[i]['twat_id'] + "' value=" + resp[i]['twat_id'] + " onclick=\"likeTweet(" + resp[i]['twat_id'] + ",this.id)\" class=\"fa fa-heart hrt\"></i>";
+            tweet.innerHTML += "<p class='content' style='border: 0'>" + resp[i]["twat_content"] + "<br>" + "</p>";
+
             if (resp[i]['twat_img'] != null) {
                 tweet.innerHTML += '<br>';
-                tweet.innerHTML += '<img onclick="displayPicture(this)" style="height: 280px; width: auto; max-width: 500px; margin-right: 20px; border-radius: 5px;" src="' + resp[i]['twat_img'] + '">';
+                tweet.innerHTML += '<img id="contentIMG" style="height: 280px; width: auto; max-width: 500px; margin-right: 20px;" onclick="modal(this)" src="' + resp[i]['twat_img'] + '">';
+                tweet.innerHTML +=
+                    '<div id="myModal" class="modal">\n' +
+                    '  <span class="close">&times;</span>\n' +
+                    '  <img class="modal-content" id="img01">\n' +
+                    '  <div id="caption"></div>\n' +
+                    '</div>';
             }
+            if (resp[i]['youLike'][0]["is_liked"] == 1) {
+                tweet.innerHTML += "<br><i id='heart" + resp[i]['twat_id'] + "' style='color: red;' value=" + resp[i]['twat_id'] + " onclick=\"likeTweet(" + resp[i]['twat_id'] + ",this)\" class=\"fa fa-heart hrt\"></i>";
+            }else{
+                tweet.innerHTML += "<br><i id='heart" + resp[i]['twat_id'] + "' style='color: black;' value=" + resp[i]['twat_id'] + " onclick=\"likeTweet(" + resp[i]['twat_id'] + ",this)\" class=\"fa fa-heart hrt\"></i>";
+
+            }
+
+            tweet.innerHTML += ' <b id="likesCounter' + resp[i]['twat_id'] + '">' + resp[i]['likes'][0]["likes"] + '</b>';
+
+
             var comment_div = document.createElement('div');
             comment_div.className = "home_tweet_comments";
             comment_div.id = resp[i]['twat_id'];
@@ -40,8 +57,7 @@ request.onreadystatechange = function (ev) {
         }
     }
 };
-request.send();
-
+req.send();
 
 
 function msgs() {
@@ -103,24 +119,6 @@ function newMsg() {
 
 }
 
-// function displayPicture(el) {
-//     alert(el.src);
-//     var div = document.createElement('div');
-//     div.style.height='100vh';
-//     div.style.width='100%';
-//     div.style.position='relative';
-//     div.style.zIndex="1100";
-//     div.style.backgroundColor='rgba(0,0,0,0.2)';
-//     var img = document.createElement('img');
-//     img.style.width='70%';
-//     img.src=el.src;
-//
-//
-//     div.appendChild(img);
-//     document.body.appendChild(div);
-//
-// }
-
 
 function test(id) {
     var div = document.getElementById(id);
@@ -179,9 +177,9 @@ function test(id) {
                 }
 
             }
-            else {
-                div.innerHTML += "<br><h3 style='margin-left:70px;'>No comments on this tweet</h3>";
-            }
+//                else {
+//                    div.innerHTML += "<br><h3 style='margin-left:70px;'>No comments on this tweet</h3>";
+//                }
         }
         else {
             comments = "fail";
@@ -190,16 +188,42 @@ function test(id) {
     request.send();
 }
 
-function likeTweet(id, tweet_id) {
-    var like = document.getElementById(tweet_id);
-    like.style.color = 'red';
-    var request = new XMLHttpRequest();
-    request.open("GET", "../commandPattern.php?twat_id=" + id + "&target=twit&action=likeTweet");
-    request.onreadystatechange = function (ev) {
+function likeTweet(id, heart) {
+    var request0 = new XMLHttpRequest();
+    request0.open("GET", "../commandPattern.php?tweet_id=" + id + "&target=twit&action=checkIfLiked");
+    request0.onreadystatechange = function (ev) {
         if (this.readyState == 4 && this.status == 200) {
+            resp = this.responseText;
+            resp = JSON.parse(resp);
+            console.log(resp);
+            heart.style.color = 'red';
+            if (resp[0]['is_liked'] == 0) {
+                var request = new XMLHttpRequest();
+                request.open("GET", "../commandPattern.php?twat_id=" + id + "&target=twit&action=likeTweet");
+                request.onreadystatechange = function (ev) {
+                    if (this.readyState == 4 && this.status == 200) {
+                        var count = document.getElementById('likesCounter' + id);
+                        count.innerHTML++;
+                        heart.style.color = 'red';
+                    }
+                };
+                request.send();
+            }
+            else {
+                var request = new XMLHttpRequest();
+                request.open("GET", "../commandPattern.php?twat_id=" + id + "&target=twit&action=dislikeTweet");
+                request.onreadystatechange = function (ev) {
+                    if (this.readyState == 4 && this.status == 200) {
+                        var count = document.getElementById('likesCounter' + id);
+                        count.innerHTML--;
+                        heart.style.color = 'black';
+                    }
+                };
+                request.send();
+            }
         }
     };
-    request.send();
+    request0.send();
 }
 
 function info(pole) {
@@ -208,7 +232,6 @@ function info(pole) {
     if (link_name.charAt(0) == "@") {
         link_name = link_name.slice(1);
     }
-    console.log(link_name);
 
     var request = new XMLHttpRequest();
     request.open("GET", "../commandPattern.php?name=" + link_name + "&target=user&action=getInfoForTweets");
@@ -270,6 +293,25 @@ function info(pole) {
 function hide1() {
     var position = document.getElementById("position_div");
     position.style.visibility = "hidden";
+}
+
+function modal(img){
+    var modal = document.getElementById('myModal');
+    var modalImg = document.getElementById("img01");
+    var captionText = document.getElementById("caption");
+    img.onclick = function(){
+        modal.style.display = "block";
+        modalImg.src = this.src;
+        captionText.innerHTML = this.alt;
+    };
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+        modal.style.display = "none";
+    };
 }
 
 function postt() {

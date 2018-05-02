@@ -99,3 +99,7 @@ function hide() {
     div2.innerHTML = "";
     div2.style.visibility = "hidden";
 }
+
+
+
+//TODO napravi pole za notificationite 

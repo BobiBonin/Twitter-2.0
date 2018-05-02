@@ -104,8 +104,8 @@ class UserController extends BaseController
                             "id" => $info['user_id'],
                             "name" => $info['user_name'],
                             "reg_date" => $info['user_date'],
-                            "image" => $info['user_pic'],
-                            "cover" => $info['user_cover'],
+                            "image" => "assets/images/default_icon.jpg",
+                            "cover" => "assets/images/default_cover.jpg",
                             "city" => $info['user_city'],
                             "description" => $info['user_description'],
                             "email" => $email,
@@ -431,10 +431,13 @@ class UserController extends BaseController
         try {
             if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                 $me = $_SESSION['user']['id'];
-                $name = $_GET['name'];
+                $myname = $_SESSION['user']['name'];
+                $name = htmlentities($_GET['name']);
                 $dao = new UserDao();
                 $you = $dao->findId($name);
-                $like = $dao->likeIt($me, $you['user_id']);
+                $message = "$myname start following you!";
+                $status = "unread";
+                $like = $dao->likeIt($me, $you['user_id'],$message,$status);
                 echo json_encode($like);
             }
         } catch (\PDOException $e) {
@@ -505,10 +508,18 @@ class UserController extends BaseController
                 $password = htmlentities($_POST['password']);
                 $city = htmlentities($_POST['city']);
                 $description = htmlentities($_POST['description']);
-                $url_image = "assets/images/uploads/image_$email.png";
-                $url_cover = "assets/images/uploads/cover_$email.png";
+                $url_image = "assets/images/default_icon.jpg";
                 $tmp_image = $_FILES['user_pic']['tmp_name'];
+                $url_cover = "assets/images/default_cover.jpg";
                 $tmp_cover = $_FILES["user_cover"]["tmp_name"];
+
+                if($_SESSION['user']['image'] !== $url_image){
+                    $url_image = "assets/images/uploads/image_$email.png";
+                }
+                if($_SESSION['user']['cover'] !== $url_cover){
+                    $url_cover = "assets/images/uploads/cover_$email.png";
+                }
+
 
                 $user = new User($_SESSION['user']['email'], sha1($password));
                 $pdo = new UserDao();
@@ -529,6 +540,17 @@ class UserController extends BaseController
                     }
                     $id = $_SESSION['user']['id'];
                     $user = new User($email, sha1($password), $username, $url_image, $url_cover, $city, $description, $id);
+                    $new = [
+                        "id" => $_SESSION['user']['id'],
+                        "name" => $username,
+                        "reg_date" => $_SESSION['user']['reg_date'],
+                        "image" => $url_image,
+                        "cover" => $url_cover,
+                        "city" => $_SESSION['user']['city'],
+                        "description" => $_SESSION['user']['description'],
+                        "email" => $email,
+                    ];
+                    $_SESSION['user'] = $new;
 
                     $pdo = new UserDao();
                     $pdo->updateUser($user);

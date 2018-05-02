@@ -36,8 +36,7 @@ class TweetDao extends BaseDao
 
     public function getMyFollowersTweets($str)
     {
-        $statement = $this->pdo->query("
-                                  SELECT users.user_name,users.user_pic ,twats.twat_content, twats.twat_date, twats.user_id, twats.twat_id,twats.twat_img
+        $statement = $this->pdo->query("SELECT users.user_name,users.user_pic ,twats.twat_content, twats.twat_date, twats.user_id, twats.twat_id,twats.twat_img
                                   FROM users,twats 
                                   WHERE ($str) 
                                   AND twats.user_id = users.user_id 
@@ -46,7 +45,10 @@ class TweetDao extends BaseDao
         return $result;
     }
 
-    public function likeATweet($twat_id,$user_id){
+    public function likeATweet($twat_id, $user_id, $you, $message, $status){
+        $statement = $this->pdo->prepare("INSERT INTO notifications (sender, receiver, message, status) VALUES (?,?,?,?)");
+        $statement->execute(array($user_id, $you, $message, $status));
+
         $statement = $this->pdo->prepare("INSERT INTO likes (user_id, twat_id) VALUES (?,?)");
         $statement->execute(array($user_id,$twat_id));
     }
@@ -57,7 +59,7 @@ class TweetDao extends BaseDao
 
 
     public function getHashtags($hashtag){
-        $statement = $this->pdo->prepare("SELECT u.user_name, u.user_pic, t.twat_date, t.twat_content, t.twat_id FROM twats AS t JOIN users AS u ON u.user_id = t.user_id WHERE t.twat_content LIKE ? ");
+        $statement = $this->pdo->prepare("SELECT u.user_name, u.user_pic, t.twat_date, t.twat_content, t.twat_id, t.twat_img FROM twats AS t JOIN users AS u ON u.user_id = t.user_id WHERE t.twat_content LIKE ? ");
         $statement->execute(array("%#".$hashtag."%"));
         $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
         return $result;

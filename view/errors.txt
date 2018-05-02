@@ -229,3 +229,19 @@
  On May 1, 2018, 3:55 pm Error Message : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '38-28' for key 'PRIMARY'
  On May 1, 2018, 3:55 pm Error Message : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '38-28' for key 'PRIMARY'
  On May 1, 2018, 4:03 pm Error Message : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '38-78' for key 'PRIMARY'
+ On May 2, 2018, 6:15 pm Error Message : SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ') 
+                                  AND twats.user_id = users.user_id 
+      ' at line 3
+ On May 2, 2018, 6:15 pm Error Message : SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ') 
+                                  AND twats.user_id = users.user_id 
+      ' at line 3
+ On May 2, 2018, 6:33 pm Error Message : SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ') 
+                                  AND twats.user_id = users.user_id 
+      ' at line 3
+ On May 2, 2018, 6:49 pm Error Message : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '35-43' for key 'PRIMARY'
+ On May 2, 2018, 7:47 pm Error Message : SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'sender' cannot be null
+ On May 2, 2018, 7:47 pm Error Message : SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'sender' cannot be null
+ On May 2, 2018, 7:47 pm Error Message : SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'sender' cannot be null
+ On May 2, 2018, 7:47 pm Error Message : SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'sender' cannot be null
+ On May 2, 2018, 7:52 pm Error Message : SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'sender' cannot be null
+ On May 2, 2018, 7:52 pm Error Message : SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'sender' cannot be null
