@@ -18,11 +18,7 @@ class MessageController extends BaseController
     public function addMessage()
     {
 
-        function __autoload($class)
-        {
-            $class = "..\\" . $class;
-            require_once str_replace("\\", "/", $class) . ".php";
-        }
+
 
         try {
             $dao = new MessageDao();
@@ -76,11 +72,7 @@ class MessageController extends BaseController
 
     public function getMessages()
     {
-        function __autoload($class)
-        {
-            $class = "..\\" . $class;
-            require_once str_replace("\\", "/", $class) . ".php";
-        }
+
 
         try {
             $ownerId = $_SESSION['user']['id'];

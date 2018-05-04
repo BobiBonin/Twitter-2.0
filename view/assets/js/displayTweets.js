@@ -4,7 +4,7 @@ req.onreadystatechange = function (ev) {
     if (this.status == 200 && this.readyState == 4) {
         var resp = this.responseText;
         resp = JSON.parse(resp);
-        console.log(JSON.stringify(resp[0]));
+
         var div = document.getElementById("home_mid_div");
         for (var i = 0; i < resp.length; i++) {
             var tweet = document.createElement("div");
@@ -38,32 +38,18 @@ req.onreadystatechange = function (ev) {
             tweet.innerHTML += ' <b id="likesCounter' + resp[i]['twat_id'] + '">' + resp[i]['likes'][0]["likes"] + '</b>';
 
 
-
-            // Get the image and insert it inside the modal - use its "alt" text as a caption
-
-
-
-
-//                var req2 = new XMLHttpRequest();
-//                req2.open("get", "../commandPattern.php?target=twit&action=getTweetLikes&id="+resp[i]['twat_id']);
-//                req2.onreadystatechange = function (ev) {
-//                    if (this.status == 200 && this.readyState == 4) {
-//                        respp = this.responseText;
-//                        respp = JSON.parse(respp);
-////                        console.log(respp);
-//                        this.innerHTML += ' <b id="likesCounter">'+respp[0]['likes']+'</b>';
-//                        console.log(1);
-//                        return respp;
-//                    }
-//                };
-//                req2.send();
-
             var comment_div = document.createElement('div');
             comment_div.className = "home_tweet_comments";
             comment_div.id = resp[i]['twat_id'];
             div.appendChild(tweet);
             div.appendChild(comment_div);
 
+            // tweet.addEventListener('click', function () {
+            //
+            //         var cmnts = document.getElementById(resp[i]['twat_id']);
+            //         cmnts.style.maxHeight='10000px';
+            //
+            // }(i));
 
 //                adding comments to the tweets
             test(resp[i]['twat_id']);
@@ -91,23 +77,7 @@ function modal(img){
         modal.style.display = "none";
     };
 }
-//    function displayPicture(el) {
-//        alert(el.src);
-//        var div = document.createElement('div');
-//        div.style.height='100vh';
-//        div.style.width='100%';
-//        div.style.position='relative';
-//        div.style.zIndex="1100";
-//        div.style.backgroundColor='rgba(0,0,0,0.2)';
-//        var img = document.createElement('img');
-//        img.style.width='70%';
-//        img.src=el.src;
-//
-//
-//        div.appendChild(img);
-//        document.body.appendChild(div);
-//
-//    }
+
 
 
 function test(id) {
@@ -185,7 +155,6 @@ function likeTweet(id, heart) {
         if (this.readyState == 4 && this.status == 200) {
             resp = this.responseText;
             resp = JSON.parse(resp);
-            console.log(resp);
             heart.style.color = 'red';
             if (resp[0]['is_liked'] == 0) {
                 var request = new XMLHttpRequest();
@@ -222,7 +191,7 @@ function info(pole) {
     if (link_name.charAt(0) == "@") {
         link_name = link_name.slice(1);
     }
-    console.log(link_name);
+
 
     var request = new XMLHttpRequest();
     request.open("GET", "../commandPattern.php?name=" + link_name + "&target=user&action=getInfoForTweets");

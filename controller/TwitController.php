@@ -18,11 +18,6 @@ class TwitController extends BaseController
     public function tweets()
     {
 
-        function __autoload($class)
-        {
-            $class = "..\\" . $class;
-            require_once str_replace("\\", "/", $class) . ".php";
-        }
 
         try {
             $dao = new TweetDao();
@@ -68,33 +63,11 @@ class TwitController extends BaseController
         }
 
 
-    }// ???
-
-    public function showOwnTweets()
-    {
-        function __autoload($class)
-        {
-            $class = "..\\" . $class;
-            require_once str_replace("\\", "/", $class) . ".php";
-        }
-
-        try {
-            $id = $_SESSION['user']['id'];
-            $dao = new TweetDao();
-            $dao->showUserTweets($id);
-        } catch (\PDOException $e) {
-            $this->exception($e);
-        }
-    }// ????
+    }
 
     public function showOtherUsersTweets()
     {
 
-        function __autoload($class)
-        {
-            $class = "..\\" . $class;
-            require_once str_replace("\\", "/", $class) . ".php";
-        }
 
         try {
 
@@ -134,11 +107,7 @@ class TwitController extends BaseController
 
     public function showMyTweets()
     {
-        function __autoload($class)
-        {
-            $class = "..\\" . $class;
-            require_once str_replace("\\", "/", $class) . ".php";
-        }
+
 
         try {
             $id = $_SESSION['user']['id'];
@@ -179,11 +148,6 @@ class TwitController extends BaseController
     public function likeTweet()
     {
 
-        function __autoload($class)
-        {
-            $class = "..\\" . $class;
-            require_once str_replace("\\", "/", $class) . ".php";
-        }
 
         try {
             if ($_SERVER['REQUEST_METHOD'] === 'GET') {
@@ -206,11 +170,7 @@ class TwitController extends BaseController
 
     public function dislikeTweet()
     {
-        function __autoload($class)
-        {
-            $class = "..\\" . $class;
-            require_once str_replace("\\", "/", $class) . ".php";
-        }
+
 
         try {
             if ($_SERVER['REQUEST_METHOD'] === 'GET') {
@@ -226,11 +186,7 @@ class TwitController extends BaseController
 
     public function getTweetLikes()
     {
-        function __autoload($class)
-        {
-            $class = "..\\" . $class;
-            require_once str_replace("\\", "/", $class) . ".php";
-        }
+
 
         try {
             $id = $_GET['id'];
@@ -247,11 +203,6 @@ class TwitController extends BaseController
     public function displayTweets()
     {
 
-        function __autoload($class)
-        {
-            $class = "..\\" . $class;
-            require_once str_replace("\\", "/", $class) . ".php";
-        }
 
         try {
             $uDao = new UserDao();
@@ -302,11 +253,7 @@ class TwitController extends BaseController
 
     public function displayTags()
     {
-        function __autoload($class)
-        {
-            $class = "..\\" . $class;
-            require_once str_replace("\\", "/", $class) . ".php";
-        }
+
 
         try {
             if ($_SERVER['REQUEST_METHOD'] == 'GET') {
@@ -351,12 +298,6 @@ class TwitController extends BaseController
 
     public function checkIfLiked()
     {
-        function __autoload($class)
-        {
-            $class = "..\\" . $class;
-            require_once str_replace("\\", "/", $class) . ".php";
-        }
-
         try {
             if ($_SERVER['REQUEST_METHOD'] == 'GET') {
                 $userId = $_SESSION['user']['id'];

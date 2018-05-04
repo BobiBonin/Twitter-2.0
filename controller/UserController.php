@@ -15,11 +15,6 @@ class UserController extends BaseController
 {
     public function login()
     {
-        function __autoload($class)
-        {
-            $class = "..\\" . $class;
-            require_once str_replace("\\", "/", $class) . ".php";
-        }
 
         if (isset($_POST['login_btn'])) {
             $email = htmlentities($_POST['email']);
@@ -57,12 +52,6 @@ class UserController extends BaseController
 
     public function registration()
     {
-        function __autoload($class)
-        {
-            $class = "..\\" . $class;
-            require_once str_replace("\\", "/", $class) . ".php";
-        }
-
         if (isset($_POST['reg_btn'])) {
             $email = htmlentities($_POST['email']);
             $password = htmlentities($_POST['password']);
@@ -126,11 +115,6 @@ class UserController extends BaseController
 
     public function userById()
     {
-        function __autoload($class)
-        {
-            $class = "..\\" . $class;
-            require_once str_replace("\\", "/", $class) . ".php";
-        }
 
         try {
             if ($_SERVER['REQUEST_METHOD'] === 'GET') {
@@ -148,11 +132,6 @@ class UserController extends BaseController
 
     public function showSmallDiv()
     {
-        function __autoload($class)
-        {
-            $class = "..\\" . $class;
-            require_once str_replace("\\", "/", $class) . ".php";
-        }
 
         try {
             if ($_SERVER['REQUEST_METHOD'] == 'GET') {
@@ -176,11 +155,6 @@ class UserController extends BaseController
 
     public function showRandomUsers()
     {
-        function __autoload($class)
-        {
-            $class = "..\\" . $class;
-            require_once str_replace("\\", "/", $class) . ".php";
-        }
 
         try {
             $dao = new UserDao();
@@ -194,12 +168,6 @@ class UserController extends BaseController
 
     public function showProfile()
     {
-        function __autoload($class)
-        {
-            $class = "..\\" . $class;
-            require_once str_replace("\\", "/", $class) . ".php";
-        }
-
         try {
             if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                 $name = htmlentities($_GET['name']);
@@ -225,12 +193,6 @@ class UserController extends BaseController
 
     public function getInfoForTweets()
     {
-        function __autoload($class)
-        {
-            $class = "..\\" . $class;
-            require_once str_replace("\\", "/", $class) . ".php";
-        }
-
         try {
             if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                 $name = htmlentities($_GET['name']);
@@ -250,11 +212,6 @@ class UserController extends BaseController
 
     public function showOtherUserFollowings()
     {
-        function __autoload($class)
-        {
-            $class = "..\\" . $class;
-            require_once str_replace("\\", "/", $class) . ".php";
-        }
 
         try {
             if ($_SERVER['REQUEST_METHOD'] === 'GET') {
@@ -272,11 +229,6 @@ class UserController extends BaseController
     public function showMyProfile()
     {
 
-        function __autoload($class)
-        {
-            $class = "..\\" . $class;
-            require_once str_replace("\\", "/", $class) . ".php";
-        }
 
         try {
             $name = $_SESSION['user']['name'];
@@ -299,11 +251,6 @@ class UserController extends BaseController
 
     public function showMyFollowers()
     {
-        function __autoload($class)
-        {
-            $class = "..\\" . $class;
-            require_once str_replace("\\", "/", $class) . ".php";
-        }
 
         try {
             $id = $_SESSION['user']['id'];
@@ -319,11 +266,6 @@ class UserController extends BaseController
 
     public function showFollowings()
     {
-        function __autoload($class)
-        {
-            $class = "..\\" . $class;
-            require_once str_replace("\\", "/", $class) . ".php";
-        }
 
         try {
             $dao = new UserDao();
@@ -337,11 +279,6 @@ class UserController extends BaseController
 
     public function showFollowers()
     {
-        function __autoload($class)
-        {
-            $class = "..\\" . $class;
-            require_once str_replace("\\", "/", $class) . ".php";
-        }
 
         try {
             if ($_SERVER['REQUEST_METHOD'] === 'GET') {
@@ -360,12 +297,6 @@ class UserController extends BaseController
 
     public function searchUserAndTags()
     {
-
-        function __autoload($class)
-        {
-            $class = "..\\" . $class;
-            require_once str_replace("\\", "/", $class) . ".php";
-        }
 
         if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             try {
@@ -401,12 +332,6 @@ class UserController extends BaseController
     public function profile()
     {
 
-        function __autoload($class)
-        {
-            $class = "..\\" . $class;
-            require_once str_replace("\\", "/", $class) . ".php";
-        }
-
         try {
             $logged_mail = $_SESSION["user"]['email'];
             $user = new User($logged_mail);
@@ -421,12 +346,6 @@ class UserController extends BaseController
 
     public function followUser()
     {
-
-        function __autoload($class)
-        {
-            $class = "..\\" . $class;
-            require_once str_replace("\\", "/", $class) . ".php";
-        }
 
         try {
             if ($_SERVER['REQUEST_METHOD'] === 'GET') {
@@ -447,11 +366,6 @@ class UserController extends BaseController
 
     public function isFollow()
     {
-        function __autoload($class)
-        {
-            $class = "..\\" . $class;
-            require_once str_replace("\\", "/", $class) . ".php";
-        }
 
         try {
             if ($_SERVER['REQUEST_METHOD'] === 'GET') {
@@ -469,11 +383,6 @@ class UserController extends BaseController
 
     public function getFFT()
     {
-        function __autoload($class)
-        {
-            $class = "..\\" . $class;
-            require_once str_replace("\\", "/", $class) . ".php";
-        }
 
         try {
             if ($_SERVER['REQUEST_METHOD'] === 'GET') {
@@ -493,12 +402,6 @@ class UserController extends BaseController
 
     public function editProfile()
     {
-
-        function __autoload($class)
-        {
-            $class = "..\\" . $class;
-            require_once str_replace("\\", "/", $class) . ".php";
-        }
 
         if (isset($_POST['btn_edit'])) {
             try {
@@ -570,12 +473,6 @@ class UserController extends BaseController
 
     public function unfollowUser()
     {
-
-        function __autoload($class)
-        {
-            $class = "..\\" . $class;
-            require_once str_replace("\\", "/", $class) . ".php";
-        }
 
         try {
             if ($_SERVER['REQUEST_METHOD'] === 'GET') {

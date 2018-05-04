@@ -26,7 +26,7 @@ $(document).ready(function () {
 });
 
 
-//    window.onload = random();
+
 function random() {
     var request = new XMLHttpRequest();
     request.open("GET", "../commandPattern.php?target=user&action=showRandomUsers");
@@ -198,8 +198,10 @@ function msgs() {
                 var msg = document.createElement('div');  //creating message div
                 msg.className = 'msgs_in_wrap';
                 var sender = response[response.length - 1][response[i]['message_id']]["sender"][0]["user_name"];
-                var receiver = response[response.length - 1][response[i]['message_id']]["receiver"][0]["user_name"]
-                msg.innerHTML = '<h3>From <a href="" style="color: #006dbf">' + sender + '</a> to <a href="" style="color: #006dbf">' + receiver + '</a> on ' + response[i]['message_date'] + ' </h3>';
+                var receiver = response[response.length - 1][response[i]['message_id']]["receiver"][0]["user_name"];
+                var sLink = 'profile.php?' + sender;
+                var rLink = 'profile.php?' + receiver;
+                msg.innerHTML = '<h3>From <a href="' + sLink + '" style="color: #006dbf">' + sender + '</a> to <a href="' + rLink + '" style="color: #006dbf">' + receiver + '</a> on ' + response[i]['message_date'] + ' </h3>';
                 msg.innerHTML += response[i]['message_text'];
                 if (response[i]['message_img'] != null) {
                     msg.innerHTML += '<br>';
@@ -252,13 +254,14 @@ function characters(el) {
     }
 
 
-
 }
+
 var send = document.getElementById('input_submit');
 send.disabled = true;
 send.style.backgroundColor = "gray";
 send.style.cursor = "not-allowed";
 counter.style.color = '#ff0000';
+
 function charactersForTweets(el) {
     var counter = document.getElementById('tweetCounter');
     var send = document.getElementById('input_submit');
@@ -271,7 +274,7 @@ function charactersForTweets(el) {
         send.style.backgroundColor = "#006dbf";
     };
     counter.innerHTML = el.value.length;
-    if(el.value.length == 0){
+    if (el.value.length == 0) {
         send.disabled = true;
         send.style.backgroundColor = "gray";
         send.style.cursor = "not-allowed";
@@ -292,7 +295,6 @@ function charactersForTweets(el) {
         send.style.cursor = "not-allowed";
         counter.style.color = '#ff0000';
     }
-    console.log(el.value+"  "+el.value.length);
     if (el.value.replace(/\s/g, '').length == 0) {
         send.disabled = true;
         send.style.backgroundColor = "gray";

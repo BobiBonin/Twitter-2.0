@@ -14,11 +14,7 @@ class CommentController extends BaseController
 {
     public function postComment(){
 
-        function __autoload($class)
-        {
-            $class = "..\\" . $class;
-            require_once str_replace("\\", "/", $class) . ".php";
-        }
+
 
         try{
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -45,11 +41,7 @@ class CommentController extends BaseController
     } //Публикуване на коментар.
 
     public function showMyTweetComment(){
-        function __autoload($class)
-        {
-            $class = "..\\" . $class;
-            require_once str_replace("\\", "/", $class) . ".php";
-        }
+
 
         try {
             if ($_SERVER['REQUEST_METHOD'] === 'GET') {
