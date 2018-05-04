@@ -4,7 +4,6 @@ req.onreadystatechange = function (ev) {
     if (this.status == 200 && this.readyState == 4) {
         var resp = this.responseText;
         resp = JSON.parse(resp);
-        console.log(JSON.stringify(resp[0]));
         var div = document.getElementById("home_mid_div");
         for (var i = 0; i < resp.length; i++) {
             var tweet = document.createElement("div");
@@ -185,7 +184,6 @@ function likeTweet(id, heart) {
         if (this.readyState == 4 && this.status == 200) {
             resp = this.responseText;
             resp = JSON.parse(resp);
-            console.log(resp);
             heart.style.color = 'red';
             if (resp[0]['is_liked'] == 0) {
                 var request = new XMLHttpRequest();
@@ -222,7 +220,7 @@ function info(pole) {
     if (link_name.charAt(0) == "@") {
         link_name = link_name.slice(1);
     }
-    console.log(link_name);
+
 
     var request = new XMLHttpRequest();
     request.open("GET", "../commandPattern.php?name=" + link_name + "&target=user&action=getInfoForTweets");

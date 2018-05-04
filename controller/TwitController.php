@@ -18,12 +18,6 @@ class TwitController extends BaseController
     public function tweets()
     {
 
-        function __autoload($class)
-        {
-            $class = "..\\" . $class;
-            require_once str_replace("\\", "/", $class) . ".php";
-        }
-
         try {
             $dao = new TweetDao();
             $user = $_SESSION['user']['id'];
@@ -68,15 +62,10 @@ class TwitController extends BaseController
         }
 
 
-    }// ???
+    }// Добавя нов туит
 
     public function showOwnTweets()
     {
-        function __autoload($class)
-        {
-            $class = "..\\" . $class;
-            require_once str_replace("\\", "/", $class) . ".php";
-        }
 
         try {
             $id = $_SESSION['user']['id'];
@@ -85,16 +74,10 @@ class TwitController extends BaseController
         } catch (\PDOException $e) {
             $this->exception($e);
         }
-    }// ????
+    }//Показва туитовете на текущо логнатия потребител
 
     public function showOtherUsersTweets()
     {
-
-        function __autoload($class)
-        {
-            $class = "..\\" . $class;
-            require_once str_replace("\\", "/", $class) . ".php";
-        }
 
         try {
 
@@ -134,11 +117,6 @@ class TwitController extends BaseController
 
     public function showMyTweets()
     {
-        function __autoload($class)
-        {
-            $class = "..\\" . $class;
-            require_once str_replace("\\", "/", $class) . ".php";
-        }
 
         try {
             $id = $_SESSION['user']['id'];
@@ -179,12 +157,6 @@ class TwitController extends BaseController
     public function likeTweet()
     {
 
-        function __autoload($class)
-        {
-            $class = "..\\" . $class;
-            require_once str_replace("\\", "/", $class) . ".php";
-        }
-
         try {
             if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                 $tDao = new TweetDao();
@@ -206,11 +178,6 @@ class TwitController extends BaseController
 
     public function dislikeTweet()
     {
-        function __autoload($class)
-        {
-            $class = "..\\" . $class;
-            require_once str_replace("\\", "/", $class) . ".php";
-        }
 
         try {
             if ($_SERVER['REQUEST_METHOD'] === 'GET') {
@@ -222,15 +189,10 @@ class TwitController extends BaseController
         } catch (\PDOException $e) {
             $this->exception($e);
         }
-    }
+    }// Отхаресване на туит
 
     public function getTweetLikes()
     {
-        function __autoload($class)
-        {
-            $class = "..\\" . $class;
-            require_once str_replace("\\", "/", $class) . ".php";
-        }
 
         try {
             $id = $_GET['id'];
@@ -242,16 +204,10 @@ class TwitController extends BaseController
         }
 
 
-    }
+    }// Полазва броя на лайковете на даден туит
 
     public function displayTweets()
     {
-
-        function __autoload($class)
-        {
-            $class = "..\\" . $class;
-            require_once str_replace("\\", "/", $class) . ".php";
-        }
 
         try {
             $uDao = new UserDao();
@@ -279,7 +235,8 @@ class TwitController extends BaseController
                 $array = explode(" ", $tweet['twat_content']);
                 for ($i = 0; $i < count($array); $i++) {
                     if (substr($array[$i], 0, 1) == "#") {
-                        $array[$i] = "<a href='#' style='font-weight: bold;'>$array[$i]</a>";
+                        $tag = substr($array[$i], 1);
+                        $array[$i] = "<a href='home_hashtags.php?$tag' style='font-weight: bold;'>$array[$i]</a>";
                     }
 
                     if (substr($array[$i], 0, 1) == "@") {
@@ -302,11 +259,6 @@ class TwitController extends BaseController
 
     public function displayTags()
     {
-        function __autoload($class)
-        {
-            $class = "..\\" . $class;
-            require_once str_replace("\\", "/", $class) . ".php";
-        }
 
         try {
             if ($_SERVER['REQUEST_METHOD'] == 'GET') {
@@ -314,15 +266,20 @@ class TwitController extends BaseController
                 $tag = htmlentities($_GET['tag']);
                 $dao = new TweetDao();
                 $uDao = new UserDao();
-                $tweetsWithTag = $dao->getHashtags($tag);
+                if(is_numeric($tag)){
+                    $result = $dao->getTweet($tag);
+                }else{
+                    $result = $dao->getHashtags($tag);
+                }
 
-                foreach ($tweetsWithTag as &$tweet) {
+
+                foreach ($result as &$tweet) {
                     $tweet['likes'] = $dao->getTweetLikes($tweet['twat_id']);
                     $tweet['youLike'] = $dao->checkIfLiked($user_id, $tweet['twat_id']);
                 }
 
 
-                foreach ($tweetsWithTag as &$tweet) {
+                foreach ($result as &$tweet) {
                     $array = explode(" ", $tweet['twat_content']);
                     for ($i = 0; $i < count($array); $i++) {
                         if (substr($array[$i], 0, 1) == "#") {
@@ -340,22 +297,17 @@ class TwitController extends BaseController
                     }
                     $tweet['twat_content'] = implode(" ", $array);
                 }
-                echo json_encode($tweetsWithTag);
+                echo json_encode($result);
             }
 
 
         } catch (\PDOException $e) {
             $this->exception($e);
         }
-    }
+    }// Показва туитовете които съдържат определен хаштаг
 
     public function checkIfLiked()
     {
-        function __autoload($class)
-        {
-            $class = "..\\" . $class;
-            require_once str_replace("\\", "/", $class) . ".php";
-        }
 
         try {
             if ($_SERVER['REQUEST_METHOD'] == 'GET') {
@@ -371,5 +323,5 @@ class TwitController extends BaseController
             $this->exception($e);
         }
 
-    }
+    }// Проверява дали даден туит е харесан
 }

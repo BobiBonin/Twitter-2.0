@@ -18,12 +18,6 @@ class MessageController extends BaseController
     public function addMessage()
     {
 
-        function __autoload($class)
-        {
-            $class = "..\\" . $class;
-            require_once str_replace("\\", "/", $class) . ".php";
-        }
-
         try {
             $dao = new MessageDao();
             $userDao = new UserDao();
@@ -72,15 +66,10 @@ class MessageController extends BaseController
         } catch (\PDOException $e) {
             $this->exception($e);
         }
-    }
+    }// Добавя ново съобщение
 
     public function getMessages()
     {
-        function __autoload($class)
-        {
-            $class = "..\\" . $class;
-            require_once str_replace("\\", "/", $class) . ".php";
-        }
 
         try {
             $ownerId = $_SESSION['user']['id'];
@@ -103,6 +92,6 @@ class MessageController extends BaseController
             $this->exception($e);
         }
         return 0;
-    }
+    }// Извлича всички съобщения на логнатия потребител
 
 }

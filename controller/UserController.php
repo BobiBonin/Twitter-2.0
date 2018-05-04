@@ -8,6 +8,7 @@
 
 namespace controller;
 
+use Couchbase\Exception;
 use \model\UserDao;
 use \model\User;
 
@@ -15,11 +16,6 @@ class UserController extends BaseController
 {
     public function login()
     {
-        function __autoload($class)
-        {
-            $class = "..\\" . $class;
-            require_once str_replace("\\", "/", $class) . ".php";
-        }
 
         if (isset($_POST['login_btn'])) {
             $email = htmlentities($_POST['email']);
@@ -53,15 +49,10 @@ class UserController extends BaseController
             }
         }
 
-    }
+    } //Вход в системата
 
     public function registration()
     {
-        function __autoload($class)
-        {
-            $class = "..\\" . $class;
-            require_once str_replace("\\", "/", $class) . ".php";
-        }
 
         if (isset($_POST['reg_btn'])) {
             $email = htmlentities($_POST['email']);
@@ -93,11 +84,15 @@ class UserController extends BaseController
             }
             try {
                 if (!$error) {
-                    $user = new User($email, sha1($password), $username);
+                    $img_ulr = "assets/images/uploads/default_icon.jpg";
+                    $cover_ulr = 'assets/images/default_cover.jpg';
+                    $date = date(DATE_RFC822);
+                    $user = new User($email, sha1($password), $username, $date, $img_ulr, $cover_ulr);
                     $dao = new UserDao();
                     $result = $dao->userExistForReg($user);
                     if (!$result) {
-                        $dao->registerUser($user);
+                        $result = $dao->registerUser($user);
+
                         $info = $dao->getUserInfoByEmail($user);
                         $_SESSION['user'] = [];
                         $new = [
@@ -120,17 +115,13 @@ class UserController extends BaseController
                 }
             } catch (\PDOException $e) {
                 $this->exception($e);
+                header("location: ../view/exception_page.php");
             }
         }
     } //Регистрация
 
     public function userById()
     {
-        function __autoload($class)
-        {
-            $class = "..\\" . $class;
-            require_once str_replace("\\", "/", $class) . ".php";
-        }
 
         try {
             if ($_SERVER['REQUEST_METHOD'] === 'GET') {
@@ -144,15 +135,10 @@ class UserController extends BaseController
             $this->exception($e);
         }
 
-    }
+    } //Взима информация за юзър по айди
 
     public function showSmallDiv()
     {
-        function __autoload($class)
-        {
-            $class = "..\\" . $class;
-            require_once str_replace("\\", "/", $class) . ".php";
-        }
 
         try {
             if ($_SERVER['REQUEST_METHOD'] == 'GET') {
@@ -176,11 +162,6 @@ class UserController extends BaseController
 
     public function showRandomUsers()
     {
-        function __autoload($class)
-        {
-            $class = "..\\" . $class;
-            require_once str_replace("\\", "/", $class) . ".php";
-        }
 
         try {
             $dao = new UserDao();
@@ -194,11 +175,6 @@ class UserController extends BaseController
 
     public function showProfile()
     {
-        function __autoload($class)
-        {
-            $class = "..\\" . $class;
-            require_once str_replace("\\", "/", $class) . ".php";
-        }
 
         try {
             if ($_SERVER['REQUEST_METHOD'] === 'GET') {
@@ -225,11 +201,6 @@ class UserController extends BaseController
 
     public function getInfoForTweets()
     {
-        function __autoload($class)
-        {
-            $class = "..\\" . $class;
-            require_once str_replace("\\", "/", $class) . ".php";
-        }
 
         try {
             if ($_SERVER['REQUEST_METHOD'] === 'GET') {
@@ -246,15 +217,10 @@ class UserController extends BaseController
         } catch (\PDOException $e) {
             $this->exception($e);
         }
-    }
+    } //Взима информация за юзър по име
 
     public function showOtherUserFollowings()
     {
-        function __autoload($class)
-        {
-            $class = "..\\" . $class;
-            require_once str_replace("\\", "/", $class) . ".php";
-        }
 
         try {
             if ($_SERVER['REQUEST_METHOD'] === 'GET') {
@@ -271,12 +237,6 @@ class UserController extends BaseController
 
     public function showMyProfile()
     {
-
-        function __autoload($class)
-        {
-            $class = "..\\" . $class;
-            require_once str_replace("\\", "/", $class) . ".php";
-        }
 
         try {
             $name = $_SESSION['user']['name'];
@@ -299,11 +259,6 @@ class UserController extends BaseController
 
     public function showMyFollowers()
     {
-        function __autoload($class)
-        {
-            $class = "..\\" . $class;
-            require_once str_replace("\\", "/", $class) . ".php";
-        }
 
         try {
             $id = $_SESSION['user']['id'];
@@ -319,11 +274,6 @@ class UserController extends BaseController
 
     public function showFollowings()
     {
-        function __autoload($class)
-        {
-            $class = "..\\" . $class;
-            require_once str_replace("\\", "/", $class) . ".php";
-        }
 
         try {
             $dao = new UserDao();
@@ -337,11 +287,6 @@ class UserController extends BaseController
 
     public function showFollowers()
     {
-        function __autoload($class)
-        {
-            $class = "..\\" . $class;
-            require_once str_replace("\\", "/", $class) . ".php";
-        }
 
         try {
             if ($_SERVER['REQUEST_METHOD'] === 'GET') {
@@ -360,12 +305,6 @@ class UserController extends BaseController
 
     public function searchUserAndTags()
     {
-
-        function __autoload($class)
-        {
-            $class = "..\\" . $class;
-            require_once str_replace("\\", "/", $class) . ".php";
-        }
 
         if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             try {
@@ -401,12 +340,6 @@ class UserController extends BaseController
     public function profile()
     {
 
-        function __autoload($class)
-        {
-            $class = "..\\" . $class;
-            require_once str_replace("\\", "/", $class) . ".php";
-        }
-
         try {
             $logged_mail = $_SESSION["user"]['email'];
             $user = new User($logged_mail);
@@ -422,12 +355,6 @@ class UserController extends BaseController
     public function followUser()
     {
 
-        function __autoload($class)
-        {
-            $class = "..\\" . $class;
-            require_once str_replace("\\", "/", $class) . ".php";
-        }
-
         try {
             if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                 $me = $_SESSION['user']['id'];
@@ -437,7 +364,7 @@ class UserController extends BaseController
                 $you = $dao->findId($name);
                 $message = "$myname start following you!";
                 $status = "unread";
-                $like = $dao->likeIt($me, $you['user_id'],$message,$status);
+                $like = $dao->likeIt($me, $you['user_id'], $message, $status);
                 echo json_encode($like);
             }
         } catch (\PDOException $e) {
@@ -447,11 +374,6 @@ class UserController extends BaseController
 
     public function isFollow()
     {
-        function __autoload($class)
-        {
-            $class = "..\\" . $class;
-            require_once str_replace("\\", "/", $class) . ".php";
-        }
 
         try {
             if ($_SERVER['REQUEST_METHOD'] === 'GET') {
@@ -469,11 +391,6 @@ class UserController extends BaseController
 
     public function getFFT()
     {
-        function __autoload($class)
-        {
-            $class = "..\\" . $class;
-            require_once str_replace("\\", "/", $class) . ".php";
-        }
 
         try {
             if ($_SERVER['REQUEST_METHOD'] === 'GET') {
@@ -494,12 +411,6 @@ class UserController extends BaseController
     public function editProfile()
     {
 
-        function __autoload($class)
-        {
-            $class = "..\\" . $class;
-            require_once str_replace("\\", "/", $class) . ".php";
-        }
-
         if (isset($_POST['btn_edit'])) {
             try {
 
@@ -513,10 +424,10 @@ class UserController extends BaseController
                 $url_cover = "assets/images/default_cover.jpg";
                 $tmp_cover = $_FILES["user_cover"]["tmp_name"];
 
-                if($_SESSION['user']['image'] !== $url_image){
+                if ($_SESSION['user']['image'] !== $url_image) {
                     $url_image = "assets/images/uploads/image_$email.png";
                 }
-                if($_SESSION['user']['cover'] !== $url_cover){
+                if ($_SESSION['user']['cover'] !== $url_cover) {
                     $url_cover = "assets/images/uploads/cover_$email.png";
                 }
 
@@ -570,13 +481,6 @@ class UserController extends BaseController
 
     public function unfollowUser()
     {
-
-        function __autoload($class)
-        {
-            $class = "..\\" . $class;
-            require_once str_replace("\\", "/", $class) . ".php";
-        }
-
         try {
             if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                 $me = $_SESSION['user']['id'];
@@ -599,5 +503,26 @@ class UserController extends BaseController
         }
     } //Прекратяване на сесията и препращане към index.php.
 
+    public function getNotifications()
+    {
+        try {
+            $myId = $_SESSION['user']['id'];
+            $uDao = new UserDao();
+            $result = $uDao->getNotifications($myId);
+            echo json_encode($result);
+        } catch (\PDOException $e) {
+            $this->exception($e);
+        }
+    } //Взима известията
 
+    public function seeNotification()
+    {
+        $id = htmlentities($_GET['id']);
+        try {
+            $uDao = new UserDao();
+            $uDao->seeNotification($id);
+        } catch (\PDOException $e) {
+            $this->exception($e);
+        }
+    } //Променя статуса на известията на прочетени
 }

@@ -3,14 +3,13 @@ var queryString = decodeURIComponent(window.location.search);
 queryString = queryString.substring(1);
 var queries = queryString.split("&");
 
-console.log(queries[0]);
+
 var req = new XMLHttpRequest();
 req.open("get", "../commandPattern.php?tag="+ queries[0] +"&target=twit&action=displayTags");
 req.onreadystatechange = function (ev) {
     if (this.status == 200 && this.readyState == 4) {
         var resp = this.responseText;
         resp = JSON.parse(resp);
-        console.log(resp);
         var div = document.getElementById("tags_mid_div");
         for (var i = 0; i < resp.length; i++) {
             var tweet = document.createElement("div");
@@ -195,7 +194,6 @@ function likeTweet(id, heart) {
         if (this.readyState == 4 && this.status == 200) {
             resp = this.responseText;
             resp = JSON.parse(resp);
-            console.log(resp);
             heart.style.color = 'red';
             if (resp[0]['is_liked'] == 0) {
                 var request = new XMLHttpRequest();

@@ -292,7 +292,6 @@ function charactersForTweets(el) {
         send.style.cursor = "not-allowed";
         counter.style.color = '#ff0000';
     }
-    console.log(el.value+"  "+el.value.length);
     if (el.value.replace(/\s/g, '').length == 0) {
         send.disabled = true;
         send.style.backgroundColor = "gray";

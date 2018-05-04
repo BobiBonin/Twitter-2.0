@@ -12,10 +12,11 @@ namespace model;
 class CommentDao extends BaseDao
 {
 
-    public function addComment(Comment $comment, $me,$you, $message, $status){
+    public function addComment(Comment $comment, $me, $tweet_id, $you, $message, $status)
+    {
 
-        $statement = $this->pdo->prepare("INSERT INTO notifications (sender, receiver, message, status) VALUES (?,?,?,?)");
-        $statement->execute(array($me, $you, $message, $status));
+        $statement = $this->pdo->prepare("INSERT INTO notifications (sender, receiver, id_tweet, message, status) VALUES (?,?,?,?,?)");
+        $statement->execute(array($you, $me, $tweet_id, $message, $status));
 
         $statement = $this->pdo->prepare("INSERT INTO comments (twat_id, comment_text, owner_id) VALUES (?,?,?)");
         $statement->execute(array($comment->getTweetId(),
@@ -24,19 +25,21 @@ class CommentDao extends BaseDao
         $result = $statement->rowCount();
 
         return $result;
-    }
+    } // Добавя коментар
 
-    public function showMyComments($id){
+    public function showMyComments($id)
+    {
         $statement = $this->pdo->prepare("SELECT c.twat_id, c.comment_text, c.comment_date, u.user_pic, u.user_name FROM comments AS c JOIN users AS u ON u.user_id = c.owner_id WHERE c.twat_id = ?");
         $statement->execute(array($id));
         $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
         return $result;
-    }
+    } // Показва коментарите под туитовете
 
-    public function findTweetOwner($id){
+    public function findTweetOwner($id)
+    {
         $statement = $this->pdo->prepare("SELECT user_id AS id FROM twats WHERE twat_id = ?");
         $statement->execute(array($id));
         $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
         return $result;
-    }
+    } // Намира автора на даден туит
 }

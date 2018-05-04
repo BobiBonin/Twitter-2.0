@@ -245,3 +245,61 @@
  On May 2, 2018, 7:47 pm Error Message : SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'sender' cannot be null
  On May 2, 2018, 7:52 pm Error Message : SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'sender' cannot be null
  On May 2, 2018, 7:52 pm Error Message : SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'sender' cannot be null
+ On May 4, 2018, 6:59 am Error Message : SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens
+ On May 4, 2018, 6:59 am Error Message : SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens
+ On May 4, 2018, 7:00 am Error Message : SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens
+ On May 4, 2018, 7:00 am Error Message : SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens
+ On May 4, 2018, 7:02 am Error Message : SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens
+ On May 4, 2018, 7:02 am Error Message : SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens
+ On May 4, 2018, 7:04 am Error Message : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '35-28' for key 'PRIMARY'
+ On May 4, 2018, 9:30 am Error Message : SQLSTATE[HY000]: General error
+ On May 4, 2018, 9:32 am Error Message : SQLSTATE[HY000]: General error
+ On May 4, 2018, 10:00 am Error Message : SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ') 
+                                  AND twats.user_id = users.user_id 
+      ' at line 3
+ On May 4, 2018, 10:01 am Error Message : SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'ODRER BY date' at line 5
+ On May 4, 2018, 10:04 am Error Message : SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'ODRER BY date ASC' at line 5
+ On May 4, 2018, 10:12 am Error Message : SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ') 
+                                  AND twats.user_id = users.user_id 
+      ' at line 3
+ On May 4, 2018, 10:12 am Error Message : SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ') 
+                                  AND twats.user_id = users.user_id 
+      ' at line 3
+ On May 4, 2018, 10:12 am Error Message : SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ') 
+                                  AND twats.user_id = users.user_id 
+      ' at line 3
+ On May 4, 2018, 10:12 am Error Message : SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ') 
+                                  AND twats.user_id = users.user_id 
+      ' at line 3
+ On May 4, 2018, 10:12 am Error Message : SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ') 
+                                  AND twats.user_id = users.user_id 
+      ' at line 3
+ On May 4, 2018, 10:44 am Error Message : SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ') 
+                                  AND twats.user_id = users.user_id 
+      ' at line 3
+ On May 4, 2018, 11:02 am Error Message : SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ') 
+                                  AND twats.user_id = users.user_id 
+      ' at line 3
+ On May 4, 2018, 11:14 am Error Message : SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'WHERE user_name = 'lud'' at line 1
+ On May 4, 2018, 11:14 am Error Message : SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'WHERE user_name = 'lud'' at line 1
+ On May 4, 2018, 11:15 am Error Message : SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'WHERE user_name = ''' at line 1
+ On May 4, 2018, 11:23 am Error Message : SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens
+ On May 4, 2018, 11:25 am Error Message : SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ') 
+                                  AND twats.user_id = users.user_id 
+      ' at line 3
+ On May 4, 2018, 11:26 am Error Message : SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ') 
+                                  AND twats.user_id = users.user_id 
+      ' at line 3
+ On May 4, 2018, 11:33 am Error Message : SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens
+ On May 4, 2018, 11:33 am Error Message : SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ') 
+                                  AND twats.user_id = users.user_id 
+      ' at line 3
+ On May 4, 2018, 11:36 am Error Message : SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ') 
+                                  AND twats.user_id = users.user_id 
+      ' at line 3
+ On May 4, 2018, 11:44 am Error Message : SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ') 
+                                  AND twats.user_id = users.user_id 
+      ' at line 3
+ On May 4, 2018, 11:48 am Error Message : SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ') 
+                                  AND twats.user_id = users.user_id 
+      ' at line 3

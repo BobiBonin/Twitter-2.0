@@ -22,14 +22,14 @@ class MessageDao extends BaseDao
 
         $result = $statement->rowCount();
         return $result;
-    }
+    } //Добавя съобщение
 
     public function getMessages($id){
         $statement = $this->pdo->prepare("SELECT * FROM messages WHERE sender_id = ? OR receiver_id = ? ORDER BY message_date DESC");
         $statement->execute(array($id,$id));
         $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
         return $result;
-    }
+    } // Взима съобщение
 
     public function getNewId(){
         $statement = $this->pdo->prepare("SELECT message_id FROM mydb.messages ORDER BY message_id DESC LIMIT 1;");

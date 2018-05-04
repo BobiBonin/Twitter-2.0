@@ -14,12 +14,6 @@ class CommentController extends BaseController
 {
     public function postComment(){
 
-        function __autoload($class)
-        {
-            $class = "..\\" . $class;
-            require_once str_replace("\\", "/", $class) . ".php";
-        }
-
         try{
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $user_id = $_SESSION['user']['id'];
@@ -32,7 +26,7 @@ class CommentController extends BaseController
                     $tweetOwner = $dao->findTweetOwner($tweet_id);
                     $message = "$username comment on your tweet!";
                     $status = "unread";
-                    $comments = $dao->addComment($comment,$tweetOwner[0]['id'],$user_id,$message,$status);
+                    $comments = $dao->addComment($comment,$tweetOwner[0]['id'],$tweet_id,$user_id,$message,$status);
                     echo json_encode($comments);
                 }else{
                     echo json_encode(0);
@@ -45,11 +39,6 @@ class CommentController extends BaseController
     } //Публикуване на коментар.
 
     public function showMyTweetComment(){
-        function __autoload($class)
-        {
-            $class = "..\\" . $class;
-            require_once str_replace("\\", "/", $class) . ".php";
-        }
 
         try {
             if ($_SERVER['REQUEST_METHOD'] === 'GET') {

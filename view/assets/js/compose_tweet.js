@@ -56,7 +56,6 @@ function ValidateFileUpload() {
 //The file upload is NOT an image
         else {
             var label = document.getElementById('imgLabel');
-            console.log('error');
             alert("Pictures only allows file types of GIF, PNG, JPG, JPEG and BMP. ");
             label.innerHTML='<i class="fa fa-picture-o" aria-hidden="true" style="font-size: 22px"></i>';
             label.style.width='45px';

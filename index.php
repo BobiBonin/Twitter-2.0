@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Twatter. Това което се случва</title>
+    <title>Twitter. Това което се случва</title>
     <link rel="stylesheet" href="view/assets/style/login_style.css">
     <link rel="stylesheet" href="view/assets/font-awesome-4.7.0/css/font-awesome.min.css">
     <link rel="shortcut icon" type="image/x-icon" href="view/assets/images/Tweeter_icon.png"/>
@@ -222,9 +222,25 @@
                         span2.innerText = "";
                         pass.style.border = "1px solid rgba(23, 190, 99, 0.71)";
                     }
+                    if(pass.value < 5){
+                        pass.style.border = "1px solid rgba(224,36,94,0.71)";
+                        span2.innerText = "Моля въведете по-сложна парола!";
+                        event.preventDefault();
+                    } else {
+                        span2.innerText = "";
+                        pass.style.border = "1px solid rgba(23, 190, 99, 0.71)";
+                    }
                     if (repeat_pass.value == 0) {
                         repeat_pass.style.border = "1px solid rgba(224,36,94,0.71)";
                         span3.innerText = "Моля повторете паролата!";
+                        event.preventDefault();
+                    } else {
+                        span3.innerText = "";
+                        repeat_pass.style.border = "1px solid rgba(23, 190, 99, 0.71)";
+                    }
+                    if(repeat_pass.value < 5){
+                        repeat_pass.style.border = "1px solid rgba(224,36,94,0.71)";
+                        span3.innerText = "Моля въведете по-сложна парола!";
                         event.preventDefault();
                     } else {
                         span3.innerText = "";

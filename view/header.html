@@ -14,7 +14,7 @@
             <ul>
                 <li class="navLi" id="navHome"><a href="home.php#body"><img class="navImg" src="assets/images/home.png"></a>
                 </li>
-                <li class="navLi" id="navNotifications"><img class="navImg" src="assets/images/notif.png"></li>
+                <li class="navLi" id="navNotifications"><img class="navImg" id="notifications_img" src="assets/images/notif.png"><p id="num"></p></li>
                 <li class="navLi" id="navMessages"><a href="#"><img class="navImg" src="assets/images/msg.png"
                                                                     onclick="msgs()"></a>
                 </li>
@@ -30,13 +30,18 @@
             <a href="profile.php"><img id="profile_icon" src=""></a>
         </div>
         <div id="asd">
-            <input oninput="search()" id="searchInput" type="text" placeholder="Search Twatter">
+            <input oninput="search()" id="searchInput" type="text" placeholder="Search Twitter">
             <i class="fa fa-search" aria-hidden="true" id="searchIcon"></i>
             <div id="ul">
 
             </div>
         </div>
     </div>
+</div>
+<div id="notifications">
+    <ul id="notif_ul">
+
+    </ul>
 </div>
 <script src="assets/js/header.js">
 </script>
