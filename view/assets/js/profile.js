@@ -869,7 +869,9 @@ function msgs() {
                 msg.className = 'msgs_in_wrap';
                 var sender = response[response.length - 1][response[i]['message_id']]["sender"][0]["user_name"];
                 var receiver = response[response.length - 1][response[i]['message_id']]["receiver"][0]["user_name"]
-                msg.innerHTML = '<h3>From <a href="" style="color: #006dbf">' + sender + '</a> to <a href="" style="color: #006dbf">' + receiver + '</a> on ' + response[i]['message_date'] + ' </h3>';
+                var sLink = 'profile.php?' + sender;
+                var rLink = 'profile.php?' + receiver;
+                msg.innerHTML = '<h3>From <a href="' + sLink + '" style="color: #006dbf">' + sender + '</a> to <a href="' + rLink + '" style="color: #006dbf">' + receiver + '</a> on ' + response[i]['message_date'] + ' </h3>';
                 msg.innerHTML += response[i]['message_text'];
                 if (response[i]['message_img'] != null) {
                     msg.innerHTML += '<br>';

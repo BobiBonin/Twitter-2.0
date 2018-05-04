@@ -53,7 +53,6 @@ class UserController extends BaseController
 
     public function registration()
     {
-
         if (isset($_POST['reg_btn'])) {
             $email = htmlentities($_POST['email']);
             $password = htmlentities($_POST['password']);
@@ -201,7 +200,6 @@ class UserController extends BaseController
 
     public function getInfoForTweets()
     {
-
         try {
             if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                 $name = htmlentities($_GET['name']);
@@ -262,9 +260,8 @@ class UserController extends BaseController
 
         try {
             $id = $_SESSION['user']['id'];
-            $user = new User(null, null, null, null, null, null, null, $id);
             $dao = new UserDao();
-            $result = $dao->findFollowers($user);
+            $result = $dao->findFollowers($id);
             echo json_encode($result);
 
         } catch (\PDOException $e) {

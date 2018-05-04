@@ -20,6 +20,7 @@ class TweetDao extends BaseDao
         return $result;
     } // Показва туитовете на логнатия потребител
 
+
     public function showUserTweets($id)
     {
         $statement = $this->pdo->prepare("SELECT twat_content,twat_date,user_id FROM twats WHERE user_id=? ORDER BY twat_date DESC");
@@ -27,6 +28,7 @@ class TweetDao extends BaseDao
         $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
         print_r(json_encode($result));
     } // Показва туитовете на други потребители
+
 
     public function addTweet(Tweet $tweet)
     {

@@ -62,6 +62,7 @@ class TwitController extends BaseController
         }
 
 
+
     }// Добавя нов туит
 
     public function showOwnTweets()
@@ -75,6 +76,9 @@ class TwitController extends BaseController
             $this->exception($e);
         }
     }//Показва туитовете на текущо логнатия потребител
+
+
+
 
     public function showOtherUsersTweets()
     {
@@ -308,7 +312,6 @@ class TwitController extends BaseController
 
     public function checkIfLiked()
     {
-
         try {
             if ($_SERVER['REQUEST_METHOD'] == 'GET') {
                 $userId = $_SESSION['user']['id'];

@@ -131,10 +131,10 @@ class UserDao extends BaseDao
     }
 
     /*Намира следените от дадения потребител юзъри по ID*/
-    public function findFollowers(User $user)
+    public function findFollowers($id)
     {
         $statement = $this->pdo->prepare("SELECT u.user_name, u.user_pic, u.user_cover FROM users as u JOIN following as f ON u.user_id = f.user_id WHERE f.following_id = ?");
-        $statement->execute(array($user->getId()));
+        $statement->execute(array($id));
         $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
         return $result;
     }

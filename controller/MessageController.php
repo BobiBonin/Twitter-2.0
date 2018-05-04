@@ -17,7 +17,6 @@ class MessageController extends BaseController
 {
     public function addMessage()
     {
-
         try {
             $dao = new MessageDao();
             $userDao = new UserDao();
