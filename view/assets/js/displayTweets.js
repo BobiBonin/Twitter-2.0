@@ -30,7 +30,7 @@ req.onreadystatechange = function (ev) {
             }
             if (resp[i]['youLike'][0]["is_liked"] == 1) {
                 tweet.innerHTML += "<br><i id='heart" + resp[i]['twat_id'] + "' style='color: red;' value=" + resp[i]['twat_id'] + " onclick=\"likeTweet(" + resp[i]['twat_id'] + ",this)\" class=\"fa fa-heart hrt\"></i>";
-            }else{
+            } else {
                 tweet.innerHTML += "<br><i id='heart" + resp[i]['twat_id'] + "' style='color: black;' value=" + resp[i]['twat_id'] + " onclick=\"likeTweet(" + resp[i]['twat_id'] + ",this)\" class=\"fa fa-heart hrt\"></i>";
 
             }
@@ -44,26 +44,36 @@ req.onreadystatechange = function (ev) {
             div.appendChild(tweet);
             div.appendChild(comment_div);
 
-            // tweet.addEventListener('click', function () {
-            //
-            //         var cmnts = document.getElementById(resp[i]['twat_id']);
-            //         cmnts.style.maxHeight='10000px';
-            //
-            // }(i));
+            const a = resp[i]['twat_id'];
+            tweet.addEventListener("click", function () {
+                changeMaxHeight(a);
+
+                function changeMaxHeight(a) {
+                    asd = document.getElementById(a);
+                    if (asd.style.maxHeight == '10000px') {
+                        asd.style.maxHeight = '0px';
+                    } else {
+                        asd.style.maxHeight = '10000px';
+                    }
+                }
+            });
+
 
 //                adding comments to the tweets
             test(resp[i]['twat_id']);
+
 
         }
     }
 };
 req.send();
 
-function modal(img){
+
+function modal(img) {
     var modal = document.getElementById('myModal');
     var modalImg = document.getElementById("img01");
     var captionText = document.getElementById("caption");
-    img.onclick = function(){
+    img.onclick = function () {
         modal.style.display = "block";
         modalImg.src = this.src;
         captionText.innerHTML = this.alt;
@@ -73,11 +83,10 @@ function modal(img){
     var span = document.getElementsByClassName("close")[0];
 
     // When the user clicks on <span> (x), close the modal
-    span.onclick = function() {
+    span.onclick = function () {
         modal.style.display = "none";
     };
 }
-
 
 
 function test(id) {

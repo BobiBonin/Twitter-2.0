@@ -36,11 +36,21 @@ class TweetDao extends BaseDao
         $statement->execute(array($tweet->getUserId(), $tweet->getContent(), $tweet->getImage()));
     } //Добавя нов туит
 
-    public function getMyFollowersTweets($str)
+    public function getMyFollowersTweets($arr)
     {
+        $user_id = $_SESSION['user']->getId();
+        $string = "twats.user_id = " . $user_id . " OR ";
+        for ($i = 0; $i < count($arr); $i++) {
+            $string = $string . "twats.user_id = $arr[$i]";
+            if ($i < count($arr) - 1) {
+                $string = $string . " OR ";
+            }
+        }
+
+
         $statement = $this->pdo->query("SELECT users.user_name,users.user_pic ,twats.twat_content, twats.twat_date, twats.user_id, twats.twat_id,twats.twat_img
                                   FROM users,twats 
-                                  WHERE ($str) 
+                                  WHERE ($string) 
                                   AND twats.user_id = users.user_id 
                                   ORDER BY twats.twat_date DESC");
         $result = $statement->fetchAll(\PDO::FETCH_ASSOC);

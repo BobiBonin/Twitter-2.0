@@ -216,19 +216,9 @@ class TwitController extends BaseController
         try {
             $uDao = new UserDao();
             $tDao = new TweetDao();
-
             $user_id = $_SESSION['user']->getId();
-
             $arr = $uDao->getFollowersId($user_id);
-
-            $string = "twats.user_id = " . $user_id . " OR ";
-            for ($i = 0; $i < count($arr); $i++) {
-                $string = $string . "twats.user_id = $arr[$i]";
-                if ($i < count($arr) - 1) {
-                    $string = $string . " OR ";
-                }
-            }
-            $result = $tDao->getMyFollowersTweets($string);
+            $result = $tDao->getMyFollowersTweets($arr);
             foreach ($result as &$tweet) {
                 $tweet['likes'] = $tDao->getTweetLikes($tweet['twat_id']);
                 $tweet['youLike'] = $tDao->checkIfLiked($user_id, $tweet['twat_id']);

@@ -142,7 +142,17 @@ function notifications() {
                         var a = document.createElement("a");
                         a.href = "profile.php?" + response[key]["user_name"];
                         var id = response[key]["id"];
-                        a.addEventListener("click" , read(id));
+                        const ID = id;
+                        a.addEventListener("click" , function () {
+                            var request = new XMLHttpRequest();
+                            request.open("GET", "../commandPattern.php?target=user&action=seeNotification&id=" + ID);
+                            request.onreadystatechange = function (ev) {
+                                if (this.status == 200 && this.readyState == 4) {
+
+                                }
+                            };
+                            request.send();
+                        });
                         var p = document.createElement("p");
                         p.innerText = response[key]["date"];
                         var img = document.createElement("img");
@@ -167,7 +177,17 @@ function notifications() {
                             a.style.fontWeight = "bold";
                         }
                         var id = response[key]["id"];
-                        a.addEventListener("click" , read(id));
+                        const ID = id;
+                        a.addEventListener("click" , function () {
+                            var request = new XMLHttpRequest();
+                            request.open("GET", "../commandPattern.php?target=user&action=seeNotification&id=" + ID);
+                            request.onreadystatechange = function (ev) {
+                                if (this.status == 200 && this.readyState == 4) {
+
+                                }
+                            };
+                            request.send();
+                        });
                         var p = document.createElement("p");
                         p.innerText = response[key]["date"];
                         img.src = response[key]["user_pic"];
@@ -189,14 +209,3 @@ function notifications() {
 }
 
 notifications();
-
-function read(id){
-    var request = new XMLHttpRequest();
-    request.open("GET", "../commandPattern.php?target=user&action=seeNotification&id=" + id);
-    request.onreadystatechange = function (ev) {
-        if (this.status == 200 && this.readyState == 4) {
-
-        }
-    };
-    request.send();
-}

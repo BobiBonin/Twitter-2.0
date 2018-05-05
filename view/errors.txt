@@ -310,3 +310,14 @@
  On May 5, 2018, 12:19 pm Error Message : SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ') 
                                   AND twats.user_id = users.user_id 
       ' at line 3
+ On May 5, 2018, 8:13 pm Error Message : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '1-169' for key 'PRIMARY'
+ On May 5, 2018, 8:13 pm Error Message : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '1-169' for key 'PRIMARY'
+ On May 5, 2018, 8:13 pm Error Message : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '1-169' for key 'PRIMARY'
+ On May 5, 2018, 8:13 pm Error Message : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '1-169' for key 'PRIMARY'
+ On May 5, 2018, 8:13 pm Error Message : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '1-169' for key 'PRIMARY'
+ On May 5, 2018, 8:14 pm Error Message : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '1-170' for key 'PRIMARY'
+ On May 5, 2018, 8:14 pm Error Message : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '1-170' for key 'PRIMARY'
+ On May 5, 2018, 8:14 pm Error Message : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '1-170' for key 'PRIMARY'
+ On May 5, 2018, 8:14 pm Error Message : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '1-170' for key 'PRIMARY'
+ On May 5, 2018, 8:14 pm Error Message : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '1-170' for key 'PRIMARY'
+ On May 5, 2018, 8:14 pm Error Message : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '1-170' for key 'PRIMARY'

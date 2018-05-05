@@ -366,7 +366,6 @@ a {
 }
 
 .ownTweets:hover + .home_tweet_comments {
-    max-height: 10000px;
     border-left: 4px solid cornflowerblue;
     -webkit-transition: max-height 1.5s ease-in-out, box-shadow 0.6s linear;
 }
@@ -378,7 +377,6 @@ a {
 }
 
 .home_tweet_comments:hover {
-    max-height: 10000px;
     border-left: 4px solid cornflowerblue;
     -webkit-transition: max-height 1.5s ease-in-out, box-shadow 0.6s linear;
 }
