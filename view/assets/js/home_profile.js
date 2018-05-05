@@ -5,9 +5,9 @@ req.open("get", "../commandPattern.php?target=user&action=profile");
 req.onreadystatechange = function (ev) {
     var resp = this.responseText;
     resp = JSON.parse(resp);
-    var user_name = resp["user_name"];
-    var user_pic = resp["user_pic"];
-    var user_cover = resp["user_cover"];
+    var user_name = resp["username"];
+    var user_pic = resp["image_url"];
+    var user_cover = resp["cover_url"];
 //24.03.2017 Boris
     var img = document.getElementById("hm_prof_img");
     img.src = user_pic;

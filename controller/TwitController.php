@@ -20,7 +20,7 @@ class TwitController extends BaseController
 
         try {
             $dao = new TweetDao();
-            $user = $_SESSION['user']['id'];
+            $user = $_SESSION['user']->getId();
             $text = htmlentities($_POST['text']);
             $newId = $dao->getNewId();
 
@@ -69,7 +69,7 @@ class TwitController extends BaseController
     {
 
         try {
-            $id = $_SESSION['user']['id'];
+            $id = $_SESSION['user']->getId();
             $dao = new TweetDao();
             $dao->showUserTweets($id);
         } catch (\PDOException $e) {
@@ -93,7 +93,7 @@ class TwitController extends BaseController
 
             foreach ($result as &$tweet) {
                 $tweet['likes'] = $tDao->getTweetLikes($tweet['twat_id']);
-                $tweet['youLike'] = $tDao->checkIfLiked($_SESSION['user']['id'], $tweet['twat_id']);
+                $tweet['youLike'] = $tDao->checkIfLiked($_SESSION['user']->getId(), $tweet['twat_id']);
             }
             foreach ($result as &$tweet) {
                 $array = explode(" ", $tweet['twat_content']);
@@ -123,7 +123,7 @@ class TwitController extends BaseController
     {
 
         try {
-            $id = $_SESSION['user']['id'];
+            $id = $_SESSION['user']->getId();
             $dao = new TweetDao();
             $uDao = new UserDao();
             $result = $dao->showMyTweets($id);
@@ -164,9 +164,9 @@ class TwitController extends BaseController
         try {
             if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                 $tDao = new TweetDao();
-                $user_id = $_SESSION['user']['id'];
+                $user_id = $_SESSION['user']->getId();
                 $tweet_id = $_GET['twat_id'];
-                $username = $_SESSION['user']['name'];
+                $username = $_SESSION['user']->getUsername();
 
                 $uDao = new CommentDao();
                 $tweetOwner = $uDao->findTweetOwner($tweet_id);
@@ -186,7 +186,7 @@ class TwitController extends BaseController
         try {
             if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                 $dao = new TweetDao();
-                $user_id = $_SESSION['user']['id'];
+                $user_id = $_SESSION['user']->getId();
                 $twat_id = $_GET['twat_id'];
                 $dao->dislikeATweet($twat_id, $user_id);
             }
@@ -217,7 +217,7 @@ class TwitController extends BaseController
             $uDao = new UserDao();
             $tDao = new TweetDao();
 
-            $user_id = $_SESSION['user']['id'];
+            $user_id = $_SESSION['user']->getId();
 
             $arr = $uDao->getFollowersId($user_id);
 
@@ -266,7 +266,7 @@ class TwitController extends BaseController
 
         try {
             if ($_SERVER['REQUEST_METHOD'] == 'GET') {
-                $user_id = $_SESSION['user']['id'];
+                $user_id = $_SESSION['user']->getId();
                 $tag = htmlentities($_GET['tag']);
                 $dao = new TweetDao();
                 $uDao = new UserDao();
@@ -314,7 +314,7 @@ class TwitController extends BaseController
     {
         try {
             if ($_SERVER['REQUEST_METHOD'] == 'GET') {
-                $userId = $_SESSION['user']['id'];
+                $userId = $_SESSION['user']->getId();
                 $tweet_id = htmlentities($_GET['tweet_id']);
                 $tDao = new TweetDao();
                 $result = $tDao->checkIfLiked($userId, $tweet_id);

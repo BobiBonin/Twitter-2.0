@@ -64,6 +64,8 @@ function random() {
                         if (this.status == 200 && this.readyState == 4) {
                             var response = JSON.parse(this.responseText);
 
+                            var pos = document.getElementById("position_div");
+                            pos.style.visibility = "visible";
                             var cover = document.getElementById("small_cover_image");
                             cover.src = response[0]['user_cover'];
                             var image = document.getElementById("small_image");

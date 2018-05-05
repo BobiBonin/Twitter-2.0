@@ -23,7 +23,7 @@ class MessageController extends BaseController
             $newId = $dao->getNewId();
 
             $msgId = $newId['0']["message_id"] + 1;
-            $ownerId = $_SESSION['user']['id'];
+            $ownerId = $_SESSION['user']->getId();
             $text = htmlentities($_POST['text']);
             $receiverName = htmlentities($_POST['receiverName']);
             $receiverId = $userDao->getUserIdFromName($receiverName);
@@ -71,7 +71,7 @@ class MessageController extends BaseController
     {
 
         try {
-            $ownerId = $_SESSION['user']['id'];
+            $ownerId = $_SESSION['user']->getId();
 
             $dao = new MessageDao();
             $uDao = new UserDao();
@@ -79,8 +79,8 @@ class MessageController extends BaseController
             $result = $dao->getMessages($ownerId);
             $temp = [];
             foreach ($result as $message) {
-                $u1 = new User(null, null, null, null, null, null, null, $message["sender_id"]);
-                $u2 = new User(null, null, null, null, null, null, null, $message["receiver_id"]);
+                $u1 = new User(null, null, null, null, null, null, null,null, $message["sender_id"]);
+                $u2 = new User(null, null, null, null, null, null, null,null, $message["receiver_id"]);
                 $temp[$message['message_id']]['sender'] = $uDao->getUserInfoById($u1);
                 $temp[$message['message_id']]['receiver'] = $uDao->getUserInfoById($u2);
             }

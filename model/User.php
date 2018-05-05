@@ -9,9 +9,11 @@
 namespace model;
 
 
-class User implements \JsonSerializable {
+class User implements \JsonSerializable
+{
 
-    public function jsonSerialize() {
+    public function jsonSerialize()
+    {
         return get_object_vars($this);
     }
 
@@ -20,6 +22,7 @@ class User implements \JsonSerializable {
     private $username;
     private $image_url;
     private $cover_url;
+    private $date;
     private $city;
     private $description;
     private $id;
@@ -31,17 +34,19 @@ class User implements \JsonSerializable {
      * @param $username
      * @param $image_url
      * @param $cover_url
+     * #param $date
      * @param $city
      * @param $description
      * @param $id
      */
-    public function __construct($email, $password = null, $username = null, $image_url = null, $cover_url = null, $city = null, $description = null, $id = null)
+    public function __construct($email, $password = null, $username = null, $image_url = null, $cover_url = null, $date = null, $city = null, $description = null, $id = null)
     {
         $this->email = $email;
         $this->password = $password;
         $this->username = $username;
         $this->image_url = $image_url;
         $this->cover_url = $cover_url;
+        $this->date = $date;
         $this->city = $city;
         $this->description = $description;
         $this->id = $id;
@@ -175,7 +180,21 @@ class User implements \JsonSerializable {
         $this->id = $id;
     }
 
+    /**
+     * @return null
+     */
+    public function getDate()
+    {
+        return $this->date;
+    }
 
+    /**
+     * @param null $date
+     */
+    public function setDate($date)
+    {
+        $this->date = $date;
+    }
 
 
 }

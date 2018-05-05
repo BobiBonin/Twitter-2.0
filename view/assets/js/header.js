@@ -6,6 +6,9 @@ function search() {
     request.onreadystatechange = function (ev) {
         if (this.readyState == 4 && this.status == 200) {
             var response = JSON.parse(this.responseText);
+            if(response === "exception") {
+                window.location.assign("exception_page.php");
+            }
             if (response.length == 0) {                             /* Ако няма резултат изписва "Няма резултат.."*/
                 var ul = document.createElement("ul");
                 ul.id = "search_ul";
@@ -86,8 +89,11 @@ request.open("GET", "../commandPattern.php?target=user&action=profile");
 request.onreadystatechange = function (ev) {
     if (this.status == 200 && this.readyState == 4) {
         var response = JSON.parse(this.responseText);
+        if(response === "exception") {
+            window.location.assign("exception_page.php");
+        }
         var img = document.getElementById("profile_icon");
-        img.src = response['user_pic'];
+        img.src = response['image_url'];
     }
 };
 request.send();
@@ -107,6 +113,9 @@ function notifications() {
     request.onreadystatechange = function (ev) {
         if (this.status == 200 && this.readyState == 4) {
             var response = JSON.parse(this.responseText);
+            if(response === "exception") {
+                window.location.assign("exception_page.php");
+            }
             var button = document.getElementById("navNotifications");
             var num = 0;
             for(var key in response){

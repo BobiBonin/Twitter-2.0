@@ -303,3 +303,10 @@
  On May 4, 2018, 11:48 am Error Message : SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ') 
                                   AND twats.user_id = users.user_id 
       ' at line 3
+ On May 5, 2018, 12:00 pm Error Message : SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens
+ On May 5, 2018, 12:01 pm Error Message : SQLSTATE[42S22]: Column not found: 1054 Unknown column 'user_name' in 'field list'
+ On May 5, 2018, 12:01 pm Error Message : SQLSTATE[42S22]: Column not found: 1054 Unknown column 'user_name' in 'field list'
+ On May 5, 2018, 12:04 pm Error Message : SQLSTATE[42S22]: Column not found: 1054 Unknown column 'userer_name' in 'field list'
+ On May 5, 2018, 12:19 pm Error Message : SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ') 
+                                  AND twats.user_id = users.user_id 
+      ' at line 3

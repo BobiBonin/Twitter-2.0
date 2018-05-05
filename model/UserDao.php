@@ -9,6 +9,7 @@
 namespace model;
 
 use model\User;
+use MongoDB\BSON\ObjectId;
 
 class UserDao extends BaseDao
 {
@@ -28,7 +29,15 @@ class UserDao extends BaseDao
         $statement = $this->pdo->prepare("SELECT user_id, user_name, user_email, user_date, user_pic, user_cover, user_city, user_description FROM users WHERE user_email = ?");
         $statement->execute(array($user->getEmail()));
         $result = $statement->fetch(\PDO::FETCH_ASSOC);
-        return $result;
+        $user->setId($result['user_id']);
+        $user->setUsername($result['user_name']);
+        $user->setDate($result['user_date']);
+        $user->setImageUrl($result['user_pic']);
+        $user->setCoverUrl($result['user_cover']);
+        $user->setCity($result['user_city']);
+        $user->setDescription($result['user_description']);
+        return $user;
+
     }
 
     /*Проверява дали юзъра съществува по имейл за регистрацията*/
@@ -43,12 +52,13 @@ class UserDao extends BaseDao
     /*Регистрира ЮЗЪР*/
     public function registerUser(User $user)
     {
-        $statement = $this->pdo->prepare("INSERT INTO users (user_name,user_email,user_pass, user_pic, user_cover) VALUES (?,?,?,?,?)");
+        $statement = $this->pdo->prepare("INSERT INTO users (user_name,user_email,user_pass, user_pic, user_cover, user_date) VALUES (?,?,?,?,?,?)");
         $statement->execute(array($user->getUsername(),
             $user->getEmail(),
             $user->getPassword(),
             $user->getImageUrl(),
-            $user->getCoverUrl()
+            $user->getCoverUrl(),
+            $user->getDate()
         ));
         $result = $this->pdo->lastInsertId();
         $user->setId($result);

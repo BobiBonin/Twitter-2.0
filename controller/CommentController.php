@@ -16,8 +16,8 @@ class CommentController extends BaseController
 
         try{
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                $user_id = $_SESSION['user']['id'];
-                $username = $_SESSION['user']['name'];
+                $user_id = $_SESSION['user']->getId();
+                $username = $_SESSION['user']->getUsername();
                 $content = $_POST['content'];
                 $tweet_id = $_POST['tweetId'];
                 if(strlen($content) > 0){

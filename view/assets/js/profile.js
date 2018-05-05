@@ -380,16 +380,16 @@ else {/*------------------------------------------------------------------------
             var city = document.getElementById('cityid');
             var reg_date = document.getElementById("reg_date");
             var email = document.getElementById("emailid");
-            name.innerText = response['user_name'];
-            name_.innerText = "@" + response['user_name'];
-            description.innerHTML = response['user_description'];
-            if (response['user_city'] === null) {
+            name.innerText = response['username'];
+            name_.innerText = "@" + response['username'];
+            description.innerHTML = response['description'];
+            if (response['city'] === null) {
                 city.innerText += '';
             } else {
-                city.innerText += 'Живее в: ' + response['user_city'];
+                city.innerText += 'Живее в: ' + response['city'];
             }
-            reg_date.innerText = 'Регистриран на: ' + response['user_date'].substring(0, 10);
-            email.innerText = 'Имейл: ' + response['user_email'];
+            reg_date.innerText = 'Регистриран на: ' + response['date'];
+            email.innerText = 'Имейл: ' + response['email'];
             document.getElementById("first_in_my_nav").appendChild(button);
             button.innerText = "Редактиране на профила";
             button.id = "edit_btn";
@@ -432,20 +432,20 @@ else {/*------------------------------------------------------------------------
                                 event.preventDefault();
                             }
                         });
-                        username.value = result['user_name'];
-                        email.value = result['user_email'];
-                        city.value = result['user_city'];
-                        description.value = result['user_description'];
+                        username.value = result['username'];
+                        email.value = result['email'];
+                        city.value = result['city'];
+                        description.value = result['description'];
                     }
                 };
                 request.send();
             });
-            a.innerText = '@' + response['user_name'];
-            a.href = "profile.php?" + response['user_name'];
+            a.innerText = '@' + response['username'];
+            a.href = "profile.php?" + response['username'];
             img.src = "";
-            img.src = response['user_pic'];
-            small_img.src = response['user_pic'];
-            cover.src = response['user_cover'];
+            img.src = response['image_url'];
+            small_img.src = response['image_url'];
+            cover.src = response['cover_url'];
         }
     };
     request.send();
@@ -668,6 +668,8 @@ function random() {
                             if(response === "exception") {
                                 window.location.assign("exception_page.php");
                             }
+                            var pos = document.getElementById("position_div");
+                            pos.style.visibility = "visible";
                             var cover = document.getElementById("small_cover_image");
                             cover.src = response[0]['user_cover'];
                             var image = document.getElementById("small_image");
@@ -687,6 +689,7 @@ function random() {
                     request2.onreadystatechange = function (ev) {
                         if (this.status == 200 && this.readyState == 4) {
                             var response = JSON.parse(this.responseText);
+                            console.log(response);
                             if(response === "exception") {
                                 window.location.assign("exception_page.php");
                             }
@@ -719,6 +722,7 @@ function random() {
                     position.style.display = "block";
                     position.style.opacity = "1";
                     position.style.transition = "opacity 1.25s linear";
+                    position.style.display = "visible";
 
                 });
                 /*При махане на мишката прозореца се скрива*/

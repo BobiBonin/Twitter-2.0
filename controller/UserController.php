@@ -28,18 +28,8 @@ class UserController extends BaseController
 
                 if ($result) {
                     $info = $pdo->getUserInfoByEmail($user);
-                    $_SESSION['user'] = [];
-                    $new = [
-                        "id" => $info['user_id'],
-                        "name" => $info['user_name'],
-                        "reg_date" => $info['user_date'],
-                        "image" => $info['user_pic'],
-                        "cover" => $info['user_cover'],
-                        "city" => $info['user_city'],
-                        "description" => $info['user_description'],
-                        "email" => $email,
-                    ];
-                    $_SESSION['user'] = $new;
+
+                    $_SESSION['user'] = $info;
                     header("Location: ./view/home.php");
                 } else {
                     header("Location: ./view/error_login.html");
@@ -85,32 +75,19 @@ class UserController extends BaseController
                 if (!$error) {
                     $img_ulr = "assets/images/uploads/default_icon.jpg";
                     $cover_ulr = 'assets/images/default_cover.jpg';
-                    $date = date(DATE_RFC822);
-                    $user = new User($email, sha1($password), $username, $date, $img_ulr, $cover_ulr);
+                    $date = date("Y/m/d H:i:s");
+                    $user = new User($email, sha1($password), $username, $img_ulr, $cover_ulr, $date);
                     $dao = new UserDao();
                     $result = $dao->userExistForReg($user);
                     if (!$result) {
                         $result = $dao->registerUser($user);
-
-                        $info = $dao->getUserInfoByEmail($user);
-                        $_SESSION['user'] = [];
-                        $new = [
-                            "id" => $info['user_id'],
-                            "name" => $info['user_name'],
-                            "reg_date" => $info['user_date'],
-                            "image" => "assets/images/default_icon.jpg",
-                            "cover" => "assets/images/default_cover.jpg",
-                            "city" => $info['user_city'],
-                            "description" => $info['user_description'],
-                            "email" => $email,
-                        ];
-                        $_SESSION['user'] = $new;
-                        header("Location: ./view/home.php");
+                        $_SESSION['user'] = $result;
+                        header("location: ./view/home.php");
                     } else {
-                        header("location: ./index.php"); //User all ready EXIST!!
+                        header("location: ./index.php?exist"); //User all ready EXIST!!
                     }
                 } else {
-                    header("location: ./index.php"); // ERRORS!
+                    header("location: ./index.php?error"); // ERRORS!
                 }
             } catch (\PDOException $e) {
                 $this->exception($e);
@@ -125,7 +102,7 @@ class UserController extends BaseController
         try {
             if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                 $id = htmlentities($_GET['id']);
-                $user = new User(null, null, null, null, null, null, null, $id);
+                $user = new User(null, null, null, null, null, null, null, null, $id);
                 $dao = new UserDao();
                 $json = $dao->getUserInfoById($user);
                 echo json_encode($json);
@@ -164,7 +141,8 @@ class UserController extends BaseController
 
         try {
             $dao = new UserDao();
-            $email = $_SESSION['user']['email'];
+            $session = &$_SESSION['user'];
+            $email = $session->getEmail();
             $random_users = $dao->getFourRandomUsers($email);
             echo json_encode($random_users);
         } catch (\PDOException $e) {
@@ -178,7 +156,8 @@ class UserController extends BaseController
         try {
             if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                 $name = htmlentities($_GET['name']);
-                if ($name == $_SESSION['user']['name']) {
+                $session = &$_SESSION['user'];
+                if ($name == $session->getUsername()) {
                     $response = "my";
                     echo json_encode($response);
                 } else {
@@ -237,7 +216,9 @@ class UserController extends BaseController
     {
 
         try {
-            $name = $_SESSION['user']['name'];
+
+            $session = &$_SESSION['user'];
+            $name = $session->getUsername();
 
             $user = new User(null, null, $name);
             $pdo = new UserDao();
@@ -257,9 +238,9 @@ class UserController extends BaseController
 
     public function showMyFollowers()
     {
-
         try {
-            $id = $_SESSION['user']['id'];
+            $session = &$_SESSION['user'];
+            $id = $session->getId();
             $dao = new UserDao();
             $result = $dao->findFollowers($id);
             echo json_encode($result);
@@ -274,7 +255,8 @@ class UserController extends BaseController
 
         try {
             $dao = new UserDao();
-            $id = $_SESSION['user']['id'];
+            $session = &$_SESSION['user'];
+            $id = $session->getId();
             $result = $dao->findFollowing($id);
             echo json_encode($result);
         } catch (\PDOException $e) {
@@ -290,8 +272,7 @@ class UserController extends BaseController
                 $name = $_GET['name'];
                 $dao = new UserDao();
                 $id = $dao->findId($name);
-                $user = new User(null, null, null, null, null, null, null, $id['user_id']);
-                $result = $dao->findFollowers($user);
+                $result = $dao->findFollowers($id['user_id']);
 
                 echo json_encode($result);
             }
@@ -313,7 +294,8 @@ class UserController extends BaseController
                 } else {
                     $hashtags = [];
                     $dao = new UserDao();
-                    $email = $_SESSION['user']['email'];
+                    $session = &$_SESSION['user'];
+                    $email = $session->getEmail();
                     $users = $dao->getFirstFiveUsersByName($name, $email);
                     foreach ($users[0] as $twat) {
                         $words = explode(" ", $twat['twat_content']);
@@ -336,10 +318,9 @@ class UserController extends BaseController
 
     public function profile()
     {
-
         try {
-            $logged_mail = $_SESSION["user"]['email'];
-            $user = new User($logged_mail);
+
+            $user = new User($_SESSION['user']->getEmail());
             $dao = new UserDao();
             $result = $dao->getUserInfoByEmail($user);
             echo json_encode($result);
@@ -354,8 +335,9 @@ class UserController extends BaseController
 
         try {
             if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-                $me = $_SESSION['user']['id'];
-                $myname = $_SESSION['user']['name'];
+                $session = &$_SESSION['user'];
+                $me = $session->getId();
+                $myname = $session->getEmail();
                 $name = htmlentities($_GET['name']);
                 $dao = new UserDao();
                 $you = $dao->findId($name);
@@ -374,7 +356,8 @@ class UserController extends BaseController
 
         try {
             if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-                $my = $_SESSION['user']['id'];
+                $session = &$_SESSION['user'];
+                $my = $session->getId();
                 $name = htmlentities($_GET['name']);
                 $dao = new UserDao();
                 $id = $dao->findId($name);
@@ -410,7 +393,7 @@ class UserController extends BaseController
 
         if (isset($_POST['btn_edit'])) {
             try {
-
+                var_dump($_SESSION['user']);
                 $username = htmlentities($_POST['username']);
                 $email = htmlentities($_POST['email']);
                 $password = htmlentities($_POST['password']);
@@ -421,15 +404,16 @@ class UserController extends BaseController
                 $url_cover = "assets/images/default_cover.jpg";
                 $tmp_cover = $_FILES["user_cover"]["tmp_name"];
 
-                if ($_SESSION['user']['image'] !== $url_image) {
+
+                if ($_SESSION['user']->getImageUrl() !== $url_image) {
                     $url_image = "assets/images/uploads/image_$email.png";
                 }
-                if ($_SESSION['user']['cover'] !== $url_cover) {
+                if ($_SESSION['user']->getCoverUrl() !== $url_cover) {
                     $url_cover = "assets/images/uploads/cover_$email.png";
                 }
 
 
-                $user = new User($_SESSION['user']['email'], sha1($password));
+                $user = new User($_SESSION['user']->getEmail(), sha1($password));
                 $pdo = new UserDao();
                 $result = $pdo->checkUserExist($user);
 
@@ -446,20 +430,12 @@ class UserController extends BaseController
                             $url_cover = "assets/images/uploads/cover_$email.png";
                         }
                     }
-                    $id = $_SESSION['user']['id'];
-                    $user = new User($email, sha1($password), $username, $url_image, $url_cover, $city, $description, $id);
-                    $new = [
-                        "id" => $_SESSION['user']['id'],
-                        "name" => $username,
-                        "reg_date" => $_SESSION['user']['reg_date'],
-                        "image" => $url_image,
-                        "cover" => $url_cover,
-                        "city" => $_SESSION['user']['city'],
-                        "description" => $_SESSION['user']['description'],
-                        "email" => $email,
-                    ];
-                    $_SESSION['user'] = $new;
+                    $id = $_SESSION['user']->getId();
+                    $date = $_SESSION['user']->getDate();
+                    $user = new User($email, sha1($password), $username, $url_image, $url_cover, $date, $city, $description, $id);
 
+                    $_SESSION['user'] = $user;
+                    var_dump($_SESSION['user']);
                     $pdo = new UserDao();
                     $pdo->updateUser($user);
                     header("location: ./view/profile.php");
@@ -480,7 +456,8 @@ class UserController extends BaseController
     {
         try {
             if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-                $me = $_SESSION['user']['id'];
+                $session = &$_SESSION['user'];
+                $me = $session->getId();
                 $name = $_GET['name'];
                 $dao = new UserDao();
                 $you = $dao->findId($name);
@@ -503,7 +480,8 @@ class UserController extends BaseController
     public function getNotifications()
     {
         try {
-            $myId = $_SESSION['user']['id'];
+            $session = &$_SESSION['user'];
+            $myId = $session->getId();
             $uDao = new UserDao();
             $result = $uDao->getNotifications($myId);
             echo json_encode($result);
