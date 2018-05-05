@@ -319,8 +319,8 @@ class UserController extends BaseController
     public function profile()
     {
         try {
-
-            $user = new User($_SESSION['user']->getEmail());
+            $email = $_SESSION['user']->getEmail();
+            $user = new User($email);
             $dao = new UserDao();
             $result = $dao->getUserInfoByEmail($user);
             echo json_encode($result);

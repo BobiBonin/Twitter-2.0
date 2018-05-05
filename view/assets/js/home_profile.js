@@ -23,7 +23,7 @@ req.onreadystatechange = function (ev) {
 
 
     var request2 = new XMLHttpRequest();
-    request2.open("GET", "../commandPattern.php?name=" + resp["user_name"] + "&target=user&action=getFFT");
+    request2.open("GET", "../commandPattern.php?name=" + resp["username"] + "&target=user&action=getFFT");
     request2.onreadystatechange = function (ev) {
         if (this.status == 200 && this.readyState == 4) {
             var response = JSON.parse(this.responseText);
