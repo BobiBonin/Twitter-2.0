@@ -86,6 +86,8 @@ function random() {
                         if (this.status == 200 && this.readyState == 4) {
                             var response = JSON.parse(this.responseText);
 
+                            var position = document.getElementById("position_div");
+                            position.style.height = "300px";
                             var first = document.getElementById("one");
                             var second = document.getElementById("two");
                             var third = document.getElementById("three");
@@ -112,15 +114,12 @@ function random() {
                     var position = document.getElementById("position_div");
                     position.style.left = posx + "px";
                     position.style.top = posy + "px";
-                    position.style.display = "block";
-                    position.style.opacity = "1";
-                    position.style.transition = "opacity 1.25s linear";
 
                 });
                 /*При махане на мишката прозореца се скрива*/
                 a.addEventListener("mouseout", function () {
                     var position = document.getElementById("position_div");
-                    position.style.display = "none";
+                    position.style.height = "0px";
                 });
 
                 var button = document.createElement("button");

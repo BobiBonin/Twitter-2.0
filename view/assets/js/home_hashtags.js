@@ -49,7 +49,19 @@ req.onreadystatechange = function (ev) {
             div.appendChild(tweet);
             div.appendChild(comment_div);
 
+            const a = resp[i]['twat_id'];
+            tweet.addEventListener("click", function () {
+                changeMaxHeight(a);
 
+                function changeMaxHeight(a) {
+                    var asd = document.getElementById(a);
+                    if (asd.style.maxHeight == '10000px') {
+                        asd.style.maxHeight = '0px';
+                    } else {
+                        asd.style.maxHeight = '10000px';
+                    }
+                }
+            });
 //                adding comments to the tweets
             test(resp[i]['twat_id']);
 

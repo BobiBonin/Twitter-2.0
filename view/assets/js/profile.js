@@ -47,7 +47,7 @@ if (queryString.length != 0) { /*Георги --27.03.2018-- Ако в URL им�
     request.onreadystatechange = function (ev) {
         if (this.status == 200 && this.readyState == 4) {
             var response = JSON.parse(this.responseText);
-            if(response === "exception") {
+            if (response === "exception") {
                 window.location.assign("exception_page.php");
             }
             if (response == "my") {
@@ -81,7 +81,7 @@ if (queryString.length != 0) { /*Георги --27.03.2018-- Ако в URL им�
                 is_follow.onreadystatechange = function (ev2) {
                     if (this.readyState == 4 && this.status == 200) {
                         var response = JSON.parse(this.responseText);
-                        if(response === "exception") {
+                        if (response === "exception") {
                             window.location.assign("exception_page.php");
                         }
                         if (response == "0") {
@@ -109,7 +109,7 @@ if (queryString.length != 0) { /*Георги --27.03.2018-- Ако в URL им�
                                     button.id = "edit_btn_remove";
                                     showNumbers();
                                 }
-                                if(response === "exception") {
+                                if (response === "exception") {
                                     window.location.assign("exception_page.php");
                                 }
                             }
@@ -126,7 +126,7 @@ if (queryString.length != 0) { /*Георги --27.03.2018-- Ако в URL им�
                                     button.id = "edit_btn";
                                     showNumbers();
                                 }
-                                if(response === "exception") {
+                                if (response === "exception") {
                                     window.location.assign("exception_page.php");
                                 }
                             }
@@ -154,7 +154,7 @@ if (queryString.length != 0) { /*Георги --27.03.2018-- Ако в URL им�
         request2.onreadystatechange = function (ev) {
             if (this.status == 200 && this.readyState == 4) {
                 var response = JSON.parse(this.responseText);
-                if(response === "exception") {
+                if (response === "exception") {
                     window.location.assign("exception_page.php");
                 }
                 var a = document.getElementById("following");
@@ -184,7 +184,7 @@ if (queryString.length != 0) { /*Георги --27.03.2018-- Ако в URL им�
         request.onreadystatechange = function (ev) {
             if (this.readyState == 4 && this.status == 200) {
                 var response = JSON.parse(this.responseText);
-                if(response === "exception") {
+                if (response === "exception") {
                     window.location.assign("exception_page.php");
                 }
                 var center = document.getElementById("center_tweet");
@@ -238,7 +238,7 @@ if (queryString.length != 0) { /*Георги --27.03.2018-- Ако в URL им�
         request.onreadystatechange = function (ev) {
             if (this.readyState == 4 && this.status == 200) {
                 var response = JSON.parse(this.responseText);
-                if(response === "exception") {
+                if (response === "exception") {
                     window.location.assign("exception_page.php");
                 }
                 var center = document.getElementById("center_tweet");
@@ -303,7 +303,7 @@ if (queryString.length != 0) { /*Георги --27.03.2018-- Ако в URL им�
             if (this.status == 200 && this.readyState == 4) {
                 var resp = this.responseText;
                 resp = JSON.parse(resp);
-                if(resp === "exception") {
+                if (resp === "exception") {
                     window.location.assign("exception_page.php");
                 }
                 var div = document.getElementById("center_tweet");
@@ -331,7 +331,7 @@ if (queryString.length != 0) { /*Георги --27.03.2018-- Ако в URL им�
                     }
                     if (resp[i]['youLike'][0]["is_liked"] == 1) {
                         tweet.innerHTML += "<br><i id='heart" + resp[i]['twat_id'] + "' style='color: red;' value=" + resp[i]['twat_id'] + " onclick=\"likeTweet(" + resp[i]['twat_id'] + ",this)\" class=\"fa fa-heart hrt\"></i>";
-                    }else{
+                    } else {
                         tweet.innerHTML += "<br><i id='heart" + resp[i]['twat_id'] + "' style='color: black;' value=" + resp[i]['twat_id'] + " onclick=\"likeTweet(" + resp[i]['twat_id'] + ",this)\" class=\"fa fa-heart hrt\"></i>";
 
                     }
@@ -345,6 +345,19 @@ if (queryString.length != 0) { /*Георги --27.03.2018-- Ако в URL им�
                     div.appendChild(tweet);
                     div.appendChild(comment_div);
 
+                    const a = resp[i]['twat_id'];
+                    tweet.addEventListener("click", function () {
+                        changeMaxHeight(a);
+
+                        function changeMaxHeight(a) {
+                            var asd = document.getElementById(a);
+                            if (asd.style.maxHeight == '10000px') {
+                                asd.style.maxHeight = '0px';
+                            } else {
+                                asd.style.maxHeight = '10000px';
+                            }
+                        }
+                    });
 
 //                adding comments to the tweets
                     test(resp[i]['twat_id']);
@@ -366,7 +379,7 @@ else {/*------------------------------------------------------------------------
     request.onreadystatechange = function (ev) {
         if (this.status == 200 && this.readyState == 4) {
             var response = JSON.parse(this.responseText);
-            if(response === "exception") {
+            if (response === "exception") {
                 window.location.assign("exception_page.php");
             }
             var img = document.getElementById("circle_img");
@@ -417,7 +430,7 @@ else {/*------------------------------------------------------------------------
                 request.onreadystatechange = function (ev2) {
                     if (this.readyState == 4 && this.status == 200) {
                         var result = JSON.parse(this.responseText);
-                        if(result === "exception") {
+                        if (result === "exception") {
                             window.location.assign("exception_page.php");
                         }
                         var username = document.getElementById("username");
@@ -459,7 +472,7 @@ else {/*------------------------------------------------------------------------
         request.onreadystatechange = function (ev) {
             if (this.status == 200 && this.readyState == 4) {
                 var response = JSON.parse(this.responseText);
-                if(response === "exception") {
+                if (response === "exception") {
                     window.location.assign("exception_page.php");
                 }
                 var a = document.getElementById("following");
@@ -489,7 +502,7 @@ else {/*------------------------------------------------------------------------
         request.onreadystatechange = function (ev) {
             if (this.readyState == 4 && this.status == 200) {
                 var response = JSON.parse(this.responseText);
-                if(response === "exception") {
+                if (response === "exception") {
                     window.location.assign("exception_page.php");
                 }
                 var center = document.getElementById("center_tweet");
@@ -566,7 +579,7 @@ else {/*------------------------------------------------------------------------
         request.onreadystatechange = function (ev) {
             if (this.readyState == 4 && this.status == 200) {
                 var response = JSON.parse(this.responseText);
-                if(response === "exception") {
+                if (response === "exception") {
                     window.location.assign("exception_page.php");
                 }
                 var center = document.getElementById("center_tweet");
@@ -633,7 +646,7 @@ function random() {
     request.onreadystatechange = function (ev) {
         if (this.readyState == 4 && this.status == 200) {
             var response = JSON.parse(this.responseText);
-            if(response === "exception") {
+            if (response === "exception") {
                 window.location.assign("exception_page.php");
             }
             var random_users_div = document.getElementById("random_users");
@@ -658,18 +671,17 @@ function random() {
 
                 a.innerText = response[key]["user_name"];
                 a.addEventListener("mouseover", function () { /*При ховър се показва допълнителна информация за юзъра*/
-
                     var user_name = this.innerHTML;
                     var request = new XMLHttpRequest();
                     request.open("GET", "../commandPattern.php?name=" + user_name + "&target=user&action=showProfile");
                     request.onreadystatechange = function (ev) {
                         if (this.status == 200 && this.readyState == 4) {
                             var response = JSON.parse(this.responseText);
-                            if(response === "exception") {
+                            if (response === "exception") {
                                 window.location.assign("exception_page.php");
                             }
                             var pos = document.getElementById("position_div");
-                            pos.style.visibility = "visible";
+                            pos.style.height = "300px";
                             var cover = document.getElementById("small_cover_image");
                             cover.src = response[0]['user_cover'];
                             var image = document.getElementById("small_image");
@@ -684,13 +696,14 @@ function random() {
                     };
                     request.send();
 
+
                     var request2 = new XMLHttpRequest();
                     request2.open("GET", "../commandPattern.php?name=" + user_name + "&target=user&action=showSmallDiv");
                     request2.onreadystatechange = function (ev) {
                         if (this.status == 200 && this.readyState == 4) {
                             var response = JSON.parse(this.responseText);
                             console.log(response);
-                            if(response === "exception") {
+                            if (response === "exception") {
                                 window.location.assign("exception_page.php");
                             }
                             var first = document.getElementById("one");
@@ -703,6 +716,7 @@ function random() {
                         }
                     };
                     request2.send();
+
 
                     /*Определя се позицията на която да се покаже прозореца с допълнителната информация*/
                     var posx = 0;
@@ -719,16 +733,16 @@ function random() {
                     var position = document.getElementById("position_div");
                     position.style.left = posx + "px";
                     position.style.top = posy + "px";
-                    position.style.display = "block";
-                    position.style.opacity = "1";
-                    position.style.transition = "opacity 1.25s linear";
-                    position.style.display = "visible";
+
+
+
+
 
                 });
                 /*При махане на мишката прозореца се скрива*/
                 a.addEventListener("mouseout", function () {
                     var position = document.getElementById("position_div");
-                    position.style.display = "none";
+                    position.style.height = "0px";
                 });
 
                 var button = document.createElement("button");
@@ -746,7 +760,7 @@ function random() {
                                 random();
                                 showMynumbers();
                             }
-                            if(response === "exception") {
+                            if (response === "exception") {
                                 window.location.assign("exception_page.php");
                             }
                         }
@@ -785,7 +799,7 @@ function showMyTwits() {
         if (this.status == 200 && this.readyState == 4) {
             var resp = this.responseText;
             resp = JSON.parse(resp);
-            if(resp === "exception") {
+            if (resp === "exception") {
                 window.location.assign("exception_page.php");
             }
             var div = document.getElementById("center_tweet");
@@ -813,7 +827,7 @@ function showMyTwits() {
                 }
                 if (resp[i]['youLike'][0]["is_liked"] == 1) {
                     tweet.innerHTML += "<br><i id='heart" + resp[i]['twat_id'] + "' style='color: red;' value=" + resp[i]['twat_id'] + " onclick=\"likeTweet(" + resp[i]['twat_id'] + ",this)\" class=\"fa fa-heart hrt\"></i>";
-                }else{
+                } else {
                     tweet.innerHTML += "<br><i id='heart" + resp[i]['twat_id'] + "' style='color: black;' value=" + resp[i]['twat_id'] + " onclick=\"likeTweet(" + resp[i]['twat_id'] + ",this)\" class=\"fa fa-heart hrt\"></i>";
 
                 }
@@ -827,6 +841,19 @@ function showMyTwits() {
                 div.appendChild(tweet);
                 div.appendChild(comment_div);
 
+                const a = resp[i]['twat_id'];
+                tweet.addEventListener("click", function () {
+                    changeMaxHeight(a);
+
+                    function changeMaxHeight(a) {
+                        var asd = document.getElementById(a);
+                        if (asd.style.maxHeight == '10000px') {
+                            asd.style.maxHeight = '0px';
+                        } else {
+                            asd.style.maxHeight = '10000px';
+                        }
+                    }
+                });
 
 //                adding comments to the tweets
                 test(resp[i]['twat_id']);
@@ -862,7 +889,7 @@ function msgs() {
         if (this.status == 200 && this.readyState == 4) {
             var response = JSON.parse(this.responseText);
 
-            if(response === "exception") {
+            if (response === "exception") {
                 window.location.assign("exception_page.php");
             }
             var wrap = document.getElementById('msgWrap');
@@ -948,7 +975,7 @@ function test(id) {
             if (this.readyState == 4 && this.status == 200) {
                 var response = JSON.parse(this.responseText);
 
-                if(response === "exception") {
+                if (response === "exception") {
                     window.location.assign("exception_page.php");
                 }
                 if (response == "1") {
@@ -965,7 +992,7 @@ function test(id) {
     request.onreadystatechange = function (ev) {
         if (this.readyState == 4 && this.status == 200) {
             var response = JSON.parse(this.responseText);
-            if(response === "exception") {
+            if (response === "exception") {
                 window.location.assign("exception_page.php");
             }
             cmnt_box.type = "text";
@@ -1014,7 +1041,7 @@ function likeTweet(id, heart) {
             resp = this.responseText;
             resp = JSON.parse(resp);
 
-            if(resp === "exception") {
+            if (resp === "exception") {
                 window.location.assign("exception_page.php");
             }
             heart.style.color = 'red';
@@ -1024,7 +1051,7 @@ function likeTweet(id, heart) {
                 request.onreadystatechange = function (ev) {
                     if (this.readyState == 4 && this.status == 200) {
                         var response = JSON.parse(this.responseText);
-                        if(response === "exception") {
+                        if (response === "exception") {
                             window.location.assign("exception_page.php");
                         }
                         var count = document.getElementById('likesCounter' + id);
@@ -1040,7 +1067,7 @@ function likeTweet(id, heart) {
                 request.onreadystatechange = function (ev) {
                     if (this.readyState == 4 && this.status == 200) {
                         var response = JSON.parse(this.responseText);
-                        if(response === "exception") {
+                        if (response === "exception") {
                             window.location.assign("exception_page.php");
                         }
                         var count = document.getElementById('likesCounter' + id);
@@ -1067,9 +1094,11 @@ function info(pole) {
     request.onreadystatechange = function (ev) {
         if (this.status == 200 && this.readyState == 4) {
             var response = JSON.parse(this.responseText);
-            if(response === "exception") {
+            if (response === "exception") {
                 window.location.assign("exception_page.php");
             }
+            var position = document.getElementById("position_div");
+            position.style.height = "300px";
             var cover = document.getElementById("small_cover_image");
             cover.src = response[0]['user_cover'];
             var image = document.getElementById("small_image");
@@ -1089,7 +1118,7 @@ function info(pole) {
     request2.onreadystatechange = function (ev) {
         if (this.status == 200 && this.readyState == 4) {
             var response = JSON.parse(this.responseText);
-            if(response === "exception") {
+            if (response === "exception") {
                 window.location.assign("exception_page.php");
             }
             var first = document.getElementById("one");
@@ -1115,24 +1144,21 @@ function info(pole) {
         posy = e.clientY;
     }
     var position = document.getElementById("position_div");
-    position.style.visibility = "visible";
     position.style.left = posx + "px";
     position.style.top = posy + "px";
-    position.style.display = "block";
-    position.style.opacity = "1";
-    position.style.transition = "opacity 1.25s linear";
+
 }
 
 function hide1() {
     var position = document.getElementById("position_div");
-    position.style.visibility = "hidden";
+    position.style.height = "0px";
 }
 
-function modal(img){
+function modal(img) {
     var modal = document.getElementById('myModal');
     var modalImg = document.getElementById("img01");
     var captionText = document.getElementById("caption");
-    img.onclick = function(){
+    img.onclick = function () {
         modal.style.display = "block";
         modalImg.src = this.src;
         captionText.innerHTML = this.alt;
@@ -1142,7 +1168,8 @@ function modal(img){
     var span = document.getElementsByClassName("close")[0];
 
     // When the user clicks on <span> (x), close the modal
-    span.onclick = function() {
+    span.onclick = function () {
         modal.style.display = "none";
     };
 }
+

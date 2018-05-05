@@ -49,7 +49,7 @@ req.onreadystatechange = function (ev) {
                 changeMaxHeight(a);
 
                 function changeMaxHeight(a) {
-                    asd = document.getElementById(a);
+                    var asd = document.getElementById(a);
                     if (asd.style.maxHeight == '10000px') {
                         asd.style.maxHeight = '0px';
                     } else {
@@ -228,6 +228,8 @@ function info(pole) {
         if (this.status == 200 && this.readyState == 4) {
             var response = JSON.parse(this.responseText);
 
+            var position = document.getElementById("position_div");
+            position.style.height = "300px";
             var first = document.getElementById("one");
             var second = document.getElementById("two");
             var third = document.getElementById("three");
@@ -251,17 +253,15 @@ function info(pole) {
         posy = e.clientY;
     }
     var position = document.getElementById("position_div");
-    position.style.visibility = "visible";
+
     position.style.left = posx + "px";
     position.style.top = posy + "px";
-    position.style.display = "block";
-    position.style.opacity = "1";
-    position.style.transition = "opacity 1.25s linear";
+
 }
 
 function hide1() {
     var position = document.getElementById("position_div");
-    position.style.visibility = "hidden";
+    position.style.height = "0px";
 }
 
 function postt() {
