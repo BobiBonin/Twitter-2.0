@@ -243,4 +243,9 @@ class UserDao extends BaseDao
         $statement->execute(array($id));
     }
 
+    public function sendNotification($sender, $receiver, $tweetId, $message, $status){
+        $statement = $this->pdo->prepare("INSERT INTO notifications (sender, receiver, id_tweet, message, status) VALUES (?,?,?,?,?)");
+        $statement->execute(array($sender, $receiver, $tweetId, $message, $status));
+    }
+
 }

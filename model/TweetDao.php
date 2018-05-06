@@ -29,11 +29,12 @@ class TweetDao extends BaseDao
         print_r(json_encode($result));
     } // Показва туитовете на други потребители
 
-
     public function addTweet(Tweet $tweet)
     {
         $statement = $this->pdo->prepare("INSERT INTO twats (user_id,twat_content,twat_img)  VALUES (?,?,?)");
         $statement->execute(array($tweet->getUserId(), $tweet->getContent(), $tweet->getImage()));
+        $result = $this->pdo->lastInsertId();
+        return $result;
     } //Добавя нов туит
 
     public function getMyFollowersTweets($arr)
