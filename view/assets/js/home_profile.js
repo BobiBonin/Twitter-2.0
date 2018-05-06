@@ -4,6 +4,7 @@ var req = new XMLHttpRequest();
 req.open("get", "../commandPattern.php?target=user&action=profile");
 req.onreadystatechange = function (ev) {
     var resp = this.responseText;
+    console.log(resp);
     resp = JSON.parse(resp);
     var user_name = resp["username"];
     var user_pic = resp["image_url"];

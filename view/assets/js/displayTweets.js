@@ -43,17 +43,23 @@ req.onreadystatechange = function (ev) {
             comment_div.id = resp[i]['twat_id'];
             div.appendChild(tweet);
             div.appendChild(comment_div);
-
+            const twt = tweet;
             const a = resp[i]['twat_id'];
             tweet.addEventListener("click", function () {
                 changeMaxHeight(a);
 
                 function changeMaxHeight(a) {
-                    var asd = document.getElementById(a);
-                    if (asd.style.maxHeight == '10000px') {
-                        asd.style.maxHeight = '0px';
+                    var cmntDiv = document.getElementById(a);
+                    if (cmntDiv.style.maxHeight == '10000px') {
+                        cmntDiv.style.maxHeight = '0px';
+                        twt.style.borderLeft='0';
+                        cmntDiv.style.borderBottom='0';
                     } else {
-                        asd.style.maxHeight = '10000px';
+                        cmntDiv.style.maxHeight = '10000px';
+                        cmntDiv.style.borderLeft='4px solid cornflowerblue';
+                        twt.style.borderLeft='4px solid cornflowerblue';
+                        cmntDiv.style.borderBottom='4px solid cornflowerblue';
+
                     }
                 }
             });

@@ -24,19 +24,9 @@ class TwitController extends BaseController
             $dao = new TweetDao();
             $user = $_SESSION['user']->getId();
             $text = htmlentities($_POST['text']);
+            $ERROR = false;
+
             $newId = $dao->getNewId();
-            $sendNotif = false;
-
-            preg_match_all('/(?!\b)(@\w+\b)/', $text, $matches);
-            $arr = array_unique($matches[0]);
-
-            foreach ($arr as $match) {
-                $new[] = substr($match, 1);
-            }
-            if (count($new) > 0) {
-                $sendNotif = true;
-            }
-
             $tweet_id = $newId['0']["twat_id"] + 1;
             if ($_FILES['twat_img']['size'] == 0 && $_FILES['twat_img']['error'] == 0) {
                 // cover_image is empty (and not an error)
@@ -65,24 +55,42 @@ class TwitController extends BaseController
                 }
             }
 
-
-            $tweet = new Tweet(null, $user, null, $text, $url_image);
-
-            $result = $dao->addTweet($tweet);
-
-            if ($sendNotif) {
-                foreach ($new as $user) {
-                    $sender = $uDao->findId($_SESSION['user']->getUsername());
-                    $senderName = $_SESSION['user']->getUsername();
-                    $receiver = $uDao->findId($user);
-                    $message = "$senderName tagged you in tweet!";
-                    $status = "unread";
-                    $uDao->sendNotification($sender['user_id'], $receiver['user_id'], $result, $message, $status);
-                }
+            if ($url_image === null && empty($text)) {
+                $ERROR = true;
+            }else if (strlen($text)>200){
+                $ERROR = true;
             }
+            if ($ERROR === true) {
+                header("location:./view/home.php");
+            } else {
+                $sendNotif = false;
 
+                preg_match_all('/(?!\b)(@\w+\b)/', $text, $matches);
+                $arr = array_unique($matches[0]);
 
-            header("location:./view/home.php");
+                foreach ($arr as $match) {
+                    $new[] = substr($match, 1);
+                }
+                if (count($new) > 0) {
+                    $sendNotif = true;
+                }
+
+                $tweet = new Tweet(null, $user, null, $text, $url_image);
+
+                $result = $dao->addTweet($tweet);
+
+                if ($sendNotif) {
+                    foreach ($new as $user) {
+                        $sender = $uDao->findId($_SESSION['user']->getUsername());
+                        $senderName = $_SESSION['user']->getUsername();
+                        $receiver = $uDao->findId($user);
+                        $message = "$senderName tagged you in tweet!";
+                        $status = "unread";
+                        $uDao->sendNotification($sender['user_id'], $receiver['user_id'], $result, $message, $status);
+                    }
+                }
+                header("location:./view/home.php");
+            }
         } catch (\PDOException $e) {
             $this->exception($e);
         }
