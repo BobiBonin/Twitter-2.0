@@ -346,3 +346,7 @@
  On May 6, 2018, 5:00 pm Error Message : SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ') 
                                   AND twats.user_id = users.user_id 
       ' at line 3
+ On May 6, 2018, 11:31 pm Error Message : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '38-191' for key 'PRIMARY'
+ On May 6, 2018, 11:33 pm Error Message : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '38-146' for key 'PRIMARY'
+ On May 6, 2018, 11:49 pm Error Message : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '1-191' for key 'PRIMARY'
+ On May 6, 2018, 11:49 pm Error Message : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '1-191' for key 'PRIMARY'

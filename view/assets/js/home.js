@@ -309,3 +309,7 @@ function hide() {
     div2.innerHTML = "";
     div2.style.visibility = "hidden";
 }
+function hideNotif() {
+    var div = document.getElementById("notifications");
+    div.style.visibility = "hidden";
+}

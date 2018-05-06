@@ -131,7 +131,11 @@ function notifications() {
 
             button.addEventListener("click", function () {
                 var div = document.getElementById("notifications");
-                div.style.visibility = "visible";
+                if(div.style.visibility == "visible"){
+                    div.style.visibility = "hidden";
+                }else{
+                    div.style.visibility = "visible";
+                }
                 var ul = document.getElementById("notif_ul");
                 ul.innerHTML = "";
                 for (var key in response) {
@@ -206,6 +210,10 @@ function notifications() {
         }
     };
     request.send();
+}
+function hideNotif() {
+    var div = document.getElementById("notifications");
+    div.style.visibility = "hidden";
 }
 
 notifications();

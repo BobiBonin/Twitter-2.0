@@ -52,13 +52,13 @@ req.onreadystatechange = function (ev) {
                     var cmntDiv = document.getElementById(a);
                     if (cmntDiv.style.maxHeight == '10000px') {
                         cmntDiv.style.maxHeight = '0px';
-                        twt.style.borderLeft='0';
-                        cmntDiv.style.borderBottom='0';
+                        twt.style.borderLeft = '0';
+                        cmntDiv.style.borderBottom = '0';
                     } else {
                         cmntDiv.style.maxHeight = '10000px';
-                        cmntDiv.style.borderLeft='4px solid cornflowerblue';
-                        twt.style.borderLeft='4px solid cornflowerblue';
-                        cmntDiv.style.borderBottom='4px solid cornflowerblue';
+                        cmntDiv.style.borderLeft = '4px solid cornflowerblue';
+                        twt.style.borderLeft = '4px solid cornflowerblue';
+                        cmntDiv.style.borderBottom = '4px solid cornflowerblue';
 
                     }
                 }
@@ -201,6 +201,7 @@ function likeTweet(id, heart) {
 }
 
 function info(pole) {
+
     var user_name = pole.innerText;
     link_name = user_name.replace(" ", "%20");
     if (link_name.charAt(0) == "@") {
