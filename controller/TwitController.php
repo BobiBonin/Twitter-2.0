@@ -62,7 +62,6 @@ class TwitController extends BaseController
         }
 
 
-
     }// Добавя нов туит
 
     public function showOwnTweets()
@@ -76,8 +75,6 @@ class TwitController extends BaseController
             $this->exception($e);
         }
     }//Показва туитовете на текущо логнатия потребител
-
-
 
 
     public function showOtherUsersTweets()
@@ -165,7 +162,7 @@ class TwitController extends BaseController
             if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                 $tDao = new TweetDao();
                 $user_id = $_SESSION['user']->getId();
-                $tweet_id = $_GET['twat_id'];
+                $tweet_id = htmlentities($_GET['twat_id']);
                 $username = $_SESSION['user']->getUsername();
 
                 $uDao = new CommentDao();
@@ -187,7 +184,7 @@ class TwitController extends BaseController
             if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                 $dao = new TweetDao();
                 $user_id = $_SESSION['user']->getId();
-                $twat_id = $_GET['twat_id'];
+                $twat_id = htmlentities($_GET['twat_id']);
                 $dao->dislikeATweet($twat_id, $user_id);
             }
         } catch (\PDOException $e) {
@@ -199,7 +196,7 @@ class TwitController extends BaseController
     {
 
         try {
-            $id = $_GET['id'];
+            $id = htmlentities($_GET['id']);
             $dao = new TweetDao();
             $result = $dao->getTweetLikes($id);
             echo json_encode($result);
@@ -260,18 +257,16 @@ class TwitController extends BaseController
                 $tag = htmlentities($_GET['tag']);
                 $dao = new TweetDao();
                 $uDao = new UserDao();
-                if(is_numeric($tag)){
+                if (is_numeric($tag)) {
                     $result = $dao->getTweet($tag);
-                }else{
+                } else {
                     $result = $dao->getHashtags($tag);
                 }
-
 
                 foreach ($result as &$tweet) {
                     $tweet['likes'] = $dao->getTweetLikes($tweet['twat_id']);
                     $tweet['youLike'] = $dao->checkIfLiked($user_id, $tweet['twat_id']);
                 }
-
 
                 foreach ($result as &$tweet) {
                     $array = explode(" ", $tweet['twat_content']);
@@ -293,8 +288,6 @@ class TwitController extends BaseController
                 }
                 echo json_encode($result);
             }
-
-
         } catch (\PDOException $e) {
             $this->exception($e);
         }

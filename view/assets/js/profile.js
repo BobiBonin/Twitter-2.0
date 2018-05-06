@@ -40,6 +40,10 @@ function checkPos() {                                                /*Пров�
 var queryString = decodeURIComponent(window.location.search);
 queryString = queryString.substring(1);
 var queries = queryString.split("&");
+
+if(queries[0] == "error"){
+    window.alert("Некоректни данни!");
+}
 /*---------------------------------------------------------------------------------------------------*/
 if (queryString.length != 0) { /*Георги --27.03.2018-- Ако в URL има параметър се запълва чужд профил*/
     var request = new XMLHttpRequest();
@@ -396,7 +400,7 @@ else {/*------------------------------------------------------------------------
             name.innerText = response['username'];
             name_.innerText = "@" + response['username'];
             description.innerHTML = response['description'];
-            if (response['city'] === null) {
+            if (response['city'] === "") {
                 city.innerText += '';
             } else {
                 city.innerText += 'Живее в: ' + response['city'];
@@ -442,6 +446,18 @@ else {/*------------------------------------------------------------------------
                         btn.addEventListener("click", function () {
                             if (password.value == 0) {
                                 password.style.border = "1px solid red";
+                                event.preventDefault();
+                            }
+                            if(username.value == 0){
+                                username.style.border = "1px solid red";
+                                event.preventDefault();
+                            }
+                            if(email.value == 0){
+                                email.style.border = "1px solid red";
+                                event.preventDefault();
+                            }
+                            if (validateEmail(email.value) !== true) {
+                                email.style.border = "1px solid red";
                                 event.preventDefault();
                             }
                         });
@@ -1173,3 +1189,7 @@ function modal(img) {
     };
 }
 
+function validateEmail(email) {
+    var exp = /(\w(=?@)\w+\.{1}[a-zA-Z]{2,})/i;
+    return (exp.test(email));
+}

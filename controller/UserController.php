@@ -32,7 +32,8 @@ class UserController extends BaseController
                     $_SESSION['user'] = $info;
                     header("Location: ./view/home.php");
                 } else {
-                    header("Location: ./view/error_login.html");
+                    header("Location: ./index.php?login_error
+                    ");
                 }
             } catch (\PDOException $e) {
                 $this->exception($e);
@@ -53,19 +54,28 @@ class UserController extends BaseController
             if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
                 $error = true;
             }
-            if ($email == "" || $email == null) {
+            if (empty($email)) {
                 $error = true;
             }
-            if ($password == "" || $password == null) {
+            if (empty($password)) {
                 $error = true;
             }
-            if ($rpassword == "" || $rpassword == null) {
+            if (strlen($password) < 5) {
+                $error = true;
+            }
+            if (empty($rpassword)) {
+                $error = true;
+            }
+            if (strlen($rpassword) < 5) {
                 $error = true;
             }
             if ($password !== $rpassword) {
                 $error == true;
             }
-            if ($username == "" || $username == null) {
+            if (empty($username)) {
+                $error = true;
+            }
+            if (strpos($username, ' ') !== false) {
                 $error = true;
             }
             if (strlen($username) < 3 && strlen($username) > 20) {
@@ -87,11 +97,11 @@ class UserController extends BaseController
                         header("location: ./index.php?exist"); //User all ready EXIST!!
                     }
                 } else {
-                    header("location: ./index.php?error"); // ERRORS!
+                    header("location: ./index.php?error");
                 }
             } catch (\PDOException $e) {
                 $this->exception($e);
-                header("location: ../view/exception_page.php");
+                header("location: ./index.php?error");
             }
         }
     } //Регистрация
@@ -118,7 +128,7 @@ class UserController extends BaseController
 
         try {
             if ($_SERVER['REQUEST_METHOD'] == 'GET') {
-                $name = $_GET['name'];
+                $name = htmlentities($_GET['name']);
 
                 $user = new User(null, null, $name);
                 $pdo = new UserDao();
@@ -138,7 +148,6 @@ class UserController extends BaseController
 
     public function showRandomUsers()
     {
-
         try {
             $dao = new UserDao();
             $session = &$_SESSION['user'];
@@ -202,7 +211,7 @@ class UserController extends BaseController
         try {
             if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                 $dao = new UserDao();
-                $name = $_GET['name'];
+                $name = htmlentities($_GET['name']);
                 $id = $dao->findId($name);
                 $result = $dao->findFollowing($id['user_id']);
                 echo json_encode($result);
@@ -216,7 +225,6 @@ class UserController extends BaseController
     {
 
         try {
-
             $session = &$_SESSION['user'];
             $name = $session->getUsername();
 
@@ -269,7 +277,7 @@ class UserController extends BaseController
 
         try {
             if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-                $name = $_GET['name'];
+                $name = htmlentities($_GET['name']);
                 $dao = new UserDao();
                 $id = $dao->findId($name);
                 $result = $dao->findFollowers($id['user_id']);
@@ -393,7 +401,6 @@ class UserController extends BaseController
 
         if (isset($_POST['btn_edit'])) {
             try {
-                var_dump($_SESSION['user']);
                 $username = htmlentities($_POST['username']);
                 $email = htmlentities($_POST['email']);
                 $password = htmlentities($_POST['password']);
@@ -403,44 +410,60 @@ class UserController extends BaseController
                 $tmp_image = $_FILES['user_pic']['tmp_name'];
                 $url_cover = "assets/images/default_cover.jpg";
                 $tmp_cover = $_FILES["user_cover"]["tmp_name"];
+                $error = false;
 
-
-                if ($_SESSION['user']->getImageUrl() !== $url_image) {
-                    $url_image = "assets/images/uploads/image_$email.png";
+                if (empty($username)) {
+                    $error = true;
                 }
-                if ($_SESSION['user']->getCoverUrl() !== $url_cover) {
-                    $url_cover = "assets/images/uploads/cover_$email.png";
+                if (strpos($username, ' ') !== false) {
+                    $error = true;
+                }
+                if (empty($email)) {
+                    $error = true;
+                }
+                if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+                    $error = true;
+                }
+                if (empty($password)) {
+                    $error = true;
                 }
 
-
-                $user = new User($_SESSION['user']->getEmail(), sha1($password));
-                $pdo = new UserDao();
-                $result = $pdo->checkUserExist($user);
-
-                if ($result) {
-                    if (is_uploaded_file($tmp_image)) {
-                        $url_image = "./view/assets/images/uploads/image_$email.png";
-                        if (move_uploaded_file($tmp_image, $url_image)) {
-                            $url_image = "assets/images/uploads/image_$email.png";
-                        }
+                if (!$error) {
+                    if ($_SESSION['user']->getImageUrl() !== $url_image) {
+                        $url_image = "assets/images/uploads/image_$email.png";
                     }
-                    if (is_uploaded_file($tmp_cover)) {
-                        $url_cover = "./view/assets/images/uploads/cover_$email.png";
-                        if (move_uploaded_file($tmp_cover, $url_cover)) {
-                            $url_cover = "assets/images/uploads/cover_$email.png";
-                        }
+                    if ($_SESSION['user']->getCoverUrl() !== $url_cover) {
+                        $url_cover = "assets/images/uploads/cover_$email.png";
                     }
-                    $id = $_SESSION['user']->getId();
-                    $date = $_SESSION['user']->getDate();
-                    $user = new User($email, sha1($password), $username, $url_image, $url_cover, $date, $city, $description, $id);
 
-                    $_SESSION['user'] = $user;
-                    var_dump($_SESSION['user']);
+                    $user = new User($_SESSION['user']->getEmail(), sha1($password));
                     $pdo = new UserDao();
-                    $pdo->updateUser($user);
-                    header("location: ./view/profile.php");
+                    $result = $pdo->checkUserExist($user);
+
+                    if ($result) {
+                        if (is_uploaded_file($tmp_image)) {
+                            $url_image = "./view/assets/images/uploads/image_$email.png";
+                            if (move_uploaded_file($tmp_image, $url_image)) {
+                                $url_image = "assets/images/uploads/image_$email.png";
+                            }
+                        }
+                        if (is_uploaded_file($tmp_cover)) {
+                            $url_cover = "./view/assets/images/uploads/cover_$email.png";
+                            if (move_uploaded_file($tmp_cover, $url_cover)) {
+                                $url_cover = "assets/images/uploads/cover_$email.png";
+                            }
+                        }
+                        $id = $_SESSION['user']->getId();
+                        $date = $_SESSION['user']->getDate();
+                        $user = new User($email, sha1($password), $username, $url_image, $url_cover, $date, $city, $description, $id);
+
+                        $_SESSION['user'] = $user;
+                        $pdo = new UserDao();
+                        $pdo->updateUser($user);
+                        header("location: ./view/profile.php");
+                    }
                 } else {
-                    header("location: ./view/profile_error.php");
+                    header("location: ./view/profile.php?error");
                 }
 
 
@@ -458,7 +481,7 @@ class UserController extends BaseController
             if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                 $session = &$_SESSION['user'];
                 $me = $session->getId();
-                $name = $_GET['name'];
+                $name = htmlentities($_GET['name']);
                 $dao = new UserDao();
                 $you = $dao->findId($name);
                 $dislike = $dao->dislikeIt($me, $you['user_id']);

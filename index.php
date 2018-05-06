@@ -29,8 +29,8 @@
     <section id="right">
         <div id="login">
             <form method="post" id="login_form" action="./commandPattern.php?target=user&action=login">
-                <input id="input_left" class="input" type="email" placeholder="Имейл адрес" name="email">
-                <input id="login_pass" class="input" type="password" placeholder="Парола" name="password">
+                <input id="input_left" class="input" type="email" placeholder="Имейл адрес" name="email" required>
+                <input id="login_pass" class="input" type="password" placeholder="Парола" name="password" required>
                 <input id="button" type="submit" value="Вход" name="login_btn" onclick="validateLogin()">
             </form>
             <div id="span_login">
@@ -52,8 +52,7 @@
                     <span id="span"></span>
                 </div>
                 <div id="reg_pass_div">
-                    <input id="reg_pass" type="password" class="reg_input" placeholder="Парола" name="password"
-                           required>
+                    <input id="reg_pass" type="password" class="reg_input" placeholder="Парола" name="password" required>
                     <span id="span2"></span>
                 </div>
             </form>
@@ -70,6 +69,16 @@
     </footer>
 </div>
 <script>
+    var queryString = decodeURIComponent(window.location.search);
+    queryString = queryString.substring(1);
+    var queries = queryString.split("&");
+    if(queries[0] == "exist"){
+        window.alert("Потребител с такива данни вече съществува!");
+    }else if(queries[0] == "error"){
+        window.alert("Грешка с въведените данни!");
+    }else if(queries[0] == "login_error"){
+        window.alert("Грешен имейл или парола!");
+    }
     function myFunction(x, y) {
         if (x.matches) { // Ако куеритата съвпаднат
             var button = document.getElementById("button");
@@ -139,135 +148,146 @@
         span2.style.color = "rgba(224,36,94,0.71)";
 
         if (user.value != 0 && pass.value != 0) {
-            if (validateEmail(user.value) == true) {
-                span.innerText = "";
-                user.style.border = "1px solid rgba(23, 190, 99, 0.71)";
-                span2.innerText = "";
-                pass.style.border = "1px solid rgba(23, 190, 99, 0.71)";
+            if(pass.value.length > 5) {
+                if (validateEmail(user.value) == true) {
+                    span.innerText = "";
+                    user.style.border = "1px solid rgba(23, 190, 99, 0.71)";
+                    span2.innerText = "";
+                    pass.style.border = "1px solid rgba(23, 190, 99, 0.71)";
 
-                var repeat_pass_div = document.createElement("div");
-                var repeat_pass = document.createElement("input");
-                var span3 = document.createElement("span");
-                var span = document.getElementById("span");
-                var span2 = document.getElementById("span2");
-                span.innerText = "";
-                span2.innerText = "";
-                span3.id = "span3";
-                repeat_pass_div.id = "repeat_pass_div";
-                repeat_pass.className = "reg_input";
-                repeat_pass.name = "rpassword";
-                repeat_pass.setAttribute("required", "");
-                repeat_pass.placeholder = "Повторете паролата";
-                repeat_pass.type = "password";
-
-                var username_div = document.createElement("div");
-                var username = document.createElement("input");
-                var span4 = document.createElement("span");
-
-                username_div.id = "username_div";
-                span4.id = "span4";
-
-                username.className = "reg_input";
-                username.name = "username";
-                username.placeholder = "Потребителско име";
-                repeat_pass.setAttribute("required", "");
-                username.type = "text";
-                repeat_pass_div.appendChild(repeat_pass);
-                repeat_pass_div.appendChild(span3);
-                username_div.appendChild(username);
-                username_div.appendChild(span4);
-                form.appendChild(repeat_pass_div);
-                form.appendChild(username_div);
-
-                var div = document.getElementById("allready_have");
-                var reg_form = document.getElementById("reg_form");
-                var submit = document.createElement("input");
-
-                div.style.visibility = "hidden";
-                submit.type = "submit";
-                submit.className = "reg_button";
-                submit.style.width = "350px";
-                submit.name = "reg_btn";
-                submit.value = "Регистрация";
-                submit.addEventListener('click', function (event) {
-
+                    var repeat_pass_div = document.createElement("div");
+                    var repeat_pass = document.createElement("input");
+                    var span3 = document.createElement("span");
                     var span = document.getElementById("span");
                     var span2 = document.getElementById("span2");
-                    var span3 = document.getElementById("span3");
-                    var span4 = document.getElementById("span4");
-                    span.style.color = "rgba(224,36,94,0.71)";
-                    span2.style.color = "rgba(224,36,94,0.71)";
-                    span3.style.color = "rgba(224,36,94,0.71)";
-                    span4.style.color = "rgba(224,36,94,0.71)";
+                    span.innerText = "";
+                    span2.innerText = "";
+                    span3.id = "span3";
+                    repeat_pass_div.id = "repeat_pass_div";
+                    repeat_pass.className = "reg_input";
+                    repeat_pass.name = "rpassword";
+                    repeat_pass.setAttribute("required", "");
+                    repeat_pass.placeholder = "Повторете паролата";
+                    repeat_pass.type = "password";
 
-                    if (user.value == 0) {
-                        user.style.border = "1px solid rgba(224,36,94,0.71)";
-                        span.innerText = "Моля въведете имейл!";
-                        event.preventDefault();
-                    } else {
-                        if (validateEmail(user.value) == false) {
+                    var username_div = document.createElement("div");
+                    var username = document.createElement("input");
+                    var span4 = document.createElement("span");
+                    username.setAttribute("required", "");
+                    username_div.id = "username_div";
+                    span4.id = "span4";
+
+                    username.className = "reg_input";
+                    username.name = "username";
+                    username.placeholder = "Потребителско име";
+                    repeat_pass.setAttribute("required", "");
+                    username.type = "text";
+                    repeat_pass_div.appendChild(repeat_pass);
+                    repeat_pass_div.appendChild(span3);
+                    username_div.appendChild(username);
+                    username_div.appendChild(span4);
+                    form.appendChild(repeat_pass_div);
+                    form.appendChild(username_div);
+
+                    var div = document.getElementById("allready_have");
+                    var reg_form = document.getElementById("reg_form");
+                    var submit = document.createElement("input");
+
+                    div.style.visibility = "hidden";
+                    submit.type = "submit";
+                    submit.className = "reg_button";
+                    submit.style.width = "350px";
+                    submit.name = "reg_btn";
+                    submit.value = "Регистрация";
+                    submit.addEventListener('click', function (event) {
+
+                        var span = document.getElementById("span");
+                        var span2 = document.getElementById("span2");
+                        var span3 = document.getElementById("span3");
+                        var span4 = document.getElementById("span4");
+                        span.style.color = "rgba(224,36,94,0.71)";
+                        span2.style.color = "rgba(224,36,94,0.71)";
+                        span3.style.color = "rgba(224,36,94,0.71)";
+                        span4.style.color = "rgba(224,36,94,0.71)";
+
+                        if (user.value == 0) {
                             user.style.border = "1px solid rgba(224,36,94,0.71)";
-                            span.innerText = "Моля въведете валиден имейл!";
+                            span.innerText = "Моля въведете имейл!";
                             event.preventDefault();
                         } else {
-                            span.innerText = "";
-                            user.style.border = "1px solid rgba(23, 190, 99, 0.71)";
+                            if (validateEmail(user.value) == false) {
+                                user.style.border = "1px solid rgba(224,36,94,0.71)";
+                                span.innerText = "Моля въведете валиден имейл!";
+                                event.preventDefault();
+                            } else {
+                                span.innerText = "";
+                                user.style.border = "1px solid rgba(23, 190, 99, 0.71)";
+                            }
                         }
-                    }
-                    if (pass.value == 0) {
-                        pass.style.border = "1px solid rgba(224,36,94,0.71)";
-                        span2.innerText = "Моля въведете парола!";
-                        event.preventDefault();
-                    } else {
-                        span2.innerText = "";
-                        pass.style.border = "1px solid rgba(23, 190, 99, 0.71)";
-                    }
-                    if(pass.value < 5){
-                        pass.style.border = "1px solid rgba(224,36,94,0.71)";
-                        span2.innerText = "Моля въведете по-сложна парола!";
-                        event.preventDefault();
-                    } else {
-                        span2.innerText = "";
-                        pass.style.border = "1px solid rgba(23, 190, 99, 0.71)";
-                    }
-                    if (repeat_pass.value == 0) {
-                        repeat_pass.style.border = "1px solid rgba(224,36,94,0.71)";
-                        span3.innerText = "Моля повторете паролата!";
-                        event.preventDefault();
-                    } else {
-                        span3.innerText = "";
-                        repeat_pass.style.border = "1px solid rgba(23, 190, 99, 0.71)";
-                    }
-                    if(repeat_pass.value < 5){
-                        repeat_pass.style.border = "1px solid rgba(224,36,94,0.71)";
-                        span3.innerText = "Моля въведете по-сложна парола!";
-                        event.preventDefault();
-                    } else {
-                        span3.innerText = "";
-                        repeat_pass.style.border = "1px solid rgba(23, 190, 99, 0.71)";
-                    }
-                    if (username.value == 0) {
-                        username.style.border = "1px solid rgba(224,36,94,0.71)";
-                        span4.innerText = "Моля въведете потребителско име!";
-                        event.preventDefault();
-                    } else {
-                        span4.innerText = "";
-                        username.style.border = "1px solid rgba(23, 190, 99, 0.71)";
-                    }
-                }, false);
-                reg_form.appendChild(submit);
-                var login = document.getElementById("login_form");
-                index.style.visibility = "hidden";
-                var registration_div = document.getElementById("registration");
-                registration_div.style.marginTop = "10%";
-                pass.style.border = "";
-                user.style.border = "";
-            } else {
-                user.style.border = "1px solid rgba(224,36,94,0.71)";
-                span.innerText = "Моля въведете правилен имейл!";
-                span2.innerText = "";
-                pass.style.border = "1px solid rgba(23, 190, 99, 0.71)";
+                        if (pass.value == 0) {
+                            pass.style.border = "1px solid rgba(224,36,94,0.71)";
+                            span2.innerText = "Моля въведете парола!";
+                            event.preventDefault();
+                        } else {
+                            if (pass.value < 5) {
+                                pass.style.border = "1px solid rgba(224,36,94,0.71)";
+                                span2.innerText = "Моля въведете по-сложна парола!";
+                                event.preventDefault();
+                            } else {
+                                span2.innerText = "";
+                                pass.style.border = "1px solid rgba(23, 190, 99, 0.71)";
+                            }
+                        }
+                        if (repeat_pass.value !== pass.value) {
+                            repeat_pass.style.border = "1px solid rgba(224,36,94,0.71)";
+                            span3.innerText = "Моля повторете паролата!";
+                            event.preventDefault();
+                        } else {
+                            if (repeat_pass.value == 0) {
+                                repeat_pass.style.border = "1px solid rgba(224,36,94,0.71)";
+                                span3.innerText = "Моля повторете паролата!";
+                                event.preventDefault();
+                            } else {
+                                span3.innerText = "";
+                                repeat_pass.style.border = "1px solid rgba(23, 190, 99, 0.71)";
+                            }
+                        }
+                        if (username.value == 0) {
+                            username.style.border = "1px solid rgba(224,36,94,0.71)";
+                            span4.innerText = "Моля въведете потребителско име!";
+                            event.preventDefault();
+                        } else {
+                            if (username.value < 3) {
+                                username.style.border = "1px solid rgba(224,36,94,0.71)";
+                                span4.innerText = "Моля въведете по-дълго потребителско име!";
+                                event.preventDefault();
+                            } else if (username.value.includes(" ")) {
+                                username.style.border = "1px solid rgba(224,36,94,0.71)";
+                                span4.innerText = "Потребителското име не трябва да съдържа интервал!";
+                                event.preventDefault();
+                            }
+                            else {
+                                span4.innerText = "";
+                                username.style.border = "1px solid rgba(23, 190, 99, 0.71)";
+                            }
+                        }
+                    }, false);
+                    reg_form.appendChild(submit);
+                    var login = document.getElementById("login_form");
+                    index.style.visibility = "hidden";
+                    var registration_div = document.getElementById("registration");
+                    registration_div.style.marginTop = "10%";
+                    pass.style.border = "";
+                    user.style.border = "";
+                } else {
+                    user.style.border = "1px solid rgba(224,36,94,0.71)";
+                    span.innerText = "Моля въведете правилен имейл!";
+                    span2.innerText = "";
+                    pass.style.border = "1px solid rgba(23, 190, 99, 0.71)";
+                }
             }
+            pass.style.border = "1px solid rgba(224,36,94,0.71)";
+            span2.innerText = "Моля въведете по-сложна парола!";
         }
         else if (user.value == 0 && pass.value == 0) {
             user.style.border = "1px solid rgba(224,36,94,0.71)";

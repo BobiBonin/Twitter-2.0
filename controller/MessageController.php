@@ -56,7 +56,6 @@ class MessageController extends BaseController
                 $url_image = null;
             }
 
-
             $message = new Message($ownerId, $receiverId, $text, $url_image);
 
             $dao->addMessage($message);
@@ -69,7 +68,6 @@ class MessageController extends BaseController
 
     public function getMessages()
     {
-
         try {
             $ownerId = $_SESSION['user']->getId();
 

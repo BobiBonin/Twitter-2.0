@@ -18,8 +18,8 @@ class CommentController extends BaseController
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $user_id = $_SESSION['user']->getId();
                 $username = $_SESSION['user']->getUsername();
-                $content = $_POST['content'];
-                $tweet_id = $_POST['tweetId'];
+                $content = htmlentities($_POST['content']);
+                $tweet_id = htmlentities($_POST['tweetId']);
                 if(strlen($content) > 0){
                     $comment = new Comment($tweet_id,$content,$user_id);
                     $dao = new CommentDao();
@@ -31,7 +31,6 @@ class CommentController extends BaseController
                 }else{
                     echo json_encode(0);
                 }
-
             }
         } catch (\PDOException $e){
             $this->exception($e);
@@ -43,7 +42,7 @@ class CommentController extends BaseController
         try {
             if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                 $dao = new CommentDao();
-                $id = $_GET['tweet_id'];
+                $id = htmlentities($_GET['tweet_id']);
                 $comments = $dao->showMyComments($id);
                 echo json_encode($comments);
             }

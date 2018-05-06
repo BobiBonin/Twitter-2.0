@@ -44,11 +44,11 @@
                 <table>
                     <tr>
                         <td>Име:</td>
-                        <td><input type="text" name="username" id="username"></td>
+                        <td><input type="text" name="username" id="username" required></td>
                     </tr>
                     <tr>
                         <td>Имейл:</td>
-                        <td><input type="email" name="email" id="email"></td>
+                        <td><input type="email" name="email" id="email" required></td>
                     </tr>
                     <tr>
                         <td>Град:</td>
@@ -61,7 +61,7 @@
                     </tr>
                     <tr>
                         <td>Парола:</td>
-                        <td><input type="password" name="password" id="password" placeholder="Въведете парола"></td>
+                        <td><input type="password" name="password" id="password" placeholder="Въведете парола" required></td>
                     </tr>
                     <tr>
                         <td>Профилна снимка:</td>
