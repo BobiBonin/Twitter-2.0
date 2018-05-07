@@ -27,8 +27,10 @@ include_once 'page_lock.php';
 
             <form method="post" action="../commandPattern.php?target=message&action=addMessage"
                   enctype="multipart/form-data">
-                <input type="text" id="msgUserSearch" placeholder="Choose who to send a message to!" name="receiverName"
-                       required>
+                <input type="text" id="msgUserSearch" placeholder="Choose who to send a message to!" name="receiverName" oninput="searchMsg()" required>
+                <div id="msgUl">
+
+                </div>
                 <textarea id="msgInput" name="text" oninput="characters(this)"></textarea>
                 Send Picture <input type="file" name="message_img">
                 <input type="submit" value="Send" id="sendMsgButton">

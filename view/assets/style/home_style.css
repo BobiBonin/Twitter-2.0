@@ -616,3 +616,10 @@ a {
     margin:5px;
     cursor: pointer;
 }
+
+#msgSearchUl{
+    background-color: #ffffff;
+    width: 95%;
+    height: auto;
+    border-radius: 10px;
+}

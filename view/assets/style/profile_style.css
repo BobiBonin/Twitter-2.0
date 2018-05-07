@@ -189,6 +189,9 @@ span {
     height: auto;
     border-radius: 10px;
 }
+#msgLi{
+    margin: 5px;
+}
 
 #ul li {
     list-style-type: none;

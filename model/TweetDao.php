@@ -84,7 +84,7 @@ class TweetDao extends BaseDao
         $statement->execute(array());
         $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
         return $result;
-    }
+    } // Взима ново айди (за снимка)
 
     public function getTweetLikes($id)
     {
@@ -120,12 +120,12 @@ class TweetDao extends BaseDao
             $statement = $this->pdo->prepare("DELETE FROM comments WHERE twat_id = ?");
             $statement->execute(array($id));
             $statement = $this->pdo->prepare("DELETE FROM twats WHERE twat_id = ?");
-
             $statement->execute(array($id));
+
             $this->pdo->commit();
         } catch (\PDOException $e) {
             $this->pdo->rollBack();
             throw $e;
         }
-    }
+    } // Изтрива туит заедно с неговите коментари и лайкове
 }

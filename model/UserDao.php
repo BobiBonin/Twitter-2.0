@@ -158,6 +158,7 @@ class UserDao extends BaseDao
         return $result;
     }
 
+    /*Последван ли е юзъра*/
     public function isFollow($myid, $id)
     {
         $statement = $this->pdo->prepare("SELECT * FROM following WHERE user_id = ? AND following_id = ?");
@@ -215,6 +216,7 @@ class UserDao extends BaseDao
         return $result;
     }
 
+    /*Взима айдито на юзъра с име*/
     public function getUserIdFromName($userName)
     {
         $statement = $this->pdo->prepare("SELECT user_id FROM users WHERE user_name = ?");
@@ -223,6 +225,7 @@ class UserDao extends BaseDao
         return $result;
     }
 
+    /*Взима известията за юзър по айди*/
     public function getNotifications($id)
     {
         $statement = $this->pdo->prepare("SELECT id,sender,id_tweet,message,user_pic, date, user_name, status 
@@ -237,12 +240,14 @@ class UserDao extends BaseDao
         return $result;
     }
 
+    /*Променя статуса на известията от непрочетени на прочетени*/
     public function seeNotification($id)
     {
         $statement = $this->pdo->prepare("UPDATE notifications SET status = 'read' WHERE id = ?");
         $statement->execute(array($id));
     }
 
+    /*Записва известията в пазата при определени ситуации(последване, коментиране, харесване на пост или отбелязване на юзър)*/
     public function sendNotification($sender, $receiver, $tweetId, $message, $status){
         $statement = $this->pdo->prepare("INSERT INTO notifications (sender, receiver, id_tweet, message, status) VALUES (?,?,?,?,?)");
         $statement->execute(array($sender, $receiver, $tweetId, $message, $status));

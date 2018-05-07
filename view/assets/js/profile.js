@@ -41,7 +41,7 @@ var queryString = decodeURIComponent(window.location.search);
 queryString = queryString.substring(1);
 var queries = queryString.split("&");
 
-if(queries[0] == "error"){
+if (queries[0] == "error") {
     window.alert("Некоректни данни!");
 }
 /*---------------------------------------------------------------------------------------------------*/
@@ -448,11 +448,11 @@ else {/*------------------------------------------------------------------------
                                 password.style.border = "1px solid red";
                                 event.preventDefault();
                             }
-                            if(username.value == 0){
+                            if (username.value == 0) {
                                 username.style.border = "1px solid red";
                                 event.preventDefault();
                             }
-                            if(email.value == 0){
+                            if (email.value == 0) {
                                 email.style.border = "1px solid red";
                                 event.preventDefault();
                             }
@@ -749,9 +749,6 @@ function random() {
                     var position = document.getElementById("position_div");
                     position.style.left = posx + "px";
                     position.style.top = posy + "px";
-
-
-
 
 
                 });
@@ -1180,4 +1177,73 @@ function modal(img) {
 function validateEmail(email) {
     var exp = /(\w(=?@)\w+\.{1}[a-zA-Z]{2,})/i;
     return (exp.test(email));
+}
+
+function searchMsg() {
+    var pole = document.getElementById("msgUserSearch").value;
+    console.log(pole);
+    var request = new XMLHttpRequest();
+    request.open("get", "../commandPattern.php?name=" + pole + "&target=user&action=searchUserAndTags");
+    request.onreadystatechange = function (ev) {
+        if (this.readyState == 4 && this.status == 200) {
+            var response = JSON.parse(this.responseText);
+            console.log(response);
+            if (response === "exception") {
+                window.location.assign("exception_page.php");
+            }
+            if (response.length == 0) {                             /* Ако няма резултат изписва "Няма резултат.."*/
+                var ul = document.createElement("ul");
+                ul.id = "msgSearchUl";
+
+                var div2 = document.getElementById("msgUl");
+                div2.innerHTML = "";
+                div2.style.visibility = "visible";
+                var li = document.createElement("li");
+                var a = document.createElement("a");
+                a.innerHTML = "Няма резултати..";
+                li.appendChild(a);
+                ul.appendChild(li);
+            } else {                                                 /* В противен случай изкарва всичко от масива*/
+                var ul = document.createElement("ul");
+                ul.id = "msgSearchUl";
+                var div2 = document.getElementById("msgUl");
+                div2.innerHTML = "";
+                div2.style.visibility = "visible";
+                for (var key in response) {
+                    for (var value in response[key]) {
+                        if (key == 1) {
+                            var li = document.createElement("li");
+                            var a = document.createElement("a");
+                            li.id = "msgLi";
+                            a.href = "#";
+                            var img = document.createElement("img");
+                            img.style.width = "20px";
+                            img.style.height = "20px";
+                            a.innerHTML = response[key][value]["user_name"];
+                            a.addEventListener("mouseover", function () {
+                                this.style.textDecoration = "underline";
+                            });
+                            a.addEventListener("mouseout", function () {
+                                this.style.textDecoration = "none";
+                            });
+                            a.addEventListener("click", function () {  /*При клик върху име се запълва полето за сърча*/
+                                var name = this.innerText;
+                                document.getElementById("msgUserSearch").value = name;
+                                div2.innerHTML = "";
+                            });
+                            img.src = response[key][value]["user_pic"];
+                            img.style.cssFloat = "left";
+                            li.appendChild(img);
+                            li.appendChild(a);
+                            ul.appendChild(li);
+                        }
+
+                    }
+
+                }
+            }
+            div2.appendChild(ul);
+        }
+    };
+    request.send();
 }

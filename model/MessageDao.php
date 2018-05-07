@@ -36,6 +36,6 @@ class MessageDao extends BaseDao
         $statement->execute(array());
         $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
         return $result;
-    }
+    }// Взима ново айди (за снимка)
 }
 

@@ -22,11 +22,12 @@
 
             <form method="post" action="../commandPattern.php?target=message&action=addMessage"
                   enctype="multipart/form-data">
-                <input type="text" id="msgUserSearch" placeholder="Choose who to send a message to!" name="receiverName"
-                       required>
+                <input type="text" id="msgUserSearch" placeholder="Choose who to send a message to!" name="receiverName" oninput="searchMsg()" required>
+                <div id="msgUl">
+
+                </div>
                 <textarea id="msgInput" name="text" oninput="characters(this)"></textarea>
                 Send Picture <input type="file" name="message_img">
-
                 <input type="submit" value="Send" id="sendMsgButton">
                 <b style="float: right; margin-right: 10px; margin-top: 5px;"><i id="counter">0</i>/300</b>
             </form>
