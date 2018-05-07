@@ -9,6 +9,7 @@
 namespace controller;
 use \model\CommentDao;
 use \model\Comment;
+use model\UserDao;
 
 class CommentController extends BaseController
 {
@@ -23,10 +24,16 @@ class CommentController extends BaseController
                 if(strlen($content) > 0){
                     $comment = new Comment($tweet_id,$content,$user_id);
                     $dao = new CommentDao();
+                    $uDao = new UserDao();
                     $tweetOwner = $dao->findTweetOwner($tweet_id);
                     $message = "$username comment on your tweet!";
                     $status = "unread";
-                    $comments = $dao->addComment($comment,$tweetOwner[0]['id'],$tweet_id,$user_id,$message,$status);
+                    $comments = $dao->addComment($comment);
+
+                    if($tweetOwner[0]['id'] !== $user_id){
+                        $uDao->sendNotification($user_id,$tweetOwner[0]['id'],$tweet_id,$message,$status);
+                    }
+
                     echo json_encode($comments);
                 }else{
                     echo json_encode(0);

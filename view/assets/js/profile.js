@@ -1056,20 +1056,12 @@ function likeTweet(id, heart) {
         if (this.readyState == 4 && this.status == 200) {
             resp = this.responseText;
             resp = JSON.parse(resp);
-
-            if (resp === "exception") {
-                window.location.assign("exception_page.php");
-            }
             heart.style.color = 'red';
             if (resp[0]['is_liked'] == 0) {
                 var request = new XMLHttpRequest();
                 request.open("GET", "../commandPattern.php?twat_id=" + id + "&target=twit&action=likeTweet");
                 request.onreadystatechange = function (ev) {
                     if (this.readyState == 4 && this.status == 200) {
-                        var response = JSON.parse(this.responseText);
-                        if (response === "exception") {
-                            window.location.assign("exception_page.php");
-                        }
                         var count = document.getElementById('likesCounter' + id);
                         count.innerHTML++;
                         heart.style.color = 'red';
@@ -1082,10 +1074,6 @@ function likeTweet(id, heart) {
                 request.open("GET", "../commandPattern.php?twat_id=" + id + "&target=twit&action=dislikeTweet");
                 request.onreadystatechange = function (ev) {
                     if (this.readyState == 4 && this.status == 200) {
-                        var response = JSON.parse(this.responseText);
-                        if (response === "exception") {
-                            window.location.assign("exception_page.php");
-                        }
                         var count = document.getElementById('likesCounter' + id);
                         count.innerHTML--;
                         heart.style.color = 'black';

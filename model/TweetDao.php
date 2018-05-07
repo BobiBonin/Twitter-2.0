@@ -20,7 +20,6 @@ class TweetDao extends BaseDao
         return $result;
     } // Показва туитовете на логнатия потребител
 
-
     public function showUserTweets($id)
     {
         $statement = $this->pdo->prepare("SELECT twat_content,twat_date,user_id FROM twats WHERE user_id=? ORDER BY twat_date DESC");
@@ -58,15 +57,11 @@ class TweetDao extends BaseDao
         return $result;
     }// Показва туитовете на юзърите които е последвал логнатия потребител
 
-    public function likeATweet($tweet_id, $user_id, $you, $message, $status)
+    public function likeATweet($tweet_id, $user_id)
     {
-
         $statement = $this->pdo->prepare("INSERT INTO likes (user_id, twat_id) VALUES (?,?)");
         $statement->execute(array($user_id, $tweet_id));
 
-
-        $statement = $this->pdo->prepare("INSERT INTO notifications (sender, receiver,id_tweet, message, status) VALUES (?,?,?,?,?)");
-        $statement->execute(array($user_id, $you, $tweet_id, $message, $status));
     } // Харесва туит
 
     public function dislikeATweet($tweet_id, $user_id)

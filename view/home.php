@@ -14,7 +14,7 @@ include_once 'page_lock.php';
     <link href="assets/css/font-awesome.min.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
-<body>
+<body onmouseover="hide1()">
 <div id="messages_outer_wrapper">
     <div id="messages_inner_wrapper">
         <h1 id="drct_msgs">Direct Messages</h1>

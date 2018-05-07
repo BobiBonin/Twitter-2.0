@@ -9,7 +9,7 @@
     <link href="assets/style/messages.css" rel="stylesheet">
     <link rel="stylesheet" href="assets/style/home_style.css">
 </head>
-<body>
+<body onmouseover="hide1()">
 <div id="messages_outer_wrapper">
     <div id="messages_inner_wrapper">
         <h1 id="drct_msgs">Direct Messages</h1>

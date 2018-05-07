@@ -9,7 +9,7 @@ function __autoload($class)
     require_once str_replace("\\", "/", $class) . ".php";
 }
 
-$email = $_SESSION['user']->getEmail();
-if (!isset($email)) {
+
+if (!isset($_SESSION['user'])) {
     header("location:../index.php");
 }

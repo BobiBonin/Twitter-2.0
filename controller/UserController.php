@@ -340,12 +340,11 @@ class UserController extends BaseController
 
     public function followUser()
     {
-
         try {
             if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                 $session = &$_SESSION['user'];
                 $me = $session->getId();
-                $myname = $session->getEmail();
+                $myname = $session->getUsername();
                 $name = htmlentities($_GET['name']);
                 $dao = new UserDao();
                 $you = $dao->findId($name);

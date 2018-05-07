@@ -128,13 +128,12 @@ function notifications() {
                 p.innerText = num;
 
             }
-
             button.addEventListener("click", function () {
                 var div = document.getElementById("notifications");
-                if(div.style.visibility == "visible"){
-                    div.style.visibility = "hidden";
+                if(div.style.height == "0px"){
+                    div.style.height = "300px";
                 }else{
-                    div.style.visibility = "visible";
+                    div.style.height = "0px";
                 }
                 var ul = document.getElementById("notif_ul");
                 ul.innerHTML = "";

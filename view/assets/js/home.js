@@ -313,3 +313,8 @@ function hideNotif() {
     var div = document.getElementById("notifications");
     div.style.visibility = "hidden";
 }
+
+function hide1() {
+    var position = document.getElementById("position_div");
+    position.style.height = "0px";
+}

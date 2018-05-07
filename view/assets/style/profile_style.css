@@ -948,13 +948,14 @@ ul {
 
 #notifications{
     width: auto;
-    height: 300px;
+    height: 0px;
     position: absolute;
     background-color: #e8f5fd;
     z-index: 4;
     margin-left: 17%;
-    visibility: hidden;
-    overflow-y: scroll;
+    transition: height 0.25s ease-in-out;
+    visibility: visible;
+    overflow: auto;
     position: fixed;
     top: 46px;
 

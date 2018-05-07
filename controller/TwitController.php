@@ -84,6 +84,9 @@ class TwitController extends BaseController
                         $sender = $uDao->findId($_SESSION['user']->getUsername());
                         $senderName = $_SESSION['user']->getUsername();
                         $receiver = $uDao->findId($user);
+                        if($senderName === $user){
+                            continue;
+                        }
                         $message = "$senderName tagged you in tweet!";
                         $status = "unread";
                         $uDao->sendNotification($sender['user_id'], $receiver['user_id'], $result, $message, $status);
@@ -194,16 +197,21 @@ class TwitController extends BaseController
         try {
             if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                 $tDao = new TweetDao();
+                $uDao = new UserDao();
                 $user_id = $_SESSION['user']->getId();
                 $tweet_id = htmlentities($_GET['twat_id']);
                 $username = $_SESSION['user']->getUsername();
 
-                $uDao = new CommentDao();
-                $tweetOwner = $uDao->findTweetOwner($tweet_id);
+                $cDao = new CommentDao();
+                $tweetOwner = $cDao->findTweetOwner($tweet_id);
                 $message = "$username like your tweet!";
                 $status = "unread";
 
-                $tDao->likeATweet($tweet_id, $user_id, $tweetOwner[0]['id'], $message, $status);
+                $tDao->likeATweet($tweet_id, $user_id);
+
+                if($tweetOwner[0]['id'] !== $user_id){
+                    $uDao->sendNotification($user_id,$tweetOwner[0]['id'],$tweet_id,$message,$status);
+                }
             }
         } catch (\PDOException $e) {
             $this->exception($e);
@@ -253,7 +261,6 @@ class TwitController extends BaseController
                 $tweet['likes'] = $tDao->getTweetLikes($tweet['twat_id']);
                 $tweet['youLike'] = $tDao->checkIfLiked($user_id, $tweet['twat_id']);
             }
-
 
             foreach ($result as &$tweet) {
                 $array = explode(" ", $tweet['twat_content']);

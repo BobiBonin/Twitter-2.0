@@ -12,12 +12,8 @@ namespace model;
 class CommentDao extends BaseDao
 {
 
-    public function addComment(Comment $comment, $me, $tweet_id, $you, $message, $status)
+    public function addComment(Comment $comment)
     {
-
-        $statement = $this->pdo->prepare("INSERT INTO notifications (sender, receiver, id_tweet, message, status) VALUES (?,?,?,?,?)");
-        $statement->execute(array($you, $me, $tweet_id, $message, $status));
-
         $statement = $this->pdo->prepare("INSERT INTO comments (twat_id, comment_text, owner_id) VALUES (?,?,?)");
         $statement->execute(array($comment->getTweetId(),
             $comment->getContent(),
