@@ -57,7 +57,7 @@ class TwitController extends BaseController
 
             if ($url_image === null && empty($text)) {
                 $ERROR = true;
-            }else if (strlen($text)>200){
+            } else if (strlen($text) > 200) {
                 $ERROR = true;
             }
             if ($ERROR === true) {
@@ -84,7 +84,7 @@ class TwitController extends BaseController
                         $sender = $uDao->findId($_SESSION['user']->getUsername());
                         $senderName = $_SESSION['user']->getUsername();
                         $receiver = $uDao->findId($user);
-                        if($senderName === $user){
+                        if ($senderName === $user) {
                             continue;
                         }
                         $message = "$senderName tagged you in tweet!";
@@ -209,8 +209,8 @@ class TwitController extends BaseController
 
                 $tDao->likeATweet($tweet_id, $user_id);
 
-                if($tweetOwner[0]['id'] !== $user_id){
-                    $uDao->sendNotification($user_id,$tweetOwner[0]['id'],$tweet_id,$message,$status);
+                if ($tweetOwner[0]['id'] !== $user_id) {
+                    $uDao->sendNotification($user_id, $tweetOwner[0]['id'], $tweet_id, $message, $status);
                 }
             }
         } catch (\PDOException $e) {
@@ -260,6 +260,13 @@ class TwitController extends BaseController
             foreach ($result as &$tweet) {
                 $tweet['likes'] = $tDao->getTweetLikes($tweet['twat_id']);
                 $tweet['youLike'] = $tDao->checkIfLiked($user_id, $tweet['twat_id']);
+            }
+            foreach ($result as &$tweet){
+                if ($tweet['user_id']==$user_id){
+                    $tweet['ownTweet'] = 1;
+                }else{
+                    $tweet['ownTweet'] = 0;
+                }
             }
 
             foreach ($result as &$tweet) {
@@ -350,4 +357,19 @@ class TwitController extends BaseController
         }
 
     }// Проверява дали даден туит е харесан
+
+    public function deleteTweet()
+    {
+        try {
+            if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+                $tweetId = htmlentities($_GET['tweet_id']);
+                $tweetDao = new TweetDao();
+                $tweetDao->deleteTweet($tweetId);
+                header("location:./view/home.php");
+            }
+
+        } catch (\PDOException $e) {
+            $this->exception($e);
+        }
+    }
 }

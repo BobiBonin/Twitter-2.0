@@ -41,7 +41,7 @@ include_once 'page_lock.php';
 <?php
 include "header.html";
 ?>
-<div class="home_wrap" onclick="hideNotif()">
+<div class="home_wrap">
     <div id="home_left_div" >
         <?php
         include "home_profile.html";

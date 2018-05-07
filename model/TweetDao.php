@@ -109,4 +109,23 @@ class TweetDao extends BaseDao
         $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
         return $result;
     }// Взима определени туитове
+
+    public function deleteTweet($id)
+    {
+        try {
+            $this->pdo->beginTransaction();
+
+            $statement = $this->pdo->prepare("DELETE FROM likes WHERE twat_id = ?");
+            $statement->execute(array($id));
+            $statement = $this->pdo->prepare("DELETE FROM comments WHERE twat_id = ?");
+            $statement->execute(array($id));
+            $statement = $this->pdo->prepare("DELETE FROM twats WHERE twat_id = ?");
+
+            $statement->execute(array($id));
+            $this->pdo->commit();
+        } catch (\PDOException $e) {
+            $this->pdo->rollBack();
+            throw $e;
+        }
+    }
 }

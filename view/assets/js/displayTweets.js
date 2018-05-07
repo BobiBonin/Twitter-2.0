@@ -4,7 +4,7 @@ req.onreadystatechange = function (ev) {
     if (this.status == 200 && this.readyState == 4) {
         var resp = this.responseText;
         resp = JSON.parse(resp);
-
+        console.log(resp);
         var div = document.getElementById("home_mid_div");
         for (var i = 0; i < resp.length; i++) {
             var tweet = document.createElement("div");
@@ -13,7 +13,10 @@ req.onreadystatechange = function (ev) {
             link_name = link_name.replace(" ", "%20");
 
 //                adding the data into the tweet
-            tweet.innerHTML = "<a href=" + "profile.php?" + link_name + "><img class='home_tweet_image' src=" + resp[i]["user_pic"] + "></a>";
+            if (resp[i]["ownTweet"] == 1) {
+                tweet.innerHTML += '<b id="deleteTweet" onclick="deleteTweet('+resp[i]['twat_id']+')">X</b>';
+            }
+            tweet.innerHTML += "<a href=" + "profile.php?" + link_name + "><img class='home_tweet_image' src=" + resp[i]["user_pic"] + "></a>";
             tweet.innerHTML += "<h1 class='tweet_name'><a onmouseover='info(this)' onmouseout='hide1()' href=profile.php?" + link_name + ">" + resp[i]["user_name"] + "</a></h1>";
             tweet.innerHTML += "<h4 class='tweet_date'>" + resp[i]["twat_date"] + "</h4>";
             tweet.innerHTML += "<p class='content' style='border: 0'>" + resp[i]["twat_content"] + "<br>" + "</p>";
@@ -66,7 +69,7 @@ req.onreadystatechange = function (ev) {
 
 
 //                adding comments to the tweets
-            test(resp[i]['twat_id']);
+            displayComments(resp[i]['twat_id']);
 
 
         }
@@ -95,7 +98,7 @@ function modal(img) {
 }
 
 
-function test(id) {
+function displayComments(id) {
     var div = document.getElementById(id);
     var cmnt_box = document.createElement("input");
     var btn = document.createElement("button");
@@ -111,7 +114,7 @@ function test(id) {
             if (this.readyState == 4 && this.status == 200) {
                 var response = JSON.parse(this.responseText);
                 if (response == "1") {
-                    test(id);
+                    displayComments(id);
                 }
 
             }
@@ -279,11 +282,20 @@ function postt() {
         if (this.readyState == 4 && this.status == 200) {
             var response = JSON.parse(this.responseText);
             if (response == "1") {
-                test(id);
+                displayComments(id);
             }
 
         }
     };
     request.send("content=" + document.getElementById("asd" + this.value).value + "&tweetId=" + this.value);
 
+}
+
+function deleteTweet(id) {
+    var request = new XMLHttpRequest();
+    request.open("GET", "../commandPattern.php?tweet_id=" + id + "&target=twit&action=deleteTweet");
+    request.onreadystatechange = function (ev) {
+        location.reload();
+    };
+    request.send();
 }

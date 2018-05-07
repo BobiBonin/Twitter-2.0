@@ -610,3 +610,9 @@ a {
         width: 100%;
     }
 }
+
+#deleteTweet{
+    float: right;
+    margin:5px;
+    cursor: pointer;
+}
