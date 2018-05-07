@@ -1155,6 +1155,11 @@ function hide1() {
     position.style.height = "0px";
 }
 
+function hideNotif() {
+    var div = document.getElementById("notifications");
+    div.style.height = "0px";
+}
+
 function modal(img) {
     var modal = document.getElementById('myModal');
     var modalImg = document.getElementById("img01");

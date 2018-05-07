@@ -311,7 +311,7 @@ function hide() {
 
 function hideNotif() {
     var div = document.getElementById("notifications");
-    div.style.visibility = "hidden";
+    div.style.height = "0px";
 }
 
 function hide1() {

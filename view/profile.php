@@ -108,7 +108,7 @@ include_once "header.html";
 </div>
 
 
-<div id="main">
+<div id="main" onclick="hideNotif()">
     <div id="user_info">
         <h1 id="name"><a></a></h1>
         <h2 id="name_"><a></a></h2>
