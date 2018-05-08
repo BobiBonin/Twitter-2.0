@@ -83,7 +83,7 @@ class UserController extends BaseController
             }
             try {
                 if (!$error) {
-                    $img_ulr = "assets/images/uploads/default_icon.jpg";
+                    $img_ulr = "assets/images/default_icon.jpg";
                     $cover_ulr = 'assets/images/default_cover.jpg';
                     $date = date("Y/m/d H:i:s");
                     $user = new User($email, sha1($password), $username, $img_ulr, $cover_ulr, $date);
@@ -151,8 +151,8 @@ class UserController extends BaseController
         try {
             $dao = new UserDao();
             $session = &$_SESSION['user'];
-            $email = $session->getEmail();
-            $random_users = $dao->getFourRandomUsers($email);
+            $id = $session->getId();
+            $random_users = $dao->getFourRandomUsers($id);
             echo json_encode($random_users);
         } catch (\PDOException $e) {
             $this->exception($e);

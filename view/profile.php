@@ -1,3 +1,6 @@
+<?php
+include_once "page_lock.php";
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -66,11 +69,11 @@
                     </tr>
                     <tr>
                         <td>Профилна снимка:</td>
-                        <td><input type="file" name="user_pic" class="file" value="Profile picture"></td>
+                        <td><input type="file" name="user_pic" class="file" value="Profile picture" onchange="return ValidateFileUpload(this)"></td>
                     </tr>
                     <tr>
                         <td>Снимка за корица:</td>
-                        <td><input type="file" name="user_cover" class="file"></td>
+                        <td><input type="file" name="user_cover" class="file"  onchange="return ValidateFileUpload(this)"></td>
                     </tr>
                     <tr>
                         <td colspan="2"><input type="submit" value="Edit" id="btn_edit" name="btn_edit"></td>
@@ -81,7 +84,7 @@
     </div>
 </div>
 <?php
-include_once "page_lock.php";
+
 include_once "header.html";
 ?>
 <div id="cover">

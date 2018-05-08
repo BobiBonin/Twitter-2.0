@@ -208,10 +208,11 @@ class UserDao extends BaseDao
     }
 
     /*Избира произволни 3 юзъра*/
-    public function getFourRandomUsers($email)
+    public function getFourRandomUsers($id)
     {
-        $statement = $this->pdo->prepare("SELECT user_name, user_pic FROM users  WHERE user_id < (SELECT COUNT(*) FROM users) AND NOT user_email = ?  ORDER BY RAND()  LIMIT 3 ");
-        $statement->execute(array($email));
+        $statement = $this->pdo->prepare("SELECT user_name, user_pic FROM users 
+WHERE user_id != ? AND user_id NOT IN (SELECT following_id FROM following WHERE user_id = ?) ORDER BY RAND() LIMIT 3 ");
+        $statement->execute(array($id,$id));
         $result = $statement->fetchAll(\PDO::FETCH_ASSOC);
         return $result;
     }

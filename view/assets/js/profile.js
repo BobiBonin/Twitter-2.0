@@ -822,8 +822,9 @@ function showMyTwits() {
                 var link_name = resp[i]["user_name"];
                 link_name = link_name.replace(" ", "%20");
 
+                tweet.innerHTML += '<b id="deleteTweet" onclick="deleteTweet('+resp[i]['twat_id']+')">X</b>';
 //                adding the data into the tweet
-                tweet.innerHTML = "<a href=" + "profile.php?" + link_name + "><img class='home_tweet_image' src=" + resp[i]["user_pic"] + "></a>";
+                tweet.innerHTML += "<a href=" + "profile.php?" + link_name + "><img class='home_tweet_image' src=" + resp[i]["user_pic"] + "></a>";
                 tweet.innerHTML += "<h1 class='tweet_name'><a onmouseover='info(this)' onmouseout='hide1()' href=profile.php?" + link_name + ">" + resp[i]["user_name"] + "</a></h1>";
                 tweet.innerHTML += "<h4 class='tweet_date'>" + resp[i]["twat_date"] + "</h4>";
                 tweet.innerHTML += "<p class='content' style='border: 0'>" + resp[i]["twat_content"] + "<br>" + "</p>";
@@ -1249,6 +1250,55 @@ function searchMsg() {
             }
             div2.appendChild(ul);
         }
+    };
+    request.send();
+}
+
+function ValidateFileUpload(el) {
+    var fuData = el;
+    var FileUploadPath = fuData.value;
+
+//To check if user upload any file
+    if (FileUploadPath == '') {
+        alert("Please upload an image");
+
+    } else {
+        var Extension = FileUploadPath.substring(
+            FileUploadPath.lastIndexOf('.') + 1).toLowerCase();
+
+//The file uploaded is an image
+
+        if (Extension == "gif" || Extension == "png" || Extension == "bmp"
+            || Extension == "jpeg" || Extension == "jpg") {
+// To Display
+
+            if (fuData.files && fuData.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('#blah').attr('src', e.target.result);
+                };
+                reader.readAsDataURL(fuData.files[0]);
+            }
+
+        }
+
+//The file upload is NOT an image
+        else {
+            var label = el;
+            alert("Pictures only allows file types of GIF, PNG, JPG, JPEG and BMP. ");
+            el.value = "";
+            return false;
+        }
+    }
+}
+
+
+function deleteTweet(id) {
+    var request = new XMLHttpRequest();
+    request.open("GET", "../commandPattern.php?tweet_id=" + id + "&target=twit&action=deleteTweet");
+    request.onreadystatechange = function (ev) {
+        location.reload();
     };
     request.send();
 }
