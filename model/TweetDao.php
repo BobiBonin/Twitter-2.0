@@ -119,6 +119,8 @@ class TweetDao extends BaseDao
             $statement->execute(array($id));
             $statement = $this->pdo->prepare("DELETE FROM comments WHERE twat_id = ?");
             $statement->execute(array($id));
+            $statement = $this->pdo->prepare("DELETE FROM notifications WHERE id_tweet = ?");
+            $statement->execute(array($id));
             $statement = $this->pdo->prepare("DELETE FROM twats WHERE twat_id = ?");
             $statement->execute(array($id));
 

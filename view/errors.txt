@@ -509,3 +509,39 @@
  On May 8, 2018, 10:20 pm Error Message : SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ') 
                                   AND twats.user_id = users.user_id 
       ' at line 3
+ On May 8, 2018, 10:42 pm Error Message : SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ') 
+                                  AND twats.user_id = users.user_id 
+      ' at line 3
+ On May 8, 2018, 10:42 pm Error Message : SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ') 
+                                  AND twats.user_id = users.user_id 
+      ' at line 3
+ On May 8, 2018, 10:44 pm Error Message : SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ') 
+                                  AND twats.user_id = users.user_id 
+      ' at line 3
+ On May 8, 2018, 10:46 pm Error Message : SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ') 
+                                  AND twats.user_id = users.user_id 
+      ' at line 3
+ On May 8, 2018, 10:46 pm Error Message : SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ') 
+                                  AND twats.user_id = users.user_id 
+      ' at line 3
+ On May 8, 2018, 10:46 pm Error Message : SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ') 
+                                  AND twats.user_id = users.user_id 
+      ' at line 3
+ On May 8, 2018, 10:59 pm Error Message : SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ') 
+                                  AND twats.user_id = users.user_id 
+      ' at line 3
+ On May 8, 2018, 10:59 pm Error Message : SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ') 
+                                  AND twats.user_id = users.user_id 
+      ' at line 3
+ On May 8, 2018, 10:59 pm Error Message : SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ') 
+                                  AND twats.user_id = users.user_id 
+      ' at line 3
+ On May 8, 2018, 11:08 pm Error Message : SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ') 
+                                  AND twats.user_id = users.user_id 
+      ' at line 3
+ On May 8, 2018, 11:11 pm Error Message : SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ') 
+                                  AND twats.user_id = users.user_id 
+      ' at line 3
+ On May 8, 2018, 11:18 pm Error Message : SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ') 
+                                  AND twats.user_id = users.user_id 
+      ' at line 3

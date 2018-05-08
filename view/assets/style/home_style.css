@@ -615,6 +615,8 @@ a {
     float: right;
     margin:5px;
     cursor: pointer;
+    font-family: Comic Sans MS, cursive, sans-serif;
+    font-size: 10px;
 }
 
 #msgSearchUl{
