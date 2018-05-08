@@ -500,3 +500,12 @@
  On May 8, 2018, 2:53 pm Error Message : SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'receiver' cannot be null
  On May 8, 2018, 2:53 pm Error Message : SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'receiver' cannot be null
  On May 8, 2018, 3:07 pm Error Message : SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'receiver' cannot be null
+ On May 8, 2018, 10:16 pm Error Message : SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ') 
+                                  AND twats.user_id = users.user_id 
+      ' at line 3
+ On May 8, 2018, 10:17 pm Error Message : SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ') 
+                                  AND twats.user_id = users.user_id 
+      ' at line 3
+ On May 8, 2018, 10:20 pm Error Message : SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ') 
+                                  AND twats.user_id = users.user_id 
+      ' at line 3
