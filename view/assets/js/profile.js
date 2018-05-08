@@ -71,7 +71,7 @@ if (queryString.length != 0) { /*Георги --27.03.2018-- Ако в URL им�
                 name.innerText = response[0]['user_name'];
                 name_.innerText = "@" + response[0]['user_name'];
                 description.innerHTML = response[0]['user_description'];
-                if (response[0]['user_city'] === null) {
+                if (response[0]['user_city'] === null || response[0]['user_city'].length == 0) {
                     city.innerText += '';
                 } else {
                     city.innerText += 'Живее в: ' + response[0]['user_city'];
@@ -400,7 +400,7 @@ else {/*------------------------------------------------------------------------
             name.innerText = response['username'];
             name_.innerText = "@" + response['username'];
             description.innerHTML = response['description'];
-            if (response['city'] === "") {
+            if (response['city'] === null || response['city'].length == 0) {
                 city.innerText += '';
             } else {
                 city.innerText += 'Живее в: ' + response['city'];
@@ -452,7 +452,23 @@ else {/*------------------------------------------------------------------------
                                 username.style.border = "1px solid red";
                                 event.preventDefault();
                             }
+                            if(username.value.includes(" ")){
+                                username.style.border = "1px solid red";
+                                event.preventDefault();
+                            }
+                            if(username.value.length > 25){
+                                username.style.border = "1px solid red";
+                                event.preventDefault();
+                            }
+                            if(description.value.length > 60){
+                                description.style.border = "1px solid red";
+                                event.preventDefault();
+                            }
                             if (email.value == 0) {
+                                email.style.border = "1px solid red";
+                                event.preventDefault();
+                            }
+                            if(email.value.length > 40){
                                 email.style.border = "1px solid red";
                                 event.preventDefault();
                             }
@@ -822,7 +838,7 @@ function showMyTwits() {
                 var link_name = resp[i]["user_name"];
                 link_name = link_name.replace(" ", "%20");
 
-                tweet.innerHTML += '<b id="deleteTweet" onclick="deleteTweet('+resp[i]['twat_id']+')">X</b>';
+                tweet.innerHTML += '<b id="deleteTweet" onclick="deleteTweet(' + resp[i]['twat_id'] + ')">X</b>';
 //                adding the data into the tweet
                 tweet.innerHTML += "<a href=" + "profile.php?" + link_name + "><img class='home_tweet_image' src=" + resp[i]["user_pic"] + "></a>";
                 tweet.innerHTML += "<h1 class='tweet_name'><a onmouseover='info(this)' onmouseout='hide1()' href=profile.php?" + link_name + ">" + resp[i]["user_name"] + "</a></h1>";
@@ -1054,6 +1070,9 @@ function likeTweet(id, heart) {
         if (this.readyState == 4 && this.status == 200) {
             resp = this.responseText;
             resp = JSON.parse(resp);
+            if (resp === "exception") {
+                window.location.assign("exception_page.php");
+            }
             heart.style.color = 'red';
             if (resp[0]['is_liked'] == 0) {
                 var request = new XMLHttpRequest();
@@ -1298,7 +1317,7 @@ function deleteTweet(id) {
     var request = new XMLHttpRequest();
     request.open("GET", "../commandPattern.php?tweet_id=" + id + "&target=twit&action=deleteTweet");
     request.onreadystatechange = function (ev) {
-        location.reload();
+        showTwits();
     };
     request.send();
 }

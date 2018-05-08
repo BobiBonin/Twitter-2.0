@@ -32,7 +32,9 @@ function random() {
     request.onreadystatechange = function (ev) {
         if (this.readyState == 4 && this.status == 200) {
             var response = JSON.parse(this.responseText);
-
+            if (response === "exception") {
+                window.location.assign("exception_page.php");
+            }
             var random_users_div = document.getElementById("random_users");
             var randoms = document.getElementById("randoms");
             randoms.style.width = "100%";

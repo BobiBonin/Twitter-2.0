@@ -459,3 +459,44 @@
  On May 8, 2018, 12:13 pm Error Message : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '1-54' for key 'PRIMARY'
  On May 8, 2018, 12:13 pm Error Message : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '1-54' for key 'PRIMARY'
  On May 8, 2018, 12:14 pm Error Message : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '1-52' for key 'PRIMARY'
+ On May 8, 2018, 12:39 pm Error Message : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '35-191' for key 'PRIMARY'
+ On May 8, 2018, 12:41 pm Error Message : SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens
+ On May 8, 2018, 12:42 pm Error Message : SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens
+ On May 8, 2018, 2:08 pm Error Message : SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ') 
+                                  AND twats.user_id = users.user_id 
+      ' at line 3
+ On May 8, 2018, 2:26 pm Error Message : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '91-146' for key 'PRIMARY'
+ On May 8, 2018, 2:26 pm Error Message : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '91-146' for key 'PRIMARY'
+ On May 8, 2018, 2:26 pm Error Message : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '91-146' for key 'PRIMARY'
+ On May 8, 2018, 2:26 pm Error Message : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '91-146' for key 'PRIMARY'
+ On May 8, 2018, 2:26 pm Error Message : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '91-146' for key 'PRIMARY'
+ On May 8, 2018, 2:26 pm Error Message : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '91-146' for key 'PRIMARY'
+ On May 8, 2018, 2:26 pm Error Message : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '91-146' for key 'PRIMARY'
+ On May 8, 2018, 2:26 pm Error Message : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '91-146' for key 'PRIMARY'
+ On May 8, 2018, 2:26 pm Error Message : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '91-146' for key 'PRIMARY'
+ On May 8, 2018, 2:26 pm Error Message : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '91-146' for key 'PRIMARY'
+ On May 8, 2018, 2:26 pm Error Message : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '91-146' for key 'PRIMARY'
+ On May 8, 2018, 2:26 pm Error Message : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '91-146' for key 'PRIMARY'
+ On May 8, 2018, 2:26 pm Error Message : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '91-146' for key 'PRIMARY'
+ On May 8, 2018, 2:26 pm Error Message : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '91-146' for key 'PRIMARY'
+ On May 8, 2018, 2:26 pm Error Message : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '91-146' for key 'PRIMARY'
+ On May 8, 2018, 2:26 pm Error Message : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '91-146' for key 'PRIMARY'
+ On May 8, 2018, 2:26 pm Error Message : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '91-146' for key 'PRIMARY'
+ On May 8, 2018, 2:26 pm Error Message : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '91-146' for key 'PRIMARY'
+ On May 8, 2018, 2:26 pm Error Message : SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry '91-146' for key 'PRIMARY'
+ On May 8, 2018, 2:33 pm Error Message : SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'receiver' cannot be null
+ On May 8, 2018, 2:34 pm Error Message : SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'receiver' cannot be null
+ On May 8, 2018, 2:37 pm Error Message : SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'receiver' cannot be null
+ On May 8, 2018, 2:39 pm Error Message : SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'receiver' cannot be null
+ On May 8, 2018, 2:40 pm Error Message : SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'receiver' cannot be null
+ On May 8, 2018, 2:42 pm Error Message : SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'receiver' cannot be null
+ On May 8, 2018, 2:44 pm Error Message : SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'receiver' cannot be null
+ On May 8, 2018, 2:45 pm Error Message : SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'receiver' cannot be null
+ On May 8, 2018, 2:45 pm Error Message : SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'receiver' cannot be null
+ On May 8, 2018, 2:46 pm Error Message : SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'receiver' cannot be null
+ On May 8, 2018, 2:46 pm Error Message : SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'receiver' cannot be null
+ On May 8, 2018, 2:50 pm Error Message : SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'receiver' cannot be null
+ On May 8, 2018, 2:52 pm Error Message : SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'receiver' cannot be null
+ On May 8, 2018, 2:53 pm Error Message : SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'receiver' cannot be null
+ On May 8, 2018, 2:53 pm Error Message : SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'receiver' cannot be null
+ On May 8, 2018, 3:07 pm Error Message : SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'receiver' cannot be null

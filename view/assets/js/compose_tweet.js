@@ -3,7 +3,9 @@ request.open("GET", "../commandPattern.php?target=user&action=profile");
 request.onreadystatechange = function (ev) {
     if (this.status == 200 && this.readyState == 4) {
         var response = JSON.parse(this.responseText);
-
+        if (response === "exception") {
+            window.location.assign("exception_page.php");
+        }
         var img = document.getElementById("twat_box_icon");
         var img2 = document.getElementById("profile_icon");
         img.src = response['image_url'];

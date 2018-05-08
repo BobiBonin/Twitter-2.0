@@ -84,18 +84,19 @@ class TwitController extends BaseController
                         $sender = $uDao->findId($_SESSION['user']->getUsername());
                         $senderName = $_SESSION['user']->getUsername();
                         $receiver = $uDao->findId($user);
-                        if ($senderName === $user) {
-                            continue;
-                        }
-                        $message = "$senderName tagged you in tweet!";
-                        $status = "unread";
-                        $uDao->sendNotification($sender['user_id'], $receiver['user_id'], $result, $message, $status);
+                        if ($senderName !== $user) {
+                            $message = "$senderName tagged you in tweet!";
+                            $status = "unread";
+                            $uDao->sendNotification($sender['user_id'], $receiver['user_id'], $result, $message, $status);
+                       }
+
                     }
                 }
                 header("location:./view/home.php");
             }
         } catch (\PDOException $e) {
             $this->exception($e);
+            header("Location:view/exception_page.php");
         }
 
 
@@ -193,7 +194,6 @@ class TwitController extends BaseController
 
     public function likeTweet()
     {
-
         try {
             if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                 $tDao = new TweetDao();

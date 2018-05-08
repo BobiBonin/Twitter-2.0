@@ -417,6 +417,9 @@ class UserController extends BaseController
                 if (strpos($username, ' ') !== false) {
                     $error = true;
                 }
+                if (strpos($username, '_') !== false) {
+                    $error = true;
+                }
                 if (empty($email)) {
                     $error = true;
                 }
@@ -460,6 +463,8 @@ class UserController extends BaseController
                         $pdo = new UserDao();
                         $pdo->updateUser($user);
                         header("location: ./view/profile.php");
+                    }else{
+                        header("location: ./view/profile.php?error");
                     }
                 } else {
                     header("location: ./view/profile.php?error");
@@ -468,6 +473,7 @@ class UserController extends BaseController
 
             } catch (\PDOException $e) {
                 $this->exception($e);
+
             }
 
         }
