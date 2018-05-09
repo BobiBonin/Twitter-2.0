@@ -460,7 +460,7 @@ else {/*------------------------------------------------------------------------
                                 username.style.border = "1px solid red";
                                 event.preventDefault();
                             }
-                            if(description.value.length > 60){
+                            if(description.value.length > 160){
                                 description.style.border = "1px solid red";
                                 event.preventDefault();
                             }

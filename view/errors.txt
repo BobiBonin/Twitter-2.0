@@ -557,3 +557,51 @@
  On May 9, 2018, 8:16 am Error Message : SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ') 
                                   AND twats.user_id = users.user_id 
       ' at line 3
+ On May 9, 2018, 11:32 am Error Message : SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ') 
+                                  AND twats.user_id = users.user_id 
+      ' at line 3
+ On May 9, 2018, 11:37 am Error Message : SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ') 
+                                  AND twats.user_id = users.user_id 
+      ' at line 3
+ On May 9, 2018, 11:37 am Error Message : SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'receiver' cannot be null
+ On May 9, 2018, 11:38 am Error Message : SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ') 
+                                  AND twats.user_id = users.user_id 
+      ' at line 3
+ On May 9, 2018, 11:38 am Error Message : SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ') 
+                                  AND twats.user_id = users.user_id 
+      ' at line 3
+ On May 9, 2018, 11:38 am Error Message : SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'receiver' cannot be null
+ On May 9, 2018, 11:38 am Error Message : SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ') 
+                                  AND twats.user_id = users.user_id 
+      ' at line 3
+ On May 9, 2018, 11:38 am Error Message : SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ') 
+                                  AND twats.user_id = users.user_id 
+      ' at line 3
+ On May 9, 2018, 11:43 am Error Message : SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ') 
+                                  AND twats.user_id = users.user_id 
+      ' at line 3
+ On May 9, 2018, 11:43 am Error Message : SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ') 
+                                  AND twats.user_id = users.user_id 
+      ' at line 3
+ On May 9, 2018, 11:44 am Error Message : SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ') 
+                                  AND twats.user_id = users.user_id 
+      ' at line 3
+ On May 9, 2018, 11:45 am Error Message : SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'receiver' cannot be null
+ On May 9, 2018, 11:49 am Error Message : SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ') 
+                                  AND twats.user_id = users.user_id 
+      ' at line 3
+ On May 9, 2018, 11:55 am Error Message : SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ') 
+                                  AND twats.user_id = users.user_id 
+      ' at line 3
+ On May 9, 2018, 11:57 am Error Message : SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ') 
+                                  AND twats.user_id = users.user_id 
+      ' at line 3
+ On May 9, 2018, 11:58 am Error Message : SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ') 
+                                  AND twats.user_id = users.user_id 
+      ' at line 3
+ On May 9, 2018, 11:59 am Error Message : SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ') 
+                                  AND twats.user_id = users.user_id 
+      ' at line 3
+ On May 9, 2018, 12:40 pm Error Message : SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ') 
+                                  AND twats.user_id = users.user_id 
+      ' at line 3

@@ -10,7 +10,7 @@ req.onreadystatechange = function (ev) {
             var tweet = document.createElement("div");
             tweet.className = "ownTweets";
             var link_name = resp[i]["user_name"];
-            link_name = link_name.replace(" ", "%20");
+           
 
 //                adding the data into the tweet
             if (resp[i]["ownTweet"] == 1) {

@@ -84,11 +84,14 @@ class TwitController extends BaseController
                         $sender = $uDao->findId($_SESSION['user']->getUsername());
                         $senderName = $_SESSION['user']->getUsername();
                         $receiver = $uDao->findId($user);
-                        if ($senderName !== $user) {
-                            $message = "$senderName tagged you in tweet!";
-                            $status = "unread";
-                            $uDao->sendNotification($sender['user_id'], $receiver['user_id'], $result, $message, $status);
-                       }
+                        if($receiver){
+                            if ($senderName !== $user) {
+                                $message = "$senderName tagged you in tweet!";
+                                $status = "unread";
+                                $uDao->sendNotification($sender['user_id'], $receiver['user_id'], $result, $message, $status);
+                            }
+                        }
+
 
                     }
                 }
